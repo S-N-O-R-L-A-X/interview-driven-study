@@ -1,84 +1,87 @@
 # JavaScript
 
 - [JavaScript](#javascript)
-  - [js 基本数据类型](#js-基本数据类型)
-  - [js 遍历对象和遍历数组的方式](#js-遍历对象和遍历数组的方式)
-    - [遍历对象](#遍历对象)
-    - [遍历数组](#遍历数组)
-  - [for...in for...of 区别](#forin-forof-区别)
-  - [map weakMap set weakSet 区别](#map-weakmap-set-weakset-区别)
-  - [null 和 undefined 的区别](#null-和-undefined-的区别)
-  - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
-  - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
-  - [其他值到布尔类型的值的转换规则](#其他值到布尔类型的值的转换规则)
-  - [{} 和 [] 的 valueOf 和 toString 的结果是什么](#-和--的-valueof-和-tostring-的结果是什么)
-  - [什么情况下会发生布尔值的隐式强制类型转换](#什么情况下会发生布尔值的隐式强制类型转换)
-  - [|| 和 && 操作符的返回值](#-和--操作符的返回值)
-  - [== 操作符的强制类型转换规则](#-操作符的强制类型转换规则)
-  - [如何将字符串转化为数字，例如 '12.3b'](#如何将字符串转化为数字例如-123b)
-  - [JavaScript 继承的几种实现方式](#javascript-继承的几种实现方式)
-  - [eval 是做什么的](#eval-是做什么的)
-  - [事件对象中的 clientX offsetX screenX pageX 的区别](#事件对象中的-clientx-offsetx-screenx-pagex-的区别)
-  - [三种事件模型是什么](#三种事件模型是什么)
-  - [如何阻止事件冒泡](#如何阻止事件冒泡)
-  - [如何阻止事件默认行为](#如何阻止事件默认行为)
-  - [事件代理/事件委托 以及 优缺点](#事件代理事件委托-以及-优缺点)
-  - [load 和 DOMContentLoaded 事件的区别](#load-和-domcontentloaded-事件的区别)
-  - [js 判断图片是否加载完毕的方式](#js-判断图片是否加载完毕的方式)
-  - [js 原型，原型链以及特点](#js-原型原型链以及特点)
-  - [instanceof 的作用](#instanceof-的作用)
-  - [Object.defineProperty 用法](#objectdefineproperty-用法)
-  - [js 延迟加载的方式有哪些](#js-延迟加载的方式有哪些)
-  - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
-  - [async await](#async-await)
-  - [Event Loop 事件循环](#event-loop-事件循环)
-  - [JS 跨域怎么做](#js-跨域怎么做)
-  - [JSONP 怎么实现的](#jsonp-怎么实现的)
-  - [JOSNP 有什么优缺点](#josnp-有什么优缺点)
-  - [new 运算符的过程](#new-运算符的过程)
-  - [数组的 push() 和 pop() 方法的返回值是什么](#数组的-push-和-pop-方法的返回值是什么)
-  - [JS 作用域](#js-作用域)
-  - [ES6 新特性](#es6-新特性)
-  - [let 和 var 的区别](#let-和-var-的区别)
-  - [闭包的特性以及优缺点](#闭包的特性以及优缺点)
-  - [箭头函数与普通函数的区别](#箭头函数与普通函数的区别)
-  - [ES6 中箭头函数 VS 普通函数的 this 指向](#es6-中箭头函数-vs-普通函数的-this-指向)
-  - [ES6 class 和 ES5 函数的区别](#es6-class-和-es5-函数的区别)
-  - [JS 实现对象（都是简单类型的值）的深拷贝，一行代码](#js-实现对象都是简单类型的值的深拷贝一行代码)
-  - [JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题](#jsonparsejsonstringifyobj-实现深拷贝需要注意的问题)
-  - [Promise 是做什么的，有哪些 API](#promise-是做什么的有哪些-api)
-    - [Promise 用法](#promise-用法)
-    - [Promise.prototype.then()](#promiseprototypethen)
-    - [Promise.prototype.catch()](#promiseprototypecatch)
-    - [Promise.all()](#promiseall)
-    - [Promise.race()](#promiserace)
-    - [Promise.resolve()](#promiseresolve)
-    - [Promise.reject()](#promisereject)
-  - [Promise 不兼容怎么解决](#promise-不兼容怎么解决)
-  - [Ajax 基本流程](#ajax-基本流程)
-  - [Ajax 的 readyState 的几种状态分别代表什么](#ajax-的-readystate-的几种状态分别代表什么)
-  - [Ajax 禁用浏览器的缓存功能](#ajax-禁用浏览器的缓存功能)
-  - [谈谈对前端工程化的理解](#谈谈对前端工程化的理解)
-    - [模块化](#模块化)
-    - [组件化](#组件化)
-    - [规范化](#规范化)
-    - [自动化](#自动化)
-  - [js 的几种模块规范](#js-的几种模块规范)
-  - [ES6 模块与 CommonJS 模块、AMD、CMD 的差异](#es6-模块与-commonjs-模块amdcmd-的差异)
-  - [webpack 的功能](#webpack-的功能)
-  - [webpack 常用插件](#webpack-常用插件)
-  - [arguments 怎么转化成真数组](#arguments-怎么转化成真数组)
-  - [js 的对象的常用的方法](#js-的对象的常用的方法)
-  - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
-  - [js 的数组的常用的方法](#js-的数组的常用的方法)
+  - [类型相关](#类型相关)
+    - [js 基本数据类型](#js-基本数据类型)
+    - [js 遍历对象和遍历数组的方式](#js-遍历对象和遍历数组的方式)
+      - [遍历对象](#遍历对象)
+      - [遍历数组](#遍历数组)
+    - [null 和 undefined 的区别](#null-和-undefined-的区别)
+    - [== 操作符的强制类型转换规则](#-操作符的强制类型转换规则)
+    - [如何将字符串转化为数字，例如 '12.3b'](#如何将字符串转化为数字例如-123b)
+    - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
+    - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
+    - [其他值到布尔类型的值的转换规则](#其他值到布尔类型的值的转换规则)
+    - [什么情况下会发生布尔值的隐式强制类型转换](#什么情况下会发生布尔值的隐式强制类型转换)
+    - [匿名函数自调用](#匿名函数自调用)
+    - [for...in for...of 区别](#forin-forof-区别)
+    - [map weakMap set weakSet 区别](#map-weakmap-set-weakset-区别)
+    - [{} 和 [] 的 valueOf 和 toString 的结果是什么](#-和--的-valueof-和-tostring-的结果是什么)
+    - [|| 和 && 操作符的返回值](#-和--操作符的返回值)
+    - [JavaScript 继承的几种实现方式](#javascript-继承的几种实现方式)
+    - [eval 是做什么的](#eval-是做什么的)
+    - [事件对象中的 clientX offsetX screenX pageX 的区别](#事件对象中的-clientx-offsetx-screenx-pagex-的区别)
+    - [三种事件模型是什么](#三种事件模型是什么)
+    - [如何阻止事件冒泡](#如何阻止事件冒泡)
+    - [如何阻止事件默认行为](#如何阻止事件默认行为)
+    - [事件代理/事件委托 以及 优缺点](#事件代理事件委托-以及-优缺点)
+    - [load 和 DOMContentLoaded 事件的区别](#load-和-domcontentloaded-事件的区别)
+    - [js 判断图片是否加载完毕的方式](#js-判断图片是否加载完毕的方式)
+    - [js 原型，原型链以及特点](#js-原型原型链以及特点)
+    - [instanceof 的作用](#instanceof-的作用)
+    - [Object.defineProperty 用法](#objectdefineproperty-用法)
+    - [js 延迟加载的方式有哪些](#js-延迟加载的方式有哪些)
+    - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
+    - [async await](#async-await)
+    - [Event Loop 事件循环](#event-loop-事件循环)
+    - [JS 跨域怎么做](#js-跨域怎么做)
+    - [JSONP 怎么实现的](#jsonp-怎么实现的)
+    - [JOSNP 有什么优缺点](#josnp-有什么优缺点)
+    - [new 运算符的过程](#new-运算符的过程)
+    - [数组的 push() 和 pop() 方法的返回值是什么](#数组的-push-和-pop-方法的返回值是什么)
+    - [JS 作用域](#js-作用域)
+    - [ES6 新特性](#es6-新特性)
+    - [let 和 var 的区别](#let-和-var-的区别)
+    - [闭包的特性以及优缺点](#闭包的特性以及优缺点)
+    - [箭头函数与普通函数的区别](#箭头函数与普通函数的区别)
+    - [ES6 中箭头函数 VS 普通函数的 this 指向](#es6-中箭头函数-vs-普通函数的-this-指向)
+    - [ES6 class 和 ES5 函数的区别](#es6-class-和-es5-函数的区别)
+    - [JS 实现对象（都是简单类型的值）的深拷贝，一行代码](#js-实现对象都是简单类型的值的深拷贝一行代码)
+    - [JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题](#jsonparsejsonstringifyobj-实现深拷贝需要注意的问题)
+    - [Promise 是做什么的，有哪些 API](#promise-是做什么的有哪些-api)
+        - [Promise 用法](#promise-用法)
+        - [Promise.prototype.then()](#promiseprototypethen)
+        - [Promise.prototype.catch()](#promiseprototypecatch)
+        - [Promise.all()](#promiseall)
+        - [Promise.race()](#promiserace)
+        - [Promise.resolve()](#promiseresolve)
+        - [Promise.reject()](#promisereject)
+    - [Promise 不兼容怎么解决](#promise-不兼容怎么解决)
+    - [Ajax 基本流程](#ajax-基本流程)
+    - [Ajax 的 readyState 的几种状态分别代表什么](#ajax-的-readystate-的几种状态分别代表什么)
+    - [Ajax 禁用浏览器的缓存功能](#ajax-禁用浏览器的缓存功能)
+    - [谈谈对前端工程化的理解](#谈谈对前端工程化的理解)
+        - [模块化](#模块化)
+        - [组件化](#组件化)
+        - [规范化](#规范化)
+        - [自动化](#自动化)
+    - [js 的几种模块规范](#js-的几种模块规范)
+    - [ES6 模块与 CommonJS 模块、AMD、CMD 的差异](#es6-模块与-commonjs-模块amdcmd-的差异)
+    - [webpack 的功能](#webpack-的功能)
+    - [webpack 常用插件](#webpack-常用插件)
+    - [arguments 怎么转化成真数组](#arguments-怎么转化成真数组)
+    - [js 的对象的常用的方法](#js-的对象的常用的方法)
+    - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
+    - [js 的数组的常用的方法](#js-的数组的常用的方法)
 
-## js 基本数据类型
+## 类型相关
+### js 基本数据类型
 
 > js 一共有六种基本数据类型，分别是 Undefined、Null、Boolean、Number、String，还有在 ES6 中新增的 Symbol 类型，代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。
 
-## js 遍历对象和遍历数组的方式
+### js 遍历对象和遍历数组的方式
 
-### 遍历对象
+#### 遍历对象
 
 - Object.keys()
 
@@ -156,7 +159,7 @@ Reflect.ownKeys(obj).forEach(key => {
 // 17 age 18
 ```
 
-### 遍历数组
+#### 遍历数组
 
 - forEach()
 
@@ -199,30 +202,7 @@ for (let ele of arr) {
 // 3
 ```
 
-## for...in for...of 区别
-
-```js
-- for...in 会遍历对象或者数组的可枚举属性，包括原型，如果不想遍历原型的方法和属性，可以在循环内部判断一下，然后使用 hasOwnProperty()方法判断某属性是否是该对象的属性
-- for...of 会遍历数/数组/字符串/map/set 等拥有迭代器对象（iterator）的集合，但是不能遍历对象，因为对象没有迭代器对象。
-- 总结：for in 遍历的是数组的索引（即键名），而 for of 遍历的是数组元素值；for in 总是得到对象的 key 或数组、字符串的下标；for of 总是得到对象的 value 或数组、字符串的值
-```
-
-## map weakMap set weakSet 区别
-
-```js
-weakMap
-（1）weakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名
-（2）weakMap键名引用的对象是弱引用，即垃圾回收机制不会将该引用考虑在内。但是只要所引用对对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是，一旦一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
-（3）weakMap不可遍历，WeakMap对键名所引用的对象是弱引用关系，因此WeakMap内部成员是会却决于垃圾回收机制有没有执行，运行前后成员个数很可能是不一样的，而垃圾回收机制的执行又是不可预测的，因此不可遍历
-
-区别
-（1）Map 的键可以是任意类型，WeakMap 只接受对象作为键（null除外），不接受其他类型的值作为键
-（2）Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是弱引用，键所指向的对象可以被垃圾回收，此时键是无效的
-（3）Map 可以被遍历， WeakMap 不能被遍历
-
-```
-
-## null 和 undefined 的区别
+### null 和 undefined 的区别
 
 - undefined 和 null 都是基本数据类型，这两个基本数据类型分别都只有一个值，就是 undefined 和 null。
 - undefined 代表的含义是未定义，null 代表的含义是空对象。一般变量声明了但还没有定义的时候会返回 undefined，null 主要用于赋值给一些可能会返回对象的变量，作为初始化。
@@ -230,7 +210,33 @@ weakMap
 - 当我们对两种类型使用 typeof 进行判断的时候，null 类型化会返回 “object”，这是一个历史遗留的问题。
 - `undefined==null(true)` `undefined===null(false)`
 
-## 其他值到字符串的转换规则
+### == 操作符的强制类型转换规则
+
+```js
+（1）字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较。
+
+（2）其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，再应用其他规则进行比较。
+
+（3）null 和 undefined 之间的相等比较，结果为真。其他值和它们进行比较都返回假值。
+
+（4）对象和非对象之间的相等比较，对象先调用 ToPrimitive 抽象操作后，再进行比较。
+
+（5）如果一个操作值为 NaN ，则相等比较返回 false（ NaN 本身也不等于 NaN ）。
+
+（6）如果两个操作值都是对象，则比较它们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。
+```
+
+### 如何将字符串转化为数字，例如 '12.3b'
+
+```js
+（1）使用 Number() 方法，前提是所包含的字符串不包含不合法字符。
+
+（2）使用 parseInt() 方法，parseInt() 函数可解析一个字符串，并返回一个整数。还可以设置要解析的数字的基数。当基数的值为 0，或没有设置该参数时，parseInt() 会根据 string 来判断数字的基数。
+
+（3）使用 parseFloat() 方法，该函数解析一个字符串参数并返回一个浮点数。
+```
+
+### 其他值到字符串的转换规则
 
 ```js
 规范的 9.8 节中定义了抽象操作 ToString ，它负责处理非字符串到字符串的强制类型转换。
@@ -248,7 +254,7 @@ weakMap
     调用该方法并使用其返回值。
 ```
 
-## 其他值到数字值的转换规则
+### 其他值到数字值的转换规则
 
 ```js
 有时我们需要将非数字值当作数字来使用，比如数学运算。为此 ES5 规范在 9.3 节定义了抽象操作 ToNumber。
@@ -270,7 +276,7 @@ weakMap
 如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
 ```
 
-## 其他值到布尔类型的值的转换规则
+### 其他值到布尔类型的值的转换规则
 
 ```js
 ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类型转换所有可能出现的结果。
@@ -285,15 +291,7 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 假值的布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。
 ```
 
-## {} 和 [] 的 valueOf 和 toString 的结果是什么
-
-```js
-{} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
-
-[] 的 valueOf 结果为 [] ，toString 的结果为 ""
-```
-
-## 什么情况下会发生布尔值的隐式强制类型转换
+### 什么情况下会发生布尔值的隐式强制类型转换
 
 ```js
 （1） if (..) 语句中的条件判断表达式。
@@ -303,7 +301,48 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 （5） 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。
 ```
 
-## || 和 && 操作符的返回值
+### 匿名函数自调用
+```js
+(function(){
+  // do something
+})()
+```
+专业术语为: IIFE (Immediately Invoked Function Expression) 立即调用函数表达式	
+
+### for...in for...of 区别
+
+```js
+- for...in 会遍历对象或者数组的可枚举属性，包括原型，如果不想遍历原型的方法和属性，可以在循环内部判断一下，然后使用 hasOwnProperty()方法判断某属性是否是该对象的属性
+- for...of 会遍历数/数组/字符串/map/set 等拥有迭代器对象（iterator）的集合，但是不能遍历对象，因为对象没有迭代器对象。
+- 总结：for in 遍历的是数组的索引（即键名），而 for of 遍历的是数组元素值；for in 总是得到对象的 key 或数组、字符串的下标；for of 总是得到对象的 value 或数组、字符串的值
+```
+
+### map weakMap set weakSet 区别
+
+```js
+weakMap
+（1）weakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名
+（2）weakMap键名引用的对象是弱引用，即垃圾回收机制不会将该引用考虑在内。但是只要所引用对对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是，一旦一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
+（3）weakMap不可遍历，WeakMap对键名所引用的对象是弱引用关系，因此WeakMap内部成员是会却决于垃圾回收机制有没有执行，运行前后成员个数很可能是不一样的，而垃圾回收机制的执行又是不可预测的，因此不可遍历
+
+区别
+（1）Map 的键可以是任意类型，WeakMap 只接受对象作为键（null除外），不接受其他类型的值作为键
+（2）Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是弱引用，键所指向的对象可以被垃圾回收，此时键是无效的
+（3）Map 可以被遍历， WeakMap 不能被遍历
+
+```
+
+### {} 和 [] 的 valueOf 和 toString 的结果是什么
+
+```js
+{} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
+
+[] 的 valueOf 结果为 [] ，toString 的结果为 ""
+```
+
+
+
+### || 和 && 操作符的返回值
 
 ```js
 || 和 && 首先会对第一个操作数执行条件判断，如果其不是布尔值就先进行 ToBoolean 强制类型转换，然后再执行条件判断。
@@ -315,33 +354,9 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 || 和 && 返回它们其中一个操作数的值，而非条件判断的结果
 ```
 
-## == 操作符的强制类型转换规则
 
-```js
-（1）字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较。
 
-（2）其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，再应用其他规则进行比较。
-
-（3）null 和 undefined 之间的相等比较，结果为真。其他值和它们进行比较都返回假值。
-
-（4）对象和非对象之间的相等比较，对象先调用 ToPrimitive 抽象操作后，再进行比较。
-
-（5）如果一个操作值为 NaN ，则相等比较返回 false（ NaN 本身也不等于 NaN ）。
-
-（6）如果两个操作值都是对象，则比较它们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。
-```
-
-## 如何将字符串转化为数字，例如 '12.3b'
-
-```js
-（1）使用 Number() 方法，前提是所包含的字符串不包含不合法字符。
-
-（2）使用 parseInt() 方法，parseInt() 函数可解析一个字符串，并返回一个整数。还可以设置要解析的数字的基数。当基数的值为 0，或没有设置该参数时，parseInt() 会根据 string 来判断数字的基数。
-
-（3）使用 parseFloat() 方法，该函数解析一个字符串参数并返回一个浮点数。
-```
-
-## JavaScript 继承的几种实现方式
+### JavaScript 继承的几种实现方式
 
 - 第一种是以原型链的方式来实现继承，但是这种实现方式存在的缺点是，在包含有引用类型的数据时，会被所有的实例对象所共享，容易造成修改的混乱。还有就是在创建子类型的时候不能向超类型传递参数。
 
@@ -355,7 +370,7 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 
 - 第六种方式是寄生式组合继承，组合继承的缺点就是使用超类型的实例做为子类型的原型，导致添加了不必要的原型属性。寄生式组合继承的方式是使用超类型的原型的副本来作为子类型的原型，这样就避免了创建不必要的属性。
 
-## eval 是做什么的
+### eval 是做什么的
 
 ```js
 它的功能是把对应的字符串解析成 JS 代码并运行。
@@ -363,7 +378,7 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 应该避免使用 eval，不安全，非常耗性能（2次，一次解析成 js 语句，一次执行）。
 ```
 
-## 事件对象中的 clientX offsetX screenX pageX 的区别
+### 事件对象中的 clientX offsetX screenX pageX 的区别
 
 - [clientX, clientY]
 
@@ -407,7 +422,7 @@ page为页面的意思，页面的高度一般情况client浏览器显示区域�
 兼容性：IE不支持，其他高级游览器支持。
 ```
 
-## 三种事件模型是什么
+### 三种事件模型是什么
 
 ```js
 事件是用户操作网页时发生的交互动作或者网页本身的一些操作，现代浏览器一共有三种事件模型。
@@ -424,7 +439,7 @@ page为页面的意思，页面的高度一般情况client浏览器显示区域�
 事件绑定的函数是 addEventListener，其中第三个参数可以指定事件是否在捕获阶段执行。默认是false，在冒泡阶段执行。
 ```
 
-## 如何阻止事件冒泡
+### 如何阻止事件冒泡
 
 ```js
 // w3c
@@ -434,7 +449,7 @@ e.stopPropagation();
 e.cancelBubble = true;
 ```
 
-## 如何阻止事件默认行为
+### 如何阻止事件默认行为
 
 ```js
 //谷歌及IE8以上
@@ -447,7 +462,7 @@ window.event.returnValue = false;
 return false;
 ```
 
-## 事件代理/事件委托 以及 优缺点
+### 事件代理/事件委托 以及 优缺点
 
 > 事件委托本质上是利用了浏览器事件冒泡的机制。因为事件在冒泡过程中会上传到父节点，并且父节点可以通过事件对象获取到目标节点，因此可以把子节点的监听函数定义在父节点上，由父节点的监听函数统一处理多个子元素的事件，这种方式称为事件代理。
 >
@@ -464,12 +479,12 @@ return false;
 2. 事件委托有对子元素的查找过程，委托层级过深，可能会有性能问题
 3. 频繁触发的事件如 mousemove、mouseout、mouseover 等，不适合事件委托
 
-## load 和 DOMContentLoaded 事件的区别
+### load 和 DOMContentLoaded 事件的区别
 
 - 当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发 load 事件。它与 DOMContentLoaded 不同，后者只要页面 DOM 加载完成就触发，无需等待依赖资源的加载。
 - 当纯 HTML 被完全加载以及解析时，DOMContentLoaded 事件会被触发，而不必等待样式表，图片或者子框架完成加载。
 
-## js 判断图片是否加载完毕的方式
+### js 判断图片是否加载完毕的方式
 
 - load 事件
 
@@ -524,7 +539,7 @@ return false;
 </script>
 ```
 
-## js 原型，原型链以及特点
+### js 原型，原型链以及特点
 
 ```JavaScript
 在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，
@@ -541,11 +556,11 @@ ES5 中新增了一个 Object.getPrototypeOf() 方法，我们可以通过这个
 JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
 ```
 
-## instanceof 的作用
+### instanceof 的作用
 
 > instanceof 运算符用于判断构造函数的 prototype 属性是否出现在对象的原型链中的任何位置。
 
-## Object.defineProperty 用法
+### Object.defineProperty 用法
 
 ```js
 Object.defineProperty(obj, prop, descriptor);
@@ -570,7 +585,7 @@ Object.defineProperty(obj, prop, descriptor);
     当且仅当该属性的 enumerable 键值为 true 时，该属性才会出现在对象的枚举属性中。
     默认为 false。
 
-## js 延迟加载的方式有哪些
+### js 延迟加载的方式有哪些
 
 > js 延迟加载，也就是等页面加载完成之后再加载 JavaScript 文件。 js 延迟加载有助于提高页面加载速度。
 
@@ -582,13 +597,13 @@ Object.defineProperty(obj, prop, descriptor);
 - 使用 setTimeout 延迟方法
 - 让 JS 最后加载
 
-## js 脚本 defer 和 async 的区别
+### js 脚本 defer 和 async 的区别
 
 - defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在 DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
 
 - async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
 
-## async await
+### async await
 
 > 官网：async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。当函数执行的时候，一旦遇到 await 就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
 
@@ -647,7 +662,7 @@ async function bar() {
 console.log(bar()); // yeah 隔1秒同时输出 lee fan
 ```
 
-## Event Loop 事件循环
+### Event Loop 事件循环
 
 > 参考链接：[详解 JavaScript 中的 Event Loop（事件循环）机制](https://zhuanlan.zhihu.com/p/33058983?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936)
 
@@ -668,7 +683,7 @@ console.log(bar()); // yeah 隔1秒同时输出 lee fan
 执行流程：
 ![event loop流程](./../images/event%20loop.jpg)
 
-## JS 跨域怎么做
+### JS 跨域怎么做
 
 > 什么是跨域？当一个请求 url 的 协议、域名、端口三者之间任意一个与当前页面 url 不同即为跨域。
 >
@@ -689,7 +704,7 @@ console.log(bar()); // yeah 隔1秒同时输出 lee fan
 4. 服务器代理
    内部服务器代理请求跨域 url，然后返回数据
 
-## JSONP 怎么实现的
+### JSONP 怎么实现的
 
 > JSONP 的理念就是，与服务端约定好一个回调函数名，服务端接收到请求后，将返回一段 Javascript，在这段 Javascript 代码中调用了约定好的回调函数，并且将数据作为参数进行传递。当网页接收到这段 Javascript 代码后，就会执行这个回调函数，这时数据已经成功传输到客户端了。
 
@@ -716,7 +731,7 @@ res.end('test({"name": "Monkey"})');
 
 请求 JSONP 之前就定义好回调函数 test，后端返回的是调用 test 函数的 js 代码，浏览器加载这段代码后立即执行
 
-## JOSNP 有什么优缺点
+### JOSNP 有什么优缺点
 
 缺点：
 
@@ -731,19 +746,19 @@ res.end('test({"name": "Monkey"})');
 2. 它的兼容性更好，在更加古老的浏览器中都可以运行，不需要 XMLHttpRequest 或 ActiveX 的支持
 3. 在请求完毕后可以通过调用 callback 的方式回传结果。
 
-## new 运算符的过程
+### new 运算符的过程
 
 1. 创建一个空对象{}；
 2. 构造函数中的 this 指向该空对象
 3. 执行构造函数为这个空对象添加属性
 4. 判断构造函数有没有返回值，如果返回值是个对象，则返回这个对象；否则返回创建的“空对象”
 
-## 数组的 push() 和 pop() 方法的返回值是什么
+### 数组的 push() 和 pop() 方法的返回值是什么
 
 - `push()`将一个或多个元素添加到数组的末尾，并返回该数组的新长度
 - `pop()`方法从数组中删除最后一个元素，并返回该元素的值
 
-## JS 作用域
+### JS 作用域
 
 ES5 只有全局作用域和函数作用域
 
@@ -752,7 +767,7 @@ ES5 只有全局作用域和函数作用域
 
 ES6 有块级作用域
 
-## ES6 新特性
+### ES6 新特性
 
 - let const 块级作用域
 - 模板字符串
@@ -767,7 +782,7 @@ ES6 有块级作用域
 - async
 - class
 
-## let 和 var 的区别
+### let 和 var 的区别
 
 - let 是块级作用域，var 是函数作用域
 - var 存在变量提升，而 let 没有
@@ -789,7 +804,7 @@ if (true) {
 
 上面代码中，在 let 命令声明变量 tmp 之前，都属于变量 tmp 的“死区”。
 
-## 闭包的特性以及优缺点
+### 闭包的特性以及优缺点
 
 ```js
 function test() {
@@ -819,7 +834,7 @@ function test() {
 - 常驻内存，增加内存使用量；
 - 使用不当造成内存泄漏。
 
-## 箭头函数与普通函数的区别
+### 箭头函数与普通函数的区别
 
 1. 箭头函数是匿名函数，不能作为构造函数，不能使用 new
 2. 箭头函数不能绑定 arguments，取而代之用 rest 参数...解决
@@ -842,7 +857,7 @@ function test() {
    普通函数的 this 指向调用它的对象
 5. 箭头函数不绑定 this，会捕获其所在的上下文的 this 值，作为自己的 this 值
 
-## ES6 中箭头函数 VS 普通函数的 this 指向
+### ES6 中箭头函数 VS 普通函数的 this 指向
 
 ```js
 普通函数中 this
@@ -919,7 +934,7 @@ console.log(obj.diameter()); // 20
 console.log(obj.perimeter()); // NaN
 ```
 
-## ES6 class 和 ES5 函数的区别
+### ES6 class 和 ES5 函数的区别
 
 > 本质上，ES6 的类只是 ES5 的构造函数的一层包装
 
@@ -930,13 +945,13 @@ new Foo(); // Reference Error
 class Foo {}
 ```
 
-## JS 实现对象（都是简单类型的值）的深拷贝，一行代码
+### JS 实现对象（都是简单类型的值）的深拷贝，一行代码
 
 ```js
 let newObj = JSON.parse(JSON.stringify(oldObj));
 ```
 
-## JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题
+### JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题
 
 1. 如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式,而不是时间对象；
 2. 如果 obj 里有 RegExp、Error 对象，则序列化的结果将只得到空对象；
@@ -945,11 +960,11 @@ let newObj = JSON.parse(JSON.stringify(oldObj));
 5. JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor；
 6. 如果对象中存在循环引用的情况也无法正确实现深拷贝；
 
-## Promise 是做什么的，有哪些 API
+### Promise 是做什么的，有哪些 API
 
 > Promise 是异步编程的一种解决方案
 
-### Promise 用法
+##### Promise 用法
 
 > Promise 构造函数接受一个函数作为参数，该函数的两个参数分别是 resolve 和 reject。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。
 >
@@ -967,7 +982,7 @@ const promise = new Promise(function(resolve, reject) {
 });
 ```
 
-### Promise.prototype.then()
+##### Promise.prototype.then()
 
 > Promise 实例具有 then 方法，也就是说，then 方法是定义在原型对象 Promise.prototype 上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，then 方法的第一个参数是 resolved 状态的回调函数，第二个参数（可选）是 rejected 状态的回调函数。
 >
@@ -983,7 +998,7 @@ getJSON('/posts.json')
   });
 ```
 
-### Promise.prototype.catch()
+##### Promise.prototype.catch()
 
 > Promise.prototype.catch()方法是.then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数。
 
@@ -1000,7 +1015,7 @@ getJSON('/posts.json')
 
 > 上面代码中，getJSON()方法返回一个 Promise 对象，如果该对象状态变为 resolved，则会调用 then()方法指定的回调函数；如果异步操作抛出错误，状态就会变为 rejected，就会调用 catch()方法指定的回调函数，处理这个错误。另外，then()方法指定的回调函数，如果运行中抛出错误，也会被 catch()方法捕获。
 
-### Promise.all()
+##### Promise.all()
 
 > Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 
@@ -1016,7 +1031,7 @@ const p = Promise.all([p1, p2, p3]);
 >
 > （2）只要 p1、p2、p3 之中有一个被 rejected，p 的状态就变成 rejected，此时第一个被 reject 的实例的返回值，会传递给 p 的回调函数。
 
-### Promise.race()
+##### Promise.race()
 
 > Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
 
@@ -1026,7 +1041,7 @@ const p = Promise.race([p1, p2, p3]);
 
 > 上面代码中，只要 p1、p2、p3 之中有一个实例率先改变状态，p 的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给 p 的回调函数。
 
-### Promise.resolve()
+##### Promise.resolve()
 
 > 有时需要将现有对象转为 Promise 对象，Promise.resolve()方法就起到这个作用。
 >
@@ -1038,7 +1053,7 @@ Promise.resolve('foo');
 new Promise(resolve => resolve('foo'));
 ```
 
-### Promise.reject()
+##### Promise.reject()
 
 > Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为 rejected。
 
@@ -1055,7 +1070,7 @@ p.then(null, function (s) {
 
 > 上面代码生成一个 Promise 对象的实例 p，状态为 rejected，回调函数会立即执行。
 
-## Promise 不兼容怎么解决
+### Promise 不兼容怎么解决
 
 用一些第三方的库来解决兼容性问题：
 
@@ -1063,7 +1078,7 @@ p.then(null, function (s) {
 2. ES6-Promise
 3. bluebird
 
-## Ajax 基本流程
+### Ajax 基本流程
 
 > 原生 js 代码实现与基于 promise 实现请传送至专栏：[面试高频手撕代码题](./../08.面试高频手撕代码题/面试高频手撕代码题.md)
 
@@ -1079,7 +1094,7 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 
 - 当对象的属性和监听函数设置完成后，最后我们调用 sent 方法来向服务器发起请求，可以传入参数作为发送的数据体。
 
-## Ajax 的 readyState 的几种状态分别代表什么
+### Ajax 的 readyState 的几种状态分别代表什么
 
 | 状态值 |           含义           |
 | :----: | :----------------------: |
@@ -1089,7 +1104,7 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 |   3    |        请求处理中        |
 |   4    | 请求已完成，且响应已就绪 |
 
-## Ajax 禁用浏览器的缓存功能
+### Ajax 禁用浏览器的缓存功能
 
 > 项目中，一般提交请求都会通过 ajax 来提交，我们都知道 ajax 能提高页面载入的速度主要的原因是通过 ajax 减少了重复数据的载入，也就是说在载入数据的同时将数据缓存到内存中，一旦数据被加载其中，只要我们没有刷新页面，这些数据就会一直被缓存在内存中，当我们提交 的 URL 与历史的 URL 一致时，就不需要提交给服务器，也就是不需要从服务器上面去获取数据，虽然这样降低了服务器的负载提高了用户的体验，但是我们不能获取最新的数据。为了保证我们读取的信息都是最新的，我们就需要禁止他的缓存功能。
 
@@ -1101,13 +1116,13 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 4. 在 URL 后面加上时间搓：`"nowtime=" + new Date().getTime()`;。
 5. 如果是使用 jQuery，直接这样就可以了`$.ajaxSetup({cache:false})`。这样页面的所有 ajax 都会执行这条语句就是不需要保存缓存记录。
 
-## 谈谈对前端工程化的理解
+### 谈谈对前端工程化的理解
 
 > 前端工程化里的工程是一个很大的概念，甚至创建一个 git 仓库，也可以理解为创建了一个工程，软件工程的定义是运用计算机科学的理论和技术，以及工程管理的原则和方法，按进度和预算，实现满足用户要求的软件产品的定义，开发和维护的工程以及研究的学科。
 
 **前端工程化是为了让前端可以自成体系，具体可以从四方面去讨论，模块化，组件化，规范化和自动化。**
 
-### 模块化
+##### 模块化
 
 > 模块化：将大的文件拆分成互相依赖的小文件，再进行统一的拼装和加载。
 >
@@ -1118,19 +1133,19 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 > 资源的模块化：webpack 的成功不仅仅是因为将 js 系统进行模块化处理，而是它的模块化原理，即任何资源都可以模块
 > 化且应该模块化处理，优点有以下三点，1：目录结构清晰化，2：资源处理集成化，3：项目依赖单一化。
 
-### 组件化
+##### 组件化
 
 > 组件化：将 UI 页面拆分正有模板+样式+逻辑组成的功能单元，称为组件，组件化不等于模块化，模块化是在资源和代码方面对文件的拆分，而组件化是在 UI 层面进行的拆分。传统前端框架的思想是以 dom 优先，先操作 dom，再写出可复用的逻辑单元来操作 dom，而组件化框架是组件优先，将 dom 和与之一起的逻辑组成一个组件，再进行引用。我们封装了组件后，还需要对组件间的关系进行判定，例如继承，扩展，嵌套，包含等，这些关系统称为依赖
 
-### 规范化
+##### 规范化
 
 > 规范化：规范化是前端工程化很重要的一部分，项目前期规范制定的好坏，直接决定后期的开发质量，分为项目目录规范化，编码规范化，前后端接口规范化，git 分支管理，commit 描述规范，组件管理等编码规范化分为 htmlcss js img 命名规范这几类 接口规范，目的是规则先行，以减少联调中不必要的问题和麻烦，自责划分 前端，渲染逻辑和交互逻辑，后台，处理业务逻辑，各种格式的规定，例如 json 尽量简洁轻量，日期尽量字符串，等等。
 
-### 自动化
+##### 自动化
 
 > 自动化：让简单重复的工作交给机器完成，例如自动化测试，自动化部署，自动化构建，持续继承等。
 
-## js 的几种模块规范
+### js 的几种模块规范
 
 ```js
 js 中现在比较成熟的有四种模块加载方案。
@@ -1148,13 +1163,13 @@ js 中现在比较成熟的有四种模块加载方案。
 第四种方案是 ES6 提出的方案，使用 import 和 export 的形式来导入导出模块。这种方案和上面三种方案都不同。
 ```
 
-## ES6 模块与 CommonJS 模块、AMD、CMD 的差异
+### ES6 模块与 CommonJS 模块、AMD、CMD 的差异
 
 > CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。
 >
 > CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。CommonJS 模块就是对象，即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
 
-## webpack 的功能
+### webpack 的功能
 
 ```js
 webpack 的主要原理:
@@ -1176,7 +1191,7 @@ Plugins（插件）可以用于执行范围更广的任务，包括打包、优�
 一般是先使用 npm 包管理器进行安装，然后在配置文件中引入，最后将其实例化后传递给 plugins 数组属性。
 ```
 
-## webpack 常用插件
+### webpack 常用插件
 
 - html-webpack-plugin
 
@@ -1188,7 +1203,7 @@ Plugins（插件）可以用于执行范围更广的任务，包括打包、优�
 - CommonsChunkPlugin
   > 主要是用来提取第三方库（如 jQuery）和公共模块(公共 js，css 都可以)，常用于多页面应用程序，生成公共 chunk，避免重复引用。
 
-## arguments 怎么转化成真数组
+### arguments 怎么转化成真数组
 
 - arguments 是一个伪数组，是当前函数的内置对象，存储所有的形参，有 length 属性，但是不能用数组的方法。
 - [...arguments] 扩展运算符的方式，拿取剩余参数
@@ -1196,7 +1211,7 @@ Plugins（插件）可以用于执行范围更广的任务，包括打包、优�
 - [].slice.call() 因为[].slice === Array.prototype.slice
 - 遍历：arguments 有 length 属性，所以，可以遍历 arguments 取出每一个元素，并放进新的数组中
 
-## js 的对象的常用的方法
+### js 的对象的常用的方法
 
 ```js
 Object.assign(); //复制对象，创建一个新的对象
@@ -1216,7 +1231,7 @@ Object.defineProerty(obj, attr, descriptor);
 //参数3：属性描述符：是否可枚举，是否可读，可写，他的值等
 ```
 
-## js 的字符串的常用的方法
+### js 的字符串的常用的方法
 
 ```js
 var str1 = 'wwww';
@@ -1236,7 +1251,7 @@ str.slice(); //截取字串，含开始，含结束，end不可以小于start
 str.substr(start, length); //截取指定长度的字符串
 ```
 
-## js 的数组的常用的方法
+### js 的数组的常用的方法
 
 ```js
 var arr = [0, 1, 2, 3, 4];
