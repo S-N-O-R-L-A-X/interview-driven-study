@@ -9,7 +9,7 @@
   - [link 和 @import 的区别](#link-和-import-的区别)
   - [CSS 选择器的解析规则](#css-选择器的解析规则)
   - [CSS 选择器优先级](#css-选择器优先级)
-  - [解释一下::before 和::after这 2 个伪元素的作用](#解释一下before-和after这-2-个伪元素的作用)
+  - [::before 和::after这 2 个伪元素的作用和区别](#before-和after这-2-个伪元素的作用和区别)
   - [伪类、伪元素的作用与区别](#伪类伪元素的作用与区别)
   - [关于伪类 LVHA 的解释](#关于伪类-lvha-的解释)
   - [CSS 中哪些属性可以继承](#css-中哪些属性可以继承)
@@ -165,7 +165,7 @@ div {
 - 伪元素选择器 0,0,0,1
 - 通配符选择器 0,0,0,0
 
-##  解释一下::before 和::after这 2 个伪元素的作用
+##  ::before 和::after这 2 个伪元素的作用和区别
 效果上，::before可以把需插入的内容插入到元素的其他内容之前，::after让插入内容在其他内容之后。
 代码顺序上，::after生成的内容比::before生成的内容靠后。
 堆栈视角上，::after生成的内容会在::before生成的内容之上。
@@ -198,15 +198,27 @@ a标签有四种状态：链接访问前、链接访问后、鼠标滑过、激�
 
 ## CSS 中哪些属性可以继承
 
-```css
-每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值
-来作为自己的值。
+每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值来作为自己的值。
 
-一般具有继承性的属性有，字体相关的属性，font-size和font-weight等。文本相关的属性，color和text-align等。
-表格的一些布局属性、列表属性如list-style等。还有光标属性cursor、元素可见性visibility。
+有继承性的属性：
+（1）字体系列属性
+font、font-family、font-weight、fontsize、font-style、font-variant、fontstretch、font-size-adjust
+（2）文本系列属性
+text-indent、text-align、text-shadow、
+line-height、word-spacing、letterspacing、
+text-transform、direction、color
+（3）表格布局属性
+caption-side border-collapse empty-cells
+（4）列表属性
+list-style-type、list-style-image、liststyle-position、list-style
+（5）光标属性
+cursor
+（6）元素可见性
+visibility
+（7）还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
 
-当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。
-```
+当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。inherit
+关键字用于显式地指定继承性，可用于任何继承性/非继承性属性.
 
 ## CSS 清除浮动的方式
 
