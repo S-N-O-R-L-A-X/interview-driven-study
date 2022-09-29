@@ -42,6 +42,12 @@
   - [CSS 画扇形](#css-画扇形)
   - [CSS 画正方体](#css-画正方体)
   - [CSS 实现一个硬币旋转的效果](#css-实现一个硬币旋转的效果)
+  - [CSS 实现水平居中](#css-实现水平居中)
+    - [行内元素：](#行内元素)
+    - [块级元素](#块级元素)
+      - [方法一：](#方法一)
+      - [方法二：](#方法二)
+      - [方法三：](#方法三)
   - [CSS 实现垂直居中](#css-实现垂直居中)
   - [CSS 实现两列固定，中间自适应的布局](#css-实现两列固定中间自适应的布局)
   - [实现自适应九宫格](#实现自适应九宫格)
@@ -853,6 +859,51 @@ div {
       transform: rotateY(360deg);
     }
   }
+```
+
+## CSS 实现水平居中
+需要分为行内元素和块级元素讨论
+
+### 行内元素：
+利用text-align: center;
+```css
+.center {
+  text-align: center;
+}
+```
+
+### 块级元素
+#### 方法一：
+利用margin: 0 auto;
+```css
+.center {
+  margin: 0 auto;
+}
+```
+
+#### 方法二：
+将块级元素转换成行内元素
+```css
+.outer {
+  text-align: center;
+}
+
+.inner {
+  display: inline-block;
+}
+```
+
+#### 方法三：
+利用flex-box
+```css
+.outer {
+  display: flex;
+  justify-content: center;
+}
+
+.inner {
+  display: inline-block;
+}
 ```
 
 ## CSS 实现垂直居中
