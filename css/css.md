@@ -20,7 +20,7 @@
   - [脱离文档流的方式](#脱离文档流的方式)
   - [position 的值定位原点是](#position-的值定位原点是)
   - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
-  - [float 的元素，display 是什么](#float-的元素display-是什么)
+  - [float 的元素display 是什么](#float-的元素display-是什么)
   - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
   - [flex 的属性有哪些](#flex-的属性有哪些)
   - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
@@ -337,10 +337,12 @@ sticky
 
 ## display 有哪些值？说明他们的作用
 
+> display 属性可以设置元素的显示类型 display types。元素的外部显示类型 outer display types 将决定该元素在流式布局中的表现（块级或内联元素）；元素的内部显示类型 inner display types 可以控制其子元素的布局（例如：flow layout，grid 或 flex）。
+
 - block
   块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
 - none
-  元素不显示，并从文档流中移除。
+  元素不显示，并从文档流中移除。这会导致该元素及其所有子代元素不再被屏幕阅读技术 screen reading technology 访问。
 - inline
   行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
 - inline-block
@@ -352,7 +354,10 @@ sticky
 - inherit
   规定应该从父元素继承 display 属性的值。
 
-## float 的元素，display 是什么
+reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/display
+
+
+## float 的元素display 是什么
 
 参考文档：https://juejin.cn/post/6911682147000057870
 
