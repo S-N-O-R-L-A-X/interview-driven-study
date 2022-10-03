@@ -908,42 +908,97 @@ div {
 
 ## CSS 实现垂直居中
 
-- 定位 + 负边距
+- 定位 + 负边距 知道元素高度时可以采用
+```css
+.outer {
+  width: 20%;
+  height: 20%;
+  margin-top: 5%;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    height: 10%;
+    margin-top: -10%;
+}
+```
+
+```html
+<div class="outer">
+    <div class="inner">when you know the height of the element</div>
+</div>
+```
+
 - display: flex 弹性布局
 
-  ```css
-  .outer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .inner {
-    width: 400px;
-    height: 400px;
-    background-color: red;
-  }
+```css
+.outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inner {
 
-  <div class="outer">
-    <div class="inner"></div>
-  </div>
-  ```
+}
+```
+```html
+<div class="outer">
+  <div class="inner">flex box is a choice</div>
+</div>
+```
 
 - display: table
+```
+.outer {
+    position: relative;
+    display: table;
+    padding: 2.5%;
+}
+.box3 {
+    display: table-cell;
+    vertical-align: middle;
+}
+```  
+```html
+<div class="outer">
+  <div class="inner">table is a method when you don't care if the element stretches the height of the container</div>
+</div>
+```
+
+- use transform
+```css
+.outer {
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+```
+```html
+<div class="outer">
+  <div class="inner">nudge it up half of it’s height after bumping it down halfway</div>
+</div>
+```
+
 - 绝对居中
 
-  ```css
-  div {
-    width: 300px;
-    height: 300px;
-    background-color: red;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-  }
-  ```
+```css
+div {
+  width: 300px;
+  height: 300px;
+  background-color: red;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+```
 
 ## CSS 实现两列固定，中间自适应的布局
 
