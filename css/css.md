@@ -31,7 +31,7 @@
   - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
   - [float 的元素display 是什么](#float-的元素display-是什么)
   - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
-  - [flex 的属性有哪些](#flex-的属性有哪些)
+  - [flex-box](#flex-box)
   - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
   - [了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法](#了解重绘和重排吗知道怎么去减少重绘和重排吗让文档脱离文档流有哪些方法)
   - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
@@ -422,33 +422,31 @@ img 是可替换元素。
   CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
 ```
 
-## flex 的属性有哪些
+## flex-box 
 
-```JS
 flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目。
 
-一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。我们可以使用flex-direction来指定主轴的方向。我们可以使用justify-content来指定元素在主轴上的排列方式，使用align-items来指定元素在交叉轴上的排列方式。还可以使用flex-wrap来规定当一行排列不下时的换行方式。
+一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。我们可以使用flex-direction来指定主轴的方向。我们可以使用justify-content来指定元素在主轴(x轴)上的排列方式，使用align-items来指定元素在交叉轴(y轴)上的排列方式。还可以使用flex-wrap来规定当一行排列不下时的换行方式。
 
-对于容器中的项目，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
-```
+对于容器中的item，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
 
-> 以下 6 个属性设置在容器上。
+在container上存在六个属性
 
-- flex-direction 属性决定主轴的方向（即项目的排列方向）。
+- flex-direction 属性决定主轴的方向（即item的排列方向）。
 - flex-wrap 属性定义，如果一条轴线排不下，如何换行。
 - flex-flow 属性是 flex-direction 属性和 flex-wrap 属性的简写形式，默认值为 rownowrap。
-- justify-content 属性定义了项目在主轴上的对齐方式。
-- align-items 属性定义项目在交叉轴上如何对齐。
-- align-content 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+- justify-content 属性定义了item在主轴上的对齐方式。
+- align-items 属性定义item在交叉轴上如何对齐。
+- align-content 属性定义了多根轴线的对齐方式。如果item只有一根轴线，该属性不起作用。
 
-> 以下 6 个属性设置在项目上：
+在item上也有六个属性
 
-- order 属性定义项目的排列顺序。数值越小，排列越靠前，默认为 0。
-- flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
-- flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
-- flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
+- order 属性定义item的排列顺序。数值越小，排列越靠前，默认为 0。
+- flex-grow 属性定义item的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+- flex-shrink 属性定义了item的缩小比例，默认为 1，即如果空间不足，该item将缩小。
+- flex-basis 属性定义了在分配多余空间之前，item占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即item的本来大小。
 - flex 属性是 flex-grow，flex-shrink 和 flex-basis 的简写，默认值为 01auto。
-- align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
+- align-self 属性允许单个item有与其他item不一样的对齐方式，可覆盖 align-items 属性。默认值为auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
 
 ## `visibility: hidden`, `opacity: 0`, `display: none`
 
