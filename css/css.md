@@ -734,10 +734,41 @@ li:nth-of-type(even) {
 ## 一个满屏品字布局如何设计
 
 ```css
-简单的方式：
-上面的div宽100%，
-下面的两个div分别宽50%，
-然后用float或者inline使其不换行即可
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+
+.box1 {
+  left: 30%;
+  width: 40%;
+  height: 50%;
+  background-color: red;
+}
+
+.box2 {
+  position: absolute;
+  left: 10%;
+  width: 40%;
+  height: 50%;
+  background-color: yellow;
+}
+
+.box3 {
+  position: absolute;
+  right: 10%;
+  width: 40%;
+  height: 50%;
+  background-color: green;
+}
+```
+
+```html
+<div class="box1"></div>
+<div class="box2"></div>
+<div class="box3"></div>
 ```
 
 ## CSS 画三角形
