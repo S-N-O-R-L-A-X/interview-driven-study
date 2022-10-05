@@ -48,6 +48,8 @@
   - [CSS 实现隔行变色](#css-实现隔行变色)
   - [一个满屏品字布局如何设计](#一个满屏品字布局如何设计)
   - [CSS 画三角形](#css-画三角形)
+    - [方法一 使用border](#方法一-使用border)
+    - [方法二 使用linear-gradient](#方法二-使用linear-gradient)
   - [CSS 画扇形](#css-画扇形)
   - [CSS 画正方体](#css-画正方体)
   - [CSS 实现一个硬币旋转的效果](#css-实现一个硬币旋转的效果)
@@ -740,6 +742,9 @@ li:nth-of-type(even) {
 
 ## CSS 画三角形
 
+### 方法一 使用border
+采用的是相邻边框连接处的均分原理。
+将元素的宽高设为0，只设置border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
 ```css
 div {
   width: 0;
@@ -747,6 +752,16 @@ div {
   border-width: 20px;
   border-style: solid;
   border-color: transparent transparent red transparent;
+}
+```
+
+### 方法二 使用linear-gradient
+```css
+.NW {
+  width:100px;
+  height:100px;
+  display: inline-block;
+  background: linear-gradient(135deg, orange, orange 50%, transparent 50%, transparent 100%);
 }
 ```
 
