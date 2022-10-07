@@ -5,6 +5,7 @@
   - [CSS 选择器](#css-选择器)
   - [CSS 盒模型](#css-盒模型)
   - [初始化css样式的目的](#初始化css样式的目的)
+  - [包含块 containing block](#包含块-containing-block)
   - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
   - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
   - [link 和 @import 的区别](#link-和-import-的区别)
@@ -232,6 +233,20 @@ table {
   border-spacing: 0;
 }
 ```
+
+## 包含块 containing block
+经常来说，包含块就是一个元素最近的块级祖先
+I.如果position是static, relative, sticky，那么包含块要么由它最近的祖先块级元素的content边缘组成，要么建立格式化上下文。
+II.如果position是absolute，那么包含块由它最近的非static祖先元素的padding边缘组成。
+III.如果position是fixed，在连续媒体的情况下是viewport，在分页媒体的情况下是页区域page area
+IV.如果position是absolute或fixed，包含块也可能由满足以下条件的最近祖先元素的padding边缘组成：
+i.  transform 或 perspective 的值不是 none
+ii. will-change 的值是 transform 或 perspective
+iii.filter 的值不是 none 或 will-change 的值是 filter (只在Firefox下生效).
+iv. contain 的值是 paint 
+v. backdrop-filter 的值不是 none (e.g. backdrop-filter: blur(10px);)
+
+reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
 
 ## 设置一个元素的背景颜色，背景颜色会填充哪些区域
 
