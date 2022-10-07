@@ -6,6 +6,7 @@
     - [CSS 选择器](#css-选择器)
     - [CSS 盒模型](#css-盒模型)
     - [包含块 containing block](#包含块-containing-block)
+    - [层叠上下文 stacking context](#层叠上下文-stacking-context)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
@@ -136,6 +137,33 @@ iv. contain 的值是 paint
 v. backdrop-filter 的值不是 none (e.g. backdrop-filter: blur(10px);)
 
 reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
+
+### 层叠上下文 stacking context
+HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，层叠上下文就是对这些 HTML 元素的一个三维构想。
+某些元素的渲染顺序是由其 z-index 的值影响的。这是因为这些元素具有能够使他们形成一个层叠上下文的特殊属性。
+
+文档中的层叠上下文由满足以下任意一个条件的元素形成：
+- 文档根元素（<html>）；
+- position 值为 absolute 或 relative 且 z-index 值不为 auto 的元素；
+- position 值为 fixed 或 sticky 的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；
+- flex (flex) 容器中z-index 值不为 auto的子元素；
+- grid (grid) 容器中z-index 值不为 auto的子元素 ；
+- opacity 属性值小于 1 的元素；
+- mix-blend-mode 属性值不为 normal 的元素；
+- 以下任意属性值不为 none 的元素：
+  - transform
+  - filter
+  - backdrop-filter
+  - perspective
+  - clip-path
+  - mask / mask-image / mask-border
+  - isolation 属性值为 isolate 的元素；
+  - will-change 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素；
+  - contain 属性值为 layout、paint 或包含它们其中之一的合成值（比如 contain: strict、contain: content）的元素。
+
+reference:
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+https://dev.opera.com/articles/css-will-change-property/
 
 
 ## 应用
