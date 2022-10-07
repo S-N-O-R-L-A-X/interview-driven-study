@@ -7,6 +7,7 @@
     - [CSS 盒模型](#css-盒模型)
     - [包含块 containing block](#包含块-containing-block)
     - [层叠上下文 stacking context](#层叠上下文-stacking-context)
+  - [连续媒体 continuous media](#连续媒体-continuous-media)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
@@ -165,6 +166,11 @@ reference:
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
 https://dev.opera.com/articles/css-will-change-property/
 
+## 连续媒体 continuous media
+连续媒体是源与终点之间的时间联系数据。
+最常见的连续媒体就是音频和视频。
+连续媒体可以是实时的，也可以是流的。
+reference:https://developer.mozilla.org/en-US/docs/Glossary/Continuous_Media
 
 ## 应用
 ### 初始化css样式的目的
