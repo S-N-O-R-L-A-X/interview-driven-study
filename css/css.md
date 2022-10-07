@@ -64,6 +64,7 @@
   - [实现自适应九宫格](#实现自适应九宫格)
   - [屏幕里面内容未占满的时候 footer 固定在屏幕可视区域的底部。占满的时候显示在网页的最底端](#屏幕里面内容未占满的时候-footer-固定在屏幕可视区域的底部占满的时候显示在网页的最底端)
   - [CSS 多列等高如何实现？](#css-多列等高如何实现)
+  - [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
 
 ## CSS3 新特性
 
@@ -530,9 +531,7 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 （2）浏览器默认的margin和padding不同
 解决方案：加一个全局的*{margin:0;padding:0;}来统一。
 
-（3）IE6双边距bug：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或
-margin-right，margin值会加倍。
-
+（3）IE6双边距bug：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。
 #box{float:left;width:10px;margin:00010px;}
 
 这种情况之下IE会产生20px的距离
@@ -548,12 +547,12 @@ background-color:#f1ee18;/*所有识别*/
 _background-color:#1e0bd1;/*IE6识别*/
 }
 
-（5）IE下，可以使用获取常规属性的方法来获取自定义属性，也可以使用getAttribute()获取自定义
-属性；Firefox下，只能使用getAttribute()获取自定义属性
+（5）IE下，可以使用获取常规属性的方法来获取自定义属性，也可以使用getAttribute()获取自定义属性；
+Firefox下，只能使用getAttribute()获取自定义属性
 解决方法：统一通过getAttribute()获取自定义属性。
 
-（6）IE下，event对象有x、y属性，但是没有pageX、pageY属性;Firefox下，event对象有
-pageX、pageY属性，但是没有x、y属性。
+（6）IE下，event对象有x、y属性，但是没有pageX、pageY属性;
+Firefox下，event对象有pageX、pageY属性，但是没有x、y属性。
 解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。
 
 （7）Chrome中文界面下默认会将小于12px的文本强制按照12px显示
@@ -1285,3 +1284,13 @@ HTML 代码如下：
 grid,flex,table
 
 利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器超出隐藏（overflow:hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
+
+## li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
+
+浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。而为了美观。我们通常是一
+个<li>放在一行，这导致<li>换行后产生换行字符，它变成一个空格，占用了一个字符的宽度。
+解决办法：
+（1）为<li>设置float:left。不足：有些容器是不能设置浮动，如左右切换的焦点图等。
+（2）将所有<li>写在同一行。不足：代码不美观。
+（3）将<ul>内的字符尺寸直接设为0，即fontsize:0。不足：<ul>中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。
+（4）消除<ul>的字符间隔letterspacing:-8px，不足：这也设置了<li>内的字符间隔，因此需要将<li>内的字符间隔设为默认letter-spacing:normal。
