@@ -4,6 +4,7 @@
   - [CSS3 新特性](#css3-新特性)
   - [CSS 选择器](#css-选择器)
   - [CSS 盒模型](#css-盒模型)
+  - [初始化css样式的目的](#初始化css样式的目的)
   - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
   - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
   - [link 和 @import 的区别](#link-和-import-的区别)
@@ -117,6 +118,120 @@
   
   如果在ie6，7，8中DOCTYPE缺失会将盒子模型解释为IE盒子模型。若在页面中声明了DOCTYPE类型，所有的浏览器都会把盒模型解释为W3C盒模型。
 
+## 初始化css样式的目的
+因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面显示差异。
+当然，初始化样式会对SEO(Search Engine Optimization)有一定的影响，所以需要力求影响最小的情况下初始化。
+最简单的初始化方法：*{padding:0;margin:0;}，但是这个会产生较大影响，所以不建议这么初始化。
+
+淘宝的样式初始化代码：
+```css
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font: 1 2px/1.5tahoma, arial, \5b8b\4f53;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+  font-style: normal;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: couriernew, courier, monospace;
+}
+
+small {
+  font-size: 12px;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+sup {
+  vertical-align: text-top;
+}
+
+sub {
+  vertical-align: text-bottom;
+}
+
+legend {
+  color: #000;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+```
 
 ## 设置一个元素的背景颜色，背景颜色会填充哪些区域
 
