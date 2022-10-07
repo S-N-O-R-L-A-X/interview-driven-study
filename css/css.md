@@ -1,74 +1,77 @@
 # CSS
 
 - [CSS](#css)
-  - [CSS3 新特性](#css3-新特性)
-  - [CSS 选择器](#css-选择器)
-  - [CSS 盒模型](#css-盒模型)
-  - [初始化css样式的目的](#初始化css样式的目的)
-  - [包含块 containing block](#包含块-containing-block)
-  - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
-  - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
-  - [link 和 @import 的区别](#link-和-import-的区别)
-  - [CSS 选择器的解析规则](#css-选择器的解析规则)
-  - [CSS 选择器优先级](#css-选择器优先级)
-  - [::before 和::after这 2 个伪元素的作用和区别](#before-和after这-2-个伪元素的作用和区别)
-  - [伪类、伪元素的作用与区别](#伪类伪元素的作用与区别)
-  - [CSS3新增伪类](#css3新增伪类)
-  - [关于伪类 LVHA 的解释](#关于伪类-lvha-的解释)
-  - [CSS 中哪些属性可以继承](#css-中哪些属性可以继承)
-  - [CSS 清除浮动的方式](#css-清除浮动的方式)
-  - [清除浮动的原理](#清除浮动的原理)
-  - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
-  - [脱离文档流的方式](#脱离文档流的方式)
-  - [position取值](#position取值)
-    - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
-      - [static](#static)
-    - [相对定位元素](#相对定位元素)
-      - [relative](#relative)
-    - [绝对定位元素](#绝对定位元素)
-      - [absolute](#absolute)
-      - [fixed（老IE不支持）](#fixed老ie不支持)
-    - [黏性定位元素 stickily positioned element](#黏性定位元素-stickily-positioned-element)
-      - [sticky](#sticky)
-  - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
-  - [float 的元素display 是什么](#float-的元素display-是什么)
-  - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
-  - [flex-box](#flex-box)
-  - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
-  - [了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法](#了解重绘和重排吗知道怎么去减少重绘和重排吗让文档脱离文档流有哪些方法)
-  - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
-  - [vw 和 vh 的概念](#vw-和-vh-的概念)
-  - [经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧](#经常遇到的浏览器的兼容性有哪些原因解决方法是什么常用-hack-的技巧)
-  - [简单介绍使用图片 base64 编码的优点和缺点](#简单介绍使用图片-base64-编码的优点和缺点)
-  - [如果需要手动写动画，你认为最小时间间隔是多久，为什么](#如果需要手动写动画你认为最小时间间隔是多久为什么)
-  - [阐述一下 CSSSprites](#阐述一下-csssprites)
-  - [画一条 0.5px 的线](#画一条-05px-的线)
-  - [transition 和 animation 的区别](#transition-和-animation-的区别)
-  - [如何实现单行／多行文本溢出的省略（...）](#如何实现单行多行文本溢出的省略)
-  - [常见的元素隐藏方式](#常见的元素隐藏方式)
-  - [CSS3 @font-face 有用过吗](#css3-font-face-有用过吗)
-  - [CSS 实现隔行变色](#css-实现隔行变色)
-  - [一个满屏品字布局如何设计](#一个满屏品字布局如何设计)
-  - [CSS 画三角形](#css-画三角形)
-    - [方法一 使用border](#方法一-使用border)
-    - [方法二 使用linear-gradient](#方法二-使用linear-gradient)
-  - [CSS 画扇形](#css-画扇形)
-  - [CSS 画正方体](#css-画正方体)
-  - [CSS 实现一个硬币旋转的效果](#css-实现一个硬币旋转的效果)
-  - [CSS 实现水平居中](#css-实现水平居中)
-    - [行内元素：](#行内元素)
-    - [块级元素](#块级元素)
-      - [方法一：](#方法一)
-      - [方法二：](#方法二)
-      - [方法三：](#方法三)
-  - [CSS 实现垂直居中](#css-实现垂直居中)
-  - [CSS 实现两列固定，中间自适应的布局](#css-实现两列固定中间自适应的布局)
-  - [实现自适应九宫格](#实现自适应九宫格)
-  - [屏幕里面内容未占满的时候 footer 固定在屏幕可视区域的底部。占满的时候显示在网页的最底端](#屏幕里面内容未占满的时候-footer-固定在屏幕可视区域的底部占满的时候显示在网页的最底端)
-  - [CSS 多列等高如何实现？](#css-多列等高如何实现)
-  - [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
+  - [概念](#概念)
+    - [CSS3 新特性](#css3-新特性)
+    - [CSS 选择器](#css-选择器)
+    - [CSS 盒模型](#css-盒模型)
+    - [包含块 containing block](#包含块-containing-block)
+  - [应用](#应用)
+    - [初始化css样式的目的](#初始化css样式的目的)
+    - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
+    - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
+    - [link 和 @import 的区别](#link-和-import-的区别)
+    - [CSS 选择器的解析规则](#css-选择器的解析规则)
+    - [CSS 选择器优先级](#css-选择器优先级)
+    - [::before 和::after这 2 个伪元素的作用和区别](#before-和after这-2-个伪元素的作用和区别)
+    - [伪类、伪元素的作用与区别](#伪类伪元素的作用与区别)
+    - [CSS3新增伪类](#css3新增伪类)
+    - [关于伪类 LVHA 的解释](#关于伪类-lvha-的解释)
+    - [CSS 中哪些属性可以继承](#css-中哪些属性可以继承)
+    - [CSS 清除浮动的方式](#css-清除浮动的方式)
+    - [清除浮动的原理](#清除浮动的原理)
+    - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
+    - [脱离文档流的方式](#脱离文档流的方式)
+    - [position取值](#position取值)
+      - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
+        - [static](#static)
+      - [相对定位元素](#相对定位元素)
+        - [relative](#relative)
+      - [绝对定位元素](#绝对定位元素)
+        - [absolute](#absolute)
+        - [fixed（老IE不支持）](#fixed老ie不支持)
+      - [黏性定位元素 stickily positioned element](#黏性定位元素-stickily-positioned-element)
+        - [sticky](#sticky)
+    - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
+    - [float 的元素display 是什么](#float-的元素display-是什么)
+    - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
+    - [flex-box](#flex-box)
+    - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
+    - [了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法](#了解重绘和重排吗知道怎么去减少重绘和重排吗让文档脱离文档流有哪些方法)
+    - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
+    - [vw 和 vh 的概念](#vw-和-vh-的概念)
+    - [经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧](#经常遇到的浏览器的兼容性有哪些原因解决方法是什么常用-hack-的技巧)
+    - [简单介绍使用图片 base64 编码的优点和缺点](#简单介绍使用图片-base64-编码的优点和缺点)
+    - [如果需要手动写动画，你认为最小时间间隔是多久，为什么](#如果需要手动写动画你认为最小时间间隔是多久为什么)
+    - [阐述一下 CSSSprites](#阐述一下-csssprites)
+    - [画一条 0.5px 的线](#画一条-05px-的线)
+    - [transition 和 animation 的区别](#transition-和-animation-的区别)
+    - [如何实现单行／多行文本溢出的省略（...）](#如何实现单行多行文本溢出的省略)
+    - [常见的元素隐藏方式](#常见的元素隐藏方式)
+    - [CSS3 @font-face 有用过吗](#css3-font-face-有用过吗)
+    - [CSS 实现隔行变色](#css-实现隔行变色)
+    - [一个满屏品字布局如何设计](#一个满屏品字布局如何设计)
+    - [CSS 画三角形](#css-画三角形)
+      - [方法一 使用border](#方法一-使用border)
+      - [方法二 使用linear-gradient](#方法二-使用linear-gradient)
+    - [CSS 画扇形](#css-画扇形)
+    - [CSS 画正方体](#css-画正方体)
+    - [CSS 实现一个硬币旋转的效果](#css-实现一个硬币旋转的效果)
+    - [CSS 实现水平居中](#css-实现水平居中)
+      - [行内元素：](#行内元素)
+      - [块级元素](#块级元素)
+        - [方法一：](#方法一)
+        - [方法二：](#方法二)
+        - [方法三：](#方法三)
+    - [CSS 实现垂直居中](#css-实现垂直居中)
+    - [CSS 实现两列固定，中间自适应的布局](#css-实现两列固定中间自适应的布局)
+    - [实现自适应九宫格](#实现自适应九宫格)
+    - [屏幕里面内容未占满的时候 footer 固定在屏幕可视区域的底部。占满的时候显示在网页的最底端](#屏幕里面内容未占满的时候-footer-固定在屏幕可视区域的底部占满的时候显示在网页的最底端)
+    - [CSS 多列等高如何实现？](#css-多列等高如何实现)
+    - [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
 
-## CSS3 新特性
+## 概念
+### CSS3 新特性
 
 [参考链接](https://www.cnblogs.com/xkweb/p/5862612.html)
 
@@ -88,7 +91,7 @@
 6. 多列：column-count, column-gap, column-rule
 7. 用户界面：resize, box-sizing, outline-offset
 
-## CSS 选择器
+### CSS 选择器
 （1）id选择器（#myid）
 （2）类选择器（.myclassname）
 （3）标签选择器（div,h1,p）
@@ -101,7 +104,7 @@
 （10）伪元素选择器（::before、::after）
 （11）通配符选择器（*）
 
-## CSS 盒模型
+### CSS 盒模型
 
 盒模型总共包括 4 个部分：
 
@@ -119,7 +122,24 @@
   
   如果在ie6，7，8中DOCTYPE缺失会将盒子模型解释为IE盒子模型。若在页面中声明了DOCTYPE类型，所有的浏览器都会把盒模型解释为W3C盒模型。
 
-## 初始化css样式的目的
+
+### 包含块 containing block
+经常来说，包含块就是一个元素最近的块级祖先
+I.如果position是static, relative, sticky，那么包含块要么由它最近的祖先块级元素的content边缘组成，要么建立格式化上下文。
+II.如果position是absolute，那么包含块由它最近的非static祖先元素的padding边缘组成。
+III.如果position是fixed，在连续媒体的情况下是viewport，在分页媒体的情况下是页区域page area
+IV.如果position是absolute或fixed，包含块也可能由满足以下条件的最近祖先元素的padding边缘组成：
+i.  transform 或 perspective 的值不是 none
+ii. will-change 的值是 transform 或 perspective
+iii.filter 的值不是 none 或 will-change 的值是 filter (只在Firefox下生效).
+iv. contain 的值是 paint 
+v. backdrop-filter 的值不是 none (e.g. backdrop-filter: blur(10px);)
+
+reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
+
+
+## 应用
+### 初始化css样式的目的
 因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面显示差异。
 当然，初始化样式会对SEO(Search Engine Optimization)有一定的影响，所以需要力求影响最小的情况下初始化。
 最简单的初始化方法：*{padding:0;margin:0;}，但是这个会产生较大影响，所以不建议这么初始化。
@@ -233,22 +253,7 @@ table {
   border-spacing: 0;
 }
 ```
-
-## 包含块 containing block
-经常来说，包含块就是一个元素最近的块级祖先
-I.如果position是static, relative, sticky，那么包含块要么由它最近的祖先块级元素的content边缘组成，要么建立格式化上下文。
-II.如果position是absolute，那么包含块由它最近的非static祖先元素的padding边缘组成。
-III.如果position是fixed，在连续媒体的情况下是viewport，在分页媒体的情况下是页区域page area
-IV.如果position是absolute或fixed，包含块也可能由满足以下条件的最近祖先元素的padding边缘组成：
-i.  transform 或 perspective 的值不是 none
-ii. will-change 的值是 transform 或 perspective
-iii.filter 的值不是 none 或 will-change 的值是 filter (只在Firefox下生效).
-iv. contain 的值是 paint 
-v. backdrop-filter 的值不是 none (e.g. backdrop-filter: blur(10px);)
-
-reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
-
-## 设置一个元素的背景颜色，背景颜色会填充哪些区域
+### 设置一个元素的背景颜色，背景颜色会填充哪些区域
 
 > border + padding + content
 
@@ -261,7 +266,7 @@ div {
 }
 ```
 
-## margin/padding 设置百分比是相对谁的
+### margin/padding 设置百分比是相对谁的
 
 > 假设一个 div, 宽 400px, 高 200px, 它有个子 div 的 margin:10%, 求它的 margin 的 top, right, bottom, left 是多少？
 
@@ -289,7 +294,7 @@ div {
 
 总结：margin/padding 设置百分比都是相对于父盒子的宽度(width 属性)
 
-## link 和 @import 的区别
+### link 和 @import 的区别
 
 1. link 是 HTML 标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等；@import 是 CSS 提供的语法，只有导入样式表的作用。
 2. 加载页面时，link 标签引入的 CSS 被同时加载；@import 引入的 CSS 将在页面加载完毕后被加载。
@@ -297,12 +302,12 @@ div {
 4. 可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用@import 的方式插入样式。
 5. link 引入的样式权重大于@import 引入的样式。
 
-## CSS 选择器的解析规则
+### CSS 选择器的解析规则
 
 从右向左
 从右往左进行解析的好处:就是从右往左进行匹配的时候，匹配的全部是 DOM 元素的父节点，而从左往右进行匹配的时候时候，匹配的全部是 DOM 元素的子节点，这样就避免了 HTML 与 CSS 没有下载完需要进行等待的情形。且遍历查找的节点都会少很多这样会提高查找选择器所对应的元素的效率
 
-## CSS 选择器优先级
+### CSS 选择器优先级
 
 选择器按优先级先后排列：!important>内联>id>class = 属性 = 伪类 >标签 = 伪元素 > 通配符 \*
 
@@ -328,13 +333,13 @@ div {
 （11）!important（权重），它没有特殊性值，但它的优先级是最高的，为了方便记忆，可以认为它的特殊性值为1,0,0,0,0。
 
 
-##  ::before 和::after这 2 个伪元素的作用和区别
+###  ::before 和::after这 2 个伪元素的作用和区别
 效果上，::before可以把需插入的内容插入到元素的其他内容之前，::after让插入内容在其他内容之后。
 代码顺序上，::after生成的内容比::before生成的内容靠后。
 堆栈视角上，::after生成的内容会在::before生成的内容之上。
 
 
-## 伪类、伪元素的作用与区别
+### 伪类、伪元素的作用与区别
 
 在css3中使用单冒号来表示伪类，用双冒号来表示伪元素。但是为了兼容已有的伪元素的写法，比如:first-line、:firstletter、:before、:after等，在一些浏览器中也可以使用单冒号来表示伪元素。
 css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档树中的部分，比如，一句
@@ -344,7 +349,7 @@ css引入伪类和伪元素概念是为了格式化文档树以外的信息。�
 
 伪元素一般匹配特殊的位置，比如after、before等，用于创建一些不在文档树中的元素，并为其添加样式。它们允许我们为元素的某些部分设置样式。比如说，我们可以通过::before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。
 
-## CSS3新增伪类
+### CSS3新增伪类
 （1）elem:nth-child(n)选中父元素下的第n个子元素，并且这个子元素的标签名为elem，n可以接受具体的数值，也可以接受函数。
 （2）elem:nth-last-child(n)作用同上，不过是从后开始查找。
 （3）elem:last-child选中最后一个子元素。
@@ -360,7 +365,7 @@ css引入伪类和伪元素概念是为了格式化文档树以外的信息。�
 （13）:disabled 控制表单控件的禁用状态。
 （14）:checked单选框或复选框被选中。
 
-## 关于伪类 LVHA 的解释
+### 关于伪类 LVHA 的解释
 LVHA指a标签的四种状态：链接访问前、链接访问后、鼠标滑过、激活，分别对应四种伪类:link、:visited、:hover、:active；
 
 当链接未访问过时：
@@ -373,7 +378,7 @@ LVHA指a标签的四种状态：链接访问前、链接访问后、鼠标滑过
 这个顺序能不能变？可以，但也只有:link和:visited可以交换位置，因为一个链接要么访问过要么没访问过，不可能同时满足，也就不存在覆盖的问题。
 
 
-## CSS 中哪些属性可以继承
+### CSS 中哪些属性可以继承
 
 每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值来作为自己的值。当元素的一个非继承属性(在 Mozilla code 里有时称之为reset property) 没有指定值时，则取属性的初始值 initial value（该值在该属性的概述里被指定）。
 
@@ -397,7 +402,7 @@ visibility
 当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。inherit
 关键字用于显式地指定继承性，可用于任何继承性/非继承性属性。
 
-## CSS 清除浮动的方式
+### CSS 清除浮动的方式
 
 1. 额外标签法
    > 在需要清除浮动的元素后面添加一个空白标签，设置类名 clear，设置`clear: both;`即可
@@ -422,12 +427,12 @@ visibility
    }
    ```
 
-## 清除浮动的原理
+### 清除浮动的原理
 
 - clear 属性清除浮动：clear 属性规定元素盒子的边不能和浮动元素相邻。该属性只能影响使用清除的元素本身，不能影响其他元素。换而言之，如果已经存在浮动元素的话，那么该元素就不会像原本元素一样受其影响了。
 - 其他的可以归为一类，都是通过触发 BFC 来实现的
 
-## BFC 的概念, 哪些元素可以触发 BFC
+### BFC 的概念, 哪些元素可以触发 BFC
 
 > BFC 即 Block Formatting Context (块格式化上下文)， 是 Web 页面的可视化 CSS 渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。
 
@@ -449,40 +454,40 @@ visibility
 - 多列容器（元素的 column-count 或 column-width 不为 auto，包括 - column-count 为 1）
 - column-span 为 all 的元素始终会创建一个新的 BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
 
-## 脱离文档流的方式
+### 脱离文档流的方式
 
 - float
 - position: absolute
 - position: fixed
 
-## position取值
+### position取值
 
-### 定位元素 positioned element:除了static外的
-#### static
+#### 定位元素 positioned element:除了static外的
+##### static
 默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
 
-### 相对定位元素  
-#### relative
+#### 相对定位元素  
+##### relative
 生成相对定位的元素，相对于文档正常流所在位置进行定位。元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
 当z-index不是auto的时候，会创造新的层叠上下文。
 
-### 绝对定位元素
-#### absolute
+#### 绝对定位元素
+##### absolute
 生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。即离自己这一级元素最近一级position设置为absolute或者relative的父元素的box的左上角为原点。
 
-#### fixed（老IE不支持）
+##### fixed（老IE不支持）
 生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于viewport进行定位。元素的位置在屏幕滚动时不会改变。当元素祖先的 transform, perspective 或 filter 属性非 none 时，容器的视口改为该祖先。元素会出现在每页的固定位置。
 fixed 属性总是创建新的层叠上下文。 
 
-### 黏性定位元素 stickily positioned element
-#### sticky
+#### 黏性定位元素 stickily positioned element
+##### sticky
 元素根据正常文档流进行定位，然后相对它的最近滚动祖先 nearest scrolling ancestor和 containing block (最近块级祖先 nearest block-level ancestor)，包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
 sticky值总是创建一个新的层叠上下文。一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（滚动机制：overflow 是 hidden, scroll, auto, 或 overlay的元素）。
 
 reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
 
 
-## display 有哪些值？说明他们的作用
+### display 有哪些值？说明他们的作用
 
 > display 属性可以设置元素的显示类型 display types。元素的外部显示类型 outer display types 将决定该元素在流式布局中的表现（块级或内联元素）；元素的内部显示类型 inner display types 可以控制其子元素的布局（例如：flow layout，grid 或 flex）。
 
@@ -504,7 +509,7 @@ reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
 reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/display
 
 
-## float 的元素display 是什么
+### float 的元素display 是什么
 
 参考文档：https://juejin.cn/post/6911682147000057870
 
@@ -523,7 +528,7 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 <span>456</span>
 ```
 
-## inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
+### inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
 
 ```css
 Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
@@ -556,7 +561,7 @@ img 是可替换元素。
   CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
 ```
 
-## flex-box 
+### flex-box 
 
 flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目。
 
@@ -582,7 +587,7 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 - flex 属性是 flex-grow，flex-shrink 和 flex-basis 的简写，默认值为 01auto。
 - align-self 属性允许单个item有与其他item不一样的对齐方式，可覆盖 align-items 属性。默认值为auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
 
-## `visibility: hidden`, `opacity: 0`, `display: none`
+### `visibility: hidden`, `opacity: 0`, `display: none`
 
 ```css
 opacity: 0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如 click 事件，那么点击该区域，也能触发点击事件的；
@@ -592,7 +597,7 @@ visibility: hidden，该元素隐藏起来了，但不会改变页面布局，�
 display: none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样。
 ```
 
-## 了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法
+### 了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法
 
 DOM 的变化影响到了预算内宿的几何属性比如宽高，浏览器重新计算元素的几何属性，其他元素的几何属性也会受到影响，浏览器需要重新构造渲染书，这个过程称之为重排，浏览器将受到影响的部分重新绘制在屏幕上 的过程称为重绘，引起重排重绘的原因有：
 
@@ -609,7 +614,7 @@ DOM 的变化影响到了预算内宿的几何属性比如宽高，浏览器重�
 - 对于多次重排的元素，比如说动画。使用绝对定位脱离文档流，使其不影响其他元素
 - "editor.renderIndentGuides": true
 
-## z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别
+### z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别
 
 参考链接：[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
 
@@ -643,7 +648,7 @@ DOM 的变化影响到了预算内宿的几何属性比如宽高，浏览器重�
 1. 当 Z-index 的值设置为 auto 时,不建立新的堆叠上下文,当前堆叠上下文中生成的 div 的堆叠级别与其父项的框相同。
 2. 当 Z-index 的值设置为一个整数时,该整数是当前堆叠上下文中生成的 div 的堆栈级别。该框还建立了其堆栈级别的本地堆叠上下文。这意味着后代的 z-index 不与此元素之外的元素的 z-index 进行比较。
 
-## vw 和 vh 的概念
+### vw 和 vh 的概念
 
 vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是 css3 的一部分，基于视图窗口的单位，除了 vw、vh 还有 vmin、vmax。
 
@@ -652,7 +657,7 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 - vmin: 选取 vw 和 vh 中最小的那个,即在手机竖屏时，1vmin=1vw
 - vmax:选取 vw 和 vh 中最大的那个 ,即在手机竖屏时，1vmax=1vh
 
-## 经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧
+### 经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧
 
 ```css
 （1）png24位的图片在iE6浏览器上出现背景
@@ -701,7 +706,7 @@ Firefox下，event对象有pageX、pageY属性，但是没有x、y属性。
 式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。
 ```
 
-## 简单介绍使用图片 base64 编码的优点和缺点
+### 简单介绍使用图片 base64 编码的优点和缺点
 
 ```css
 base64编码是一种图片处理格式，通过特定的算法将图片编码成一长串字符串，在页面上显示的时候，可以用该字符串来代替图片的
@@ -724,13 +729,13 @@ url属性。
 一般一些网站的小图标可以使用base64图片来引入。
 ```
 
-## 如果需要手动写动画，你认为最小时间间隔是多久，为什么
+### 如果需要手动写动画，你认为最小时间间隔是多久，为什么
 
 ```css
 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms＝16.7ms
 ```
 
-## 阐述一下 CSSSprites
+### 阐述一下 CSSSprites
 
 ```css
 将一个页面涉及到的所有图片都包含到一张大图中去，然后利用CSS的background-image，background-repeat，background-position的组合进行背景定位。
@@ -746,7 +751,7 @@ url属性。
   维护麻烦，修改一个图片可能需要重新布局整个图片，样式
 ```
 
-## 画一条 0.5px 的线
+### 画一条 0.5px 的线
 
 参考文档：https://juejin.cn/post/6844903582370643975
 
@@ -769,7 +774,7 @@ url属性。
 
 ```
 
-## transition 和 animation 的区别
+### transition 和 animation 的区别
 
 ```css
 transition关注的是CSSproperty的变化，property值和时间的关系是一个三次贝塞尔曲线。
@@ -777,7 +782,7 @@ transition关注的是CSSproperty的变化，property值和时间的关系是一
 animation作用于元素本身而不是样式属性，可以使用关键帧的概念，应该说可以实现更自由的动画效果。
 ```
 
-## 如何实现单行／多行文本溢出的省略（...）
+### 如何实现单行／多行文本溢出的省略（...）
 
 ```css
 /*单行文本溢出*/
@@ -805,7 +810,7 @@ p:after {
 }
 ```
 
-## 常见的元素隐藏方式
+### 常见的元素隐藏方式
 
 1. 使用 display:none;隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。
 
@@ -821,7 +826,7 @@ p:after {
 
 7. 通过 transform:scale(0,0)来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
 
-## CSS3 @font-face 有用过吗
+### CSS3 @font-face 有用过吗
 
 @font-face 语句是 css 中的一个功能模块，用于实现网页字体多样性(设计者可随意指定字体，不需要考虑浏览者电脑上是否安装)。
 语法：
@@ -836,7 +841,7 @@ p:after {
 }
 ```
 
-## CSS 实现隔行变色
+### CSS 实现隔行变色
 
 ```css
 /* 方法一 */
@@ -861,7 +866,7 @@ li:nth-of-type(even) {
 - nth-child() 就是根据元素的个数来计算的
 - nth-of-type() 是根据类型来计算的，也就是 `li:nth-of-type(2)` 表示的是第 2 个 li 标签
 
-## 一个满屏品字布局如何设计
+### 一个满屏品字布局如何设计
 
 ```css
 html,
@@ -901,9 +906,9 @@ body {
 <div class="box3"></div>
 ```
 
-## CSS 画三角形
+### CSS 画三角形
 
-### 方法一 使用border
+#### 方法一 使用border
 采用的是相邻边框连接处的均分原理。
 将元素的宽高设为0，只设置border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
 ```css
@@ -916,7 +921,7 @@ div {
 }
 ```
 
-### 方法二 使用linear-gradient
+#### 方法二 使用linear-gradient
 ```css
 .NW {
   width:100px;
@@ -926,7 +931,7 @@ div {
 }
 ```
 
-## CSS 画扇形
+### CSS 画扇形
 
 ```css
 div {
@@ -941,7 +946,7 @@ div {
 效果图：
 ![扇形](./../images/扇形.png)
 
-## CSS 画正方体
+### CSS 画正方体
 
 ```CSS
 .cube {
@@ -1006,7 +1011,7 @@ div {
 效果图：
 ![正方体](./../images/正方体.png)
 
-## CSS 实现一个硬币旋转的效果
+### CSS 实现一个硬币旋转的效果
 
 > [参考网站](https://wow.techbrood.com/fiddle/1510)
 
@@ -1053,10 +1058,10 @@ div {
   }
 ```
 
-## CSS 实现水平居中
+### CSS 实现水平居中
 需要分为行内元素和块级元素讨论
 
-### 行内元素：
+#### 行内元素：
 利用text-align: center;
 ```css
 .center {
@@ -1064,8 +1069,8 @@ div {
 }
 ```
 
-### 块级元素
-#### 方法一：
+#### 块级元素
+##### 方法一：
 利用margin: 0 auto;
 ```css
 .center {
@@ -1073,7 +1078,7 @@ div {
 }
 ```
 
-#### 方法二：
+##### 方法二：
 将块级元素转换成行内元素
 ```css
 .outer {
@@ -1085,7 +1090,7 @@ div {
 }
 ```
 
-#### 方法三：
+##### 方法三：
 利用flex-box
 ```css
 .outer {
@@ -1098,7 +1103,7 @@ div {
 }
 ```
 
-## CSS 实现垂直居中
+### CSS 实现垂直居中
 
 - 定位 + 负边距 知道元素高度时可以采用
 ```css
@@ -1192,7 +1197,7 @@ div {
 }
 ```
 
-## CSS 实现两列固定，中间自适应的布局
+### CSS 实现两列固定，中间自适应的布局
 
 ![三栏布局效果图](../images/三栏布局效果图.png)
 
@@ -1295,7 +1300,7 @@ HTML 代码如下：
   }
   ```
 
-## 实现自适应九宫格
+### 实现自适应九宫格
 
 ```html
 <!DOCTYPE html>
@@ -1343,7 +1348,7 @@ HTML 代码如下：
 </html>
 ```
 
-## 屏幕里面内容未占满的时候 footer 固定在屏幕可视区域的底部。占满的时候显示在网页的最底端
+### 屏幕里面内容未占满的时候 footer 固定在屏幕可视区域的底部。占满的时候显示在网页的最底端
 
 - 方式一
 
@@ -1410,12 +1415,12 @@ HTML 代码如下：
 </div>
 ```
 
-## CSS 多列等高如何实现？
+### CSS 多列等高如何实现？
 grid,flex,table
 
 利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器超出隐藏（overflow:hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
 
-## li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
+### li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
 
 浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。而为了美观。我们通常是一
 个<li>放在一行，这导致<li>换行后产生换行字符，它变成一个空格，占用了一个字符的宽度。
