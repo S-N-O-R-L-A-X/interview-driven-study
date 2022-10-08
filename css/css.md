@@ -13,13 +13,8 @@
     - [CSS 中哪些属性可以继承](#css-中哪些属性可以继承)
     - [CSS 盒模型](#css-盒模型)
     - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
-    - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
+    - [绝对定位元素与非绝对定位元素的百分比计算的区别](#绝对定位元素与非绝对定位元素的百分比计算的区别)
     - [link 和 @import 的区别](#link-和-import-的区别)
-    - [包含块 containing block](#包含块-containing-block)
-    - [层叠上下文 stacking context](#层叠上下文-stacking-context)
-    - [连续媒体 continuous media](#连续媒体-continuous-media)
-    - [flex-box](#flex-box)
-    - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
     - [position取值](#position取值)
       - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
         - [static](#static)
@@ -30,6 +25,11 @@
         - [fixed（老IE不支持）](#fixed老ie不支持)
       - [黏性定位元素 stickily positioned element](#黏性定位元素-stickily-positioned-element)
         - [sticky](#sticky)
+    - [包含块 containing block](#包含块-containing-block)
+    - [层叠上下文 stacking context](#层叠上下文-stacking-context)
+    - [连续媒体 continuous media](#连续媒体-continuous-media)
+    - [flex-box](#flex-box)
+    - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
     - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
@@ -243,7 +243,10 @@ div {
 }
 ```
 
-### margin/padding 设置百分比是相对谁的
+### 绝对定位元素与非绝对定位元素的百分比计算的区别
+
+绝对定位元素的宽高百分比是相对于临近的position不为static的祖先元素的padding box来计算的。
+非绝对定位元素的宽高百分比则是相对于父元素的content box来计算的。
 
 > 假设一个 div, 宽 400px, 高 200px, 它有个子 div 的 margin:10%, 求它的 margin 的 top, right, bottom, left 是多少？
 
@@ -278,6 +281,33 @@ div {
 3. @import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 标签作为 HTML 元素，不存在兼容性问题。
 4. 可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用@import 的方式插入样式。
 5. link 引入的样式权重大于@import 引入的样式。
+
+
+### position取值
+
+#### 定位元素 positioned element:除了static外的
+##### static
+默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
+
+#### 相对定位元素  
+##### relative
+生成相对定位的元素，相对于文档正常流所在位置进行定位。元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
+当z-index不是auto的时候，会创造新的层叠上下文。
+
+#### 绝对定位元素
+##### absolute
+生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。即离自己这一级元素最近一级position设置为absolute或者relative的父元素的box的左上角为原点。
+
+##### fixed（老IE不支持）
+生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于viewport进行定位。元素的位置在屏幕滚动时不会改变。当元素祖先的 transform, perspective 或 filter 属性非 none 时，容器的视口改为该祖先。元素会出现在每页的固定位置。
+fixed 属性总是创建新的层叠上下文。 
+
+#### 黏性定位元素 stickily positioned element
+##### sticky
+元素根据正常文档流进行定位，然后相对它的最近滚动祖先 nearest scrolling ancestor和 containing block (最近块级祖先 nearest block-level ancestor)，包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
+sticky值总是创建一个新的层叠上下文。一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（滚动机制：overflow 是 hidden, scroll, auto, 或 overlay的元素）。
+
+reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
 
 ### 包含块 containing block
 经常来说，包含块就是一个元素最近的块级祖先
@@ -373,34 +403,6 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 - 网格元素（display 为 grid 或 inline-grid 元素的直接子元素）
 - 多列容器（元素的 column-count 或 column-width 不为 auto，包括 - column-count 为 1）
 - column-span 为 all 的元素始终会创建一个新的 BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
-
-
-### position取值
-
-#### 定位元素 positioned element:除了static外的
-##### static
-默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
-
-#### 相对定位元素  
-##### relative
-生成相对定位的元素，相对于文档正常流所在位置进行定位。元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
-当z-index不是auto的时候，会创造新的层叠上下文。
-
-#### 绝对定位元素
-##### absolute
-生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。即离自己这一级元素最近一级position设置为absolute或者relative的父元素的box的左上角为原点。
-
-##### fixed（老IE不支持）
-生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于viewport进行定位。元素的位置在屏幕滚动时不会改变。当元素祖先的 transform, perspective 或 filter 属性非 none 时，容器的视口改为该祖先。元素会出现在每页的固定位置。
-fixed 属性总是创建新的层叠上下文。 
-
-#### 黏性定位元素 stickily positioned element
-##### sticky
-元素根据正常文档流进行定位，然后相对它的最近滚动祖先 nearest scrolling ancestor和 containing block (最近块级祖先 nearest block-level ancestor)，包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
-sticky值总是创建一个新的层叠上下文。一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（滚动机制：overflow 是 hidden, scroll, auto, 或 overlay的元素）。
-
-reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
-
 
 ### display 有哪些值？说明他们的作用
 
