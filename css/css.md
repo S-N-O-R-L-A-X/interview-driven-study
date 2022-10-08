@@ -27,6 +27,7 @@
         - [sticky](#sticky)
     - [包含块 containing block](#包含块-containing-block)
     - [层叠上下文 stacking context](#层叠上下文-stacking-context)
+    - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
     - [连续媒体 continuous media](#连续媒体-continuous-media)
     - [flex-box](#flex-box)
     - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
@@ -39,14 +40,13 @@
       - [collapse](#collapse)
     - [`visibility: hidden`, `opacity: 0`, `display: none`的区别](#visibility-hidden-opacity-0-display-none的区别)
     - [`width:auto` 和 `width:100%`的区别](#widthauto-和-width100的区别)
+    - [vw 和 vh 的概念](#vw-和-vh-的概念)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动的方式](#css-清除浮动的方式)
     - [清除浮动的原理](#清除浮动的原理)
     - [脱离文档流的方式](#脱离文档流的方式)
     - [了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法](#了解重绘和重排吗知道怎么去减少重绘和重排吗让文档脱离文档流有哪些方法)
-    - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
-    - [vw 和 vh 的概念](#vw-和-vh-的概念)
     - [经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧](#经常遇到的浏览器的兼容性有哪些原因解决方法是什么常用-hack-的技巧)
     - [简单介绍使用图片 base64 编码的优点和缺点](#简单介绍使用图片-base64-编码的优点和缺点)
     - [如果需要手动写动画，你认为最小时间间隔是多久，为什么](#如果需要手动写动画你认为最小时间间隔是多久为什么)
@@ -350,6 +350,40 @@ reference:
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
 https://dev.opera.com/articles/css-will-change-property/
 
+### z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别
+
+参考链接：[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
+
+> z-index 属性设置元素的堆叠顺序，且只在属性 position: relative/absolute/fixed 的时候才生效。
+> `z-index: auto` 是默认值，与`z-index: 0`是有区别的：
+> `z-index: 0` 会创建一个新的堆叠上下文，而 `z-index: auto` 不会创建新的堆叠上下文
+
+举例：考虑如下这种情况
+
+```html
+<div class="A">
+  <div class="a"></div>
+</div>
+<div class="B">
+  <div class="b"></div>
+</div>
+```
+
+![z-index1](../images/z-index1.png)
+
+> 上图中 div 的`z-index`均为整数的时候 div(a)的`z-index`虽然比 div(B)大，但是 div(A)和 div(a)是在一个堆叠上下文，而 div(B)和 div(b)是在一个堆叠上下文，这两个堆叠上下文是通过父级也就是 div(A)和 div(B)的`z-index`来决定层叠顺序的。
+
+---
+
+![z-index1](../images/z-index2.png)
+
+> 上图将 div(A)的 z-index 设置为 auto，这时候因为`z-index: auto` 不会创建新的堆叠上下文，因而 div(a)的`z-index`比 div(B)大，所以 div(a)会在 div(B)的上面
+
+总结：
+
+1. 当 Z-index 的值设置为 auto 时,不建立新的堆叠上下文,当前堆叠上下文中生成的 div 的堆叠级别与其父项的框相同。
+2. 当 Z-index 的值设置为一个整数时,该整数是当前堆叠上下文中生成的 div 的堆栈级别。该框还建立了其堆栈级别的本地堆叠上下文。这意味着后代的 z-index 不与此元素之外的元素的 z-index 进行比较。
+
 ### 连续媒体 continuous media
 连续媒体是源与终点之间的时间联系数据。
 最常见的连续媒体就是音频和视频。
@@ -507,6 +541,15 @@ display: none，把元素隐藏起来，并且会改变页面布局，可以理�
 
 `width:100%`会使元素box的宽度等于父元素的content box的宽度。
 `width:auto`会使元素撑满整个父元素，margin、border、padding、content区域会自动分配水平空间。
+
+### vw 和 vh 的概念
+
+vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是 css3 的一部分，基于视图窗口的单位，除了 vw、vh 还有 vmin、vmax。
+
+- vw:1vw 等于视口宽度的 1%
+- vh:1vh 等于视口高度的 1%
+- vmin: 选取 vw 和 vh 中最小的那个,即在手机竖屏时，1vmin=1vw
+- vmax:选取 vw 和 vh 中最大的那个 ,即在手机竖屏时，1vmax=1vh
 
 ## 应用
 ### 初始化css样式的目的
@@ -677,49 +720,6 @@ DOM 的变化影响到了预算内宿的几何属性比如宽高，浏览器重�
 - 对于多次重排的元素，比如说动画。使用绝对定位脱离文档流，使其不影响其他元素
 - "editor.renderIndentGuides": true
 
-### z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别
-
-参考链接：[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
-
-> z-index 属性设置元素的堆叠顺序，且只在属性 position: relative/absolute/fixed 的时候才生效。
-> `z-index: auto` 是默认值，与`z-index: 0`是有区别的：
-> `z-index: 0` 会创建一个新的堆叠上下文，而 `z-index: auto` 不会创建新的堆叠上下文
-
-举例：考虑如下这种情况
-
-```html
-<div class="A">
-  <div class="a"></div>
-</div>
-<div class="B">
-  <div class="b"></div>
-</div>
-```
-
-![z-index1](../images/z-index1.png)
-
-> 上图中 div 的`z-index`均为整数的时候 div(a)的`z-index`虽然比 div(B)大，但是 div(A)和 div(a)是在一个堆叠上下文，而 div(B)和 div(b)是在一个堆叠上下文，这两个堆叠上下文是通过父级也就是 div(A)和 div(B)的`z-index`来决定层叠顺序的。
-
----
-
-![z-index1](../images/z-index2.png)
-
-> 上图将 div(A)的 z-index 设置为 auto，这时候因为`z-index: auto` 不会创建新的堆叠上下文，因而 div(a)的`z-index`比 div(B)大，所以 div(a)会在 div(B)的上面
-
-总结：
-
-1. 当 Z-index 的值设置为 auto 时,不建立新的堆叠上下文,当前堆叠上下文中生成的 div 的堆叠级别与其父项的框相同。
-2. 当 Z-index 的值设置为一个整数时,该整数是当前堆叠上下文中生成的 div 的堆栈级别。该框还建立了其堆栈级别的本地堆叠上下文。这意味着后代的 z-index 不与此元素之外的元素的 z-index 进行比较。
-
-### vw 和 vh 的概念
-
-vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是 css3 的一部分，基于视图窗口的单位，除了 vw、vh 还有 vmin、vmax。
-
-- vw:1vw 等于视口宽度的 1%
-- vh:1vh 等于视口高度的 1%
-- vmin: 选取 vw 和 vh 中最小的那个,即在手机竖屏时，1vmin=1vw
-- vmax:选取 vw 和 vh 中最大的那个 ,即在手机竖屏时，1vmax=1vh
-
 ### 经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧
 
 ```css
@@ -771,26 +771,16 @@ Firefox下，event对象有pageX、pageY属性，但是没有x、y属性。
 
 ### 简单介绍使用图片 base64 编码的优点和缺点
 
-```css
-base64编码是一种图片处理格式，通过特定的算法将图片编码成一长串字符串，在页面上显示的时候，可以用该字符串来代替图片的
-url属性。
-
+base64编码是一种图片处理格式，通过特定的算法将图片编码成一长串字符串，在页面上显示的时候，可以用该字符串来代替图片的url属性。
 使用base64的优点是：
-
 （1）减少一个图片的HTTP请求
 
 使用base64的缺点是：
-
-（1）根据base64的编码原理，编码后的大小会比原文件大小大1/3，如果把大图片编码到html/css中，不仅会造成文件体
-积的增加，影响文件的加载速度，还会增加浏览器对html或css文件解析渲染的时间。
-
-（2）使用base64无法直接缓存，要缓存只能缓存包含base64的文件，比如HTML或者CSS，这相比域直接缓存图片的效果要
-差很多。
-
-（3）兼容性的问题，ie8以前的浏览器不支持。
-
+（1）根据base64的编码原理，编码后的大小会比原文件大小大1/3，如果把大图片编码到html/css中，不仅会造成文件体积的增加，影响文件的加载速度，还会增加浏览器对html或css文件解析渲染的时间。
+（2）使用base64无法直接缓存，要缓存只能缓存包含base64的文件，比如HTML或者CSS，这相比域直接缓存图片的效果要差很多。
+（3）兼容性的问题。ie8以前的浏览器不支持。
 一般一些网站的小图标可以使用base64图片来引入。
-```
+
 
 ### 如果需要手动写动画，你认为最小时间间隔是多久，为什么
 
