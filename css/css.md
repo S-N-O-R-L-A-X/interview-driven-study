@@ -33,6 +33,10 @@
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
     - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
+    - [visibility](#visibility)
+      - [visible](#visible)
+      - [hidden](#hidden)
+      - [collapse](#collapse)
     - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
@@ -470,6 +474,23 @@ img 是可替换元素。
   <applet>（已废弃）
   CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
 ```
+
+### visibility
+三个取值
+
+#### visible
+元素正常显示
+#### hidden
+隐藏元素，但是其他元素的布局不改变，且此元素无法被focus。但若将其子元素设为 visibility: visible，则该子元素依然可见。
+
+#### collapse
+collapse对于不同元素有不同效果。
+
+- 对于 <table> 行、列、列组和行组，表格的行或列将被隐藏并且不占用任何空间（与表格的行/列上的 `display: none` 效果相当）。但是，计算其他行和列的大小时，仍会像显示折叠行或列中的单元格一样进行计算。此值允许从表中快速删除行或列，而不强制重新计算整个表的宽度和高度。
+- 折叠的弹性项目和<ruby>将被隐藏，它们覆盖的空间会被删除。
+- 对于其他元素， collapse 处理和 hidden 一样.
+
+reference:https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 
 ### `visibility: hidden`, `opacity: 0`, `display: none`
 
