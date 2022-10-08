@@ -4,15 +4,6 @@
   - [概念](#概念)
     - [CSS3 新特性](#css3-新特性)
     - [CSS 选择器](#css-选择器)
-    - [CSS 盒模型](#css-盒模型)
-    - [包含块 containing block](#包含块-containing-block)
-    - [层叠上下文 stacking context](#层叠上下文-stacking-context)
-  - [连续媒体 continuous media](#连续媒体-continuous-media)
-  - [应用](#应用)
-    - [初始化css样式的目的](#初始化css样式的目的)
-    - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
-    - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
-    - [link 和 @import 的区别](#link-和-import-的区别)
     - [CSS 选择器的解析规则](#css-选择器的解析规则)
     - [CSS 选择器优先级](#css-选择器优先级)
     - [::before 和::after这 2 个伪元素的作用和区别](#before-和after这-2-个伪元素的作用和区别)
@@ -20,10 +11,15 @@
     - [CSS3新增伪类](#css3新增伪类)
     - [关于伪类 LVHA 的解释](#关于伪类-lvha-的解释)
     - [CSS 中哪些属性可以继承](#css-中哪些属性可以继承)
-    - [CSS 清除浮动的方式](#css-清除浮动的方式)
-    - [清除浮动的原理](#清除浮动的原理)
+    - [CSS 盒模型](#css-盒模型)
+    - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
+    - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
+    - [link 和 @import 的区别](#link-和-import-的区别)
+    - [包含块 containing block](#包含块-containing-block)
+    - [层叠上下文 stacking context](#层叠上下文-stacking-context)
+    - [连续媒体 continuous media](#连续媒体-continuous-media)
+    - [flex-box](#flex-box)
     - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
-    - [脱离文档流的方式](#脱离文档流的方式)
     - [position取值](#position取值)
       - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
         - [static](#static)
@@ -37,8 +33,12 @@
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
     - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
-    - [flex-box](#flex-box)
     - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
+  - [应用](#应用)
+    - [初始化css样式的目的](#初始化css样式的目的)
+    - [CSS 清除浮动的方式](#css-清除浮动的方式)
+    - [清除浮动的原理](#清除浮动的原理)
+    - [脱离文档流的方式](#脱离文档流的方式)
     - [了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法](#了解重绘和重排吗知道怎么去减少重绘和重排吗让文档脱离文档流有哪些方法)
     - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
@@ -106,6 +106,106 @@
 （10）伪元素选择器（::before、::after）
 （11）通配符选择器（*）
 
+### CSS 选择器的解析规则
+
+从右向左
+从右往左进行解析的好处:就是从右往左进行匹配的时候，匹配的全部是 DOM 元素的父节点，而从左往右进行匹配的时候时候，匹配的全部是 DOM 元素的子节点，这样就避免了 HTML 与 CSS 没有下载完需要进行等待的情形。且遍历查找的节点都会少很多这样会提高查找选择器所对应的元素的效率
+
+### CSS 选择器优先级
+
+选择器按优先级先后排列：!important>内联>id>class = 属性 = 伪类 >标签 = 伪元素 > 通配符 \*
+
+- important 声明 1,0,0,0
+- ID 选择器 0,1,0,0
+- 类选择器 0,0,1,0
+- 伪类选择器 0,0,1,0
+- 属性选择器 0,0,1,0
+- 标签选择器 0,0,0,1
+- 伪元素选择器 0,0,0,1
+- 通配符选择器 0,0,0,0
+
+（1）每个等级的初始值为0
+（2）每个等级的叠加为选择器出现的次数相加
+（3）不可进位，比如0,99,99,99
+（4）依次表示为：0,0,0,0
+（5）每个等级计数之间没关联
+（6）等级判断从左向右，如果某一位数值相同，则判断下一位数值
+（7）如果两个优先级相同，则最后出现的优先级高，!important也适用
+（8）通配符选择器的特殊性值为：0,0,0,0
+（9）继承样式优先级最低，通配符样式优先级高于继承样式
+（10）相同特殊性值的声明，根据样式引入的顺序，后声明的规则优先级高（距离元素出现最近的）
+（11）!important（权重），它没有特殊性值，但它的优先级是最高的，为了方便记忆，可以认为它的特殊性值为1,0,0,0,0。
+
+
+###  ::before 和::after这 2 个伪元素的作用和区别
+效果上，::before可以把需插入的内容插入到元素的其他内容之前，::after让插入内容在其他内容之后。
+代码顺序上，::after生成的内容比::before生成的内容靠后。
+堆栈视角上，::after生成的内容会在::before生成的内容之上。
+
+
+### 伪类、伪元素的作用与区别
+
+在css3中使用单冒号来表示伪类，用双冒号来表示伪元素。但是为了兼容已有的伪元素的写法，比如:first-line、:firstletter、:before、:after等，在一些浏览器中也可以使用单冒号来表示伪元素。
+css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档树中的部分，比如，一句
+话中的第一个字母，或者是列表中的第一个元素。
+
+伪类用于当已有的元素处于某个状态时，如hover、link等，为其添加对应的样式，这个状态是根据用户行为而动态变化的。比如说，当用户悬停在指定的元素时，我们可以通过:hover来描述这个元素的状态。
+
+伪元素一般匹配特殊的位置，比如after、before等，用于创建一些不在文档树中的元素，并为其添加样式。它们允许我们为元素的某些部分设置样式。比如说，我们可以通过::before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。
+
+### CSS3新增伪类
+（1）elem:nth-child(n)选中父元素下的第n个子元素，并且这个子元素的标签名为elem，n可以接受具体的数值，也可以接受函数。
+（2）elem:nth-last-child(n)作用同上，不过是从后开始查找。
+（3）elem:last-child选中最后一个子元素。
+（4）elem:only-child如果elem是父元素下唯一的子元素，则选中之。
+（5）elem:nth-of-type(n)选中父元素下第n个elem类型元素，n可以接受具体的数值，也可以接受函数。
+（6）elem:first-of-type选中父元素下第一个elem类型元素。
+（7）elem:last-of-type选中父元素下最后一个elem类型元素。
+（8）elem:only-of-type如果父元素下的子元素只有一个elem类型元素，则选中该元素。
+（9）elem:empty选中不包含子元素和内容的elem类型元素。
+（10）elem:target选择当前活动的elem元素。
+（11）:not(elem)选择非elem元素的每个元素。
+（12）:enabled 控制表单控件的禁用状态。
+（13）:disabled 控制表单控件的禁用状态。
+（14）:checked单选框或复选框被选中。
+
+### 关于伪类 LVHA 的解释
+LVHA指a标签的四种状态：链接访问前、链接访问后、鼠标滑过、激活，分别对应四种伪类:link、:visited、:hover、:active；
+
+当链接未访问过时：
+
+（1）当鼠标滑过a链接时，满足:link和:hover两种状态，要改变a标签的颜色，就必须将:hover伪类在:link伪类后面声明；
+（2）当鼠标点击激活a链接时，同时满足:link、:hover、:active三种状态，要显示a标签激活时的样式（:active），必须将:active声明放到:link和:hover之后。因此得出LVHA这个顺序。
+
+当链接访问过时，情况基本同上，只不过需要将:link换成:visited。
+
+这个顺序能不能变？可以，但也只有:link和:visited可以交换位置，因为一个链接要么访问过要么没访问过，不可能同时满足，也就不存在覆盖的问题。
+
+
+### CSS 中哪些属性可以继承
+
+每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值来作为自己的值。当元素的一个非继承属性(在 Mozilla code 里有时称之为reset property) 没有指定值时，则取属性的初始值 initial value（该值在该属性的概述里被指定）。
+
+有继承性的属性：
+（1）字体系列属性
+font、font-family、font-weight、fontsize、font-style、font-variant、fontstretch、font-size-adjust
+（2）文本系列属性
+text-indent、text-align、text-shadow、
+line-height、word-spacing、letterspacing、
+text-transform、direction、color
+（3）表格布局属性
+caption-side border-collapse empty-cells
+（4）列表属性
+list-style-type、list-style-image、liststyle-position、list-style
+（5）光标属性
+cursor
+（6）元素可见性
+visibility
+（7）还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
+
+当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。inherit
+关键字用于显式地指定继承性，可用于任何继承性/非继承性属性。
+
 ### CSS 盒模型
 
 盒模型总共包括 4 个部分：
@@ -124,6 +224,55 @@
   
   如果在ie6，7，8中DOCTYPE缺失会将盒子模型解释为IE盒子模型。若在页面中声明了DOCTYPE类型，所有的浏览器都会把盒模型解释为W3C盒模型。
 
+
+### 设置一个元素的背景颜色，背景颜色会填充哪些区域
+
+> border + padding + content
+
+```css
+div {
+  width: 100px;
+  height: 100px;
+  background-color: pink;
+  border: 5px dotted green;
+}
+```
+
+### margin/padding 设置百分比是相对谁的
+
+> 假设一个 div, 宽 400px, 高 200px, 它有个子 div 的 margin:10%, 求它的 margin 的 top, right, bottom, left 是多少？
+
+```css
+.outer {
+    width: 400px;
+    height: 200px;
+    background-color: red;
+    position: relative;
+}
+.inner {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    position: absolute;
+    margin: 10%;
+}
+
+<div class="outer">
+    <div class="inner"></div>
+</div>
+```
+
+效果是子盒子的 margin 为 40px 40px 40px 40px
+
+总结：margin/padding 设置百分比都是相对于父盒子的宽度(width 属性)
+
+### link 和 @import 的区别
+
+1. link 是 HTML 标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等；@import 是 CSS 提供的语法，只有导入样式表的作用。
+2. 加载页面时，link 标签引入的 CSS 被同时加载；@import 引入的 CSS 将在页面加载完毕后被加载。
+3. @import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 标签作为 HTML 元素，不存在兼容性问题。
+4. 可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用@import 的方式插入样式。
+5. link 引入的样式权重大于@import 引入的样式。
 
 ### 包含块 containing block
 经常来说，包含块就是一个元素最近的块级祖先
@@ -166,11 +315,169 @@ reference:
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
 https://dev.opera.com/articles/css-will-change-property/
 
-## 连续媒体 continuous media
+### 连续媒体 continuous media
 连续媒体是源与终点之间的时间联系数据。
 最常见的连续媒体就是音频和视频。
 连续媒体可以是实时的，也可以是流的。
 reference:https://developer.mozilla.org/en-US/docs/Glossary/Continuous_Media
+
+### flex-box 
+
+flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目。
+
+一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。我们可以使用flex-direction来指定主轴的方向。我们可以使用justify-content来指定元素在主轴(x轴)上的排列方式，使用align-items来指定元素在交叉轴(y轴)上的排列方式。还可以使用flex-wrap来规定当一行排列不下时的换行方式。
+
+对于容器中的item，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
+
+在container上存在六个属性
+
+- flex-direction 属性决定主轴的方向（即item的排列方向）。
+- flex-wrap 属性定义，如果一条轴线排不下，如何换行。
+- flex-flow 属性是 flex-direction 属性和 flex-wrap 属性的简写形式，默认值为 rownowrap。
+- justify-content 属性定义了item在主轴上的对齐方式。
+- align-items 属性定义item在交叉轴上如何对齐。
+- align-content 属性定义了多根轴线的对齐方式。如果item只有一根轴线，该属性不起作用。
+
+在item上也有六个属性
+
+- order 属性定义item的排列顺序。数值越小，排列越靠前，默认为 0。
+- flex-grow 属性定义item的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+- flex-shrink 属性定义了item的缩小比例，默认为 1，即如果空间不足，该item将缩小。
+- flex-basis 属性定义了在分配多余空间之前，item占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即item的本来大小。
+- flex 属性是 flex-grow，flex-shrink 和 flex-basis 的简写，默认值为 01auto。
+- align-self 属性允许单个item有与其他item不一样的对齐方式，可覆盖 align-items 属性。默认值为auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
+
+### BFC 的概念, 哪些元素可以触发 BFC
+
+> BFC 即 Block Formatting Context (块格式化上下文)， 是 Web 页面的可视化 CSS 渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。
+
+简单来说就是一个封闭的黑盒子，里面元素的布局不会影响外部。
+下列方式会创建块格式化上下文：
+
+- 根元素(\<html>)
+- 浮动元素（元素的 float 不是 none）
+- 绝对定位元素（元素的 position 为 absolute 或 fixed）
+- 行内块元素（元素的 display 为 inline-block）
+- 表格单元格（元素的 display 为 table-cell，HTML 表格单元格默认为该值）
+- 表格标题（元素的 display 为 table-caption，HTML 表格标题默认为该值）
+- 匿名表格单元格元素（元素的 display 为 table、table-row table-row-group、table-header-group、table-footer-group（分别是- HTML table、row、tbody、thead、tfoot 的默认属性）或 inline-table）
+- overflow 值不为 visible 的块元素
+- display 值为 flow-root 的元素
+- contain 值为 layout、content 或 paint 的元素
+- 弹性元素（display 为 flex 或 inline-flex 元素的直接子元素）
+- 网格元素（display 为 grid 或 inline-grid 元素的直接子元素）
+- 多列容器（元素的 column-count 或 column-width 不为 auto，包括 - column-count 为 1）
+- column-span 为 all 的元素始终会创建一个新的 BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
+
+
+### position取值
+
+#### 定位元素 positioned element:除了static外的
+##### static
+默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
+
+#### 相对定位元素  
+##### relative
+生成相对定位的元素，相对于文档正常流所在位置进行定位。元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
+当z-index不是auto的时候，会创造新的层叠上下文。
+
+#### 绝对定位元素
+##### absolute
+生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。即离自己这一级元素最近一级position设置为absolute或者relative的父元素的box的左上角为原点。
+
+##### fixed（老IE不支持）
+生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于viewport进行定位。元素的位置在屏幕滚动时不会改变。当元素祖先的 transform, perspective 或 filter 属性非 none 时，容器的视口改为该祖先。元素会出现在每页的固定位置。
+fixed 属性总是创建新的层叠上下文。 
+
+#### 黏性定位元素 stickily positioned element
+##### sticky
+元素根据正常文档流进行定位，然后相对它的最近滚动祖先 nearest scrolling ancestor和 containing block (最近块级祖先 nearest block-level ancestor)，包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
+sticky值总是创建一个新的层叠上下文。一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（滚动机制：overflow 是 hidden, scroll, auto, 或 overlay的元素）。
+
+reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
+
+
+### display 有哪些值？说明他们的作用
+
+> display 属性可以设置元素的显示类型 display types。元素的外部显示类型 outer display types 将决定该元素在流式布局中的表现（块级或内联元素）；元素的内部显示类型 inner display types 可以控制其子元素的布局（例如：flow layout，grid 或 flex）。
+
+- block
+  块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
+- none
+  元素不显示，并从文档流中移除。这会导致该元素及其所有子代元素不再被屏幕阅读技术 screen reading technology 访问。
+- inline
+  行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
+- inline-block
+  默认宽度为内容宽度，可以设置宽高，同行显示。
+- list-item
+  像块类型元素一样显示，并添加样式列表标记。
+- table
+  此元素会作为块级表格来显示。
+- inherit
+  规定应该从父元素继承 display 属性的值。
+
+reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/display
+
+
+### float 的元素display 是什么
+
+参考文档：https://juejin.cn/post/6911682147000057870
+
+```css
+float 和 absolute 会改变元素的 display 为 inline-block
+```
+
+举个例子验证一下
+
+```html
+span 是个行内元素，对行内元素设置宽高是不生效的，但是再加上了 float 属性之后，发现宽高生效了， 因此可以判断出 span
+由一个行内元素变成了一个块级/行内块级元素。 进一步判断为何是行内块元素？如果是块级元素应该独占一行，实际并不是，因而是
+**行内块元素**
+
+<span style="width: 100px; height: 100px; background-color: #ccc;">123</span>
+<span>456</span>
+```
+
+### inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
+
+```css
+Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
+
+Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding 在水平方向垂直方向都有效，前后无换行符
+
+Inline-block：能设置宽度高度，margin/padding 水平垂直方向 都有效，前后无换行符
+```
+
+```css
+img 是可替换元素。
+
+在 CSS 中，可替换元素（replaced element）的展现效果不是由 CSS 来控制的。这些元素是一种外部对象，它们外观的渲染，是独立于 CSS 的。
+简单来说，它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
+例如 `<iframe>` 元素，可能具有自己的样式表，但它们不会继承父文档的样式。
+
+典型的可替换元素有：
+  <iframe>
+  <video>
+  <embed>
+  <img>
+
+有些元素仅在特定情况下被作为可替换元素处理，例如：
+  <input> "image" 类型的 <input> 元素就像 <img> 一样可替换
+  <option>
+  <audio>
+  <canvas>
+  <object>
+  <applet>（已废弃）
+  CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
+```
+
+### `visibility: hidden`, `opacity: 0`, `display: none`
+
+opacity: 0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如 click 事件，那么点击该区域，也能触发点击事件的；
+
+visibility: hidden，该元素隐藏起来了，但不会改变页面布局，但是不会触发该元素已经绑定的事件；
+
+display: none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样。
 
 ## 应用
 ### 初始化css样式的目的
@@ -287,154 +594,6 @@ table {
   border-spacing: 0;
 }
 ```
-### 设置一个元素的背景颜色，背景颜色会填充哪些区域
-
-> border + padding + content
-
-```css
-div {
-  width: 100px;
-  height: 100px;
-  background-color: pink;
-  border: 5px dotted green;
-}
-```
-
-### margin/padding 设置百分比是相对谁的
-
-> 假设一个 div, 宽 400px, 高 200px, 它有个子 div 的 margin:10%, 求它的 margin 的 top, right, bottom, left 是多少？
-
-```css
-.outer {
-    width: 400px;
-    height: 200px;
-    background-color: red;
-    position: relative;
-}
-.inner {
-    width: 100px;
-    height: 100px;
-    background-color: green;
-    position: absolute;
-    margin: 10%;
-}
-
-<div class="outer">
-    <div class="inner"></div>
-</div>
-```
-
-效果是子盒子的 margin 为 40px 40px 40px 40px
-
-总结：margin/padding 设置百分比都是相对于父盒子的宽度(width 属性)
-
-### link 和 @import 的区别
-
-1. link 是 HTML 标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等；@import 是 CSS 提供的语法，只有导入样式表的作用。
-2. 加载页面时，link 标签引入的 CSS 被同时加载；@import 引入的 CSS 将在页面加载完毕后被加载。
-3. @import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 标签作为 HTML 元素，不存在兼容性问题。
-4. 可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用@import 的方式插入样式。
-5. link 引入的样式权重大于@import 引入的样式。
-
-### CSS 选择器的解析规则
-
-从右向左
-从右往左进行解析的好处:就是从右往左进行匹配的时候，匹配的全部是 DOM 元素的父节点，而从左往右进行匹配的时候时候，匹配的全部是 DOM 元素的子节点，这样就避免了 HTML 与 CSS 没有下载完需要进行等待的情形。且遍历查找的节点都会少很多这样会提高查找选择器所对应的元素的效率
-
-### CSS 选择器优先级
-
-选择器按优先级先后排列：!important>内联>id>class = 属性 = 伪类 >标签 = 伪元素 > 通配符 \*
-
-- important 声明 1,0,0,0
-- ID 选择器 0,1,0,0
-- 类选择器 0,0,1,0
-- 伪类选择器 0,0,1,0
-- 属性选择器 0,0,1,0
-- 标签选择器 0,0,0,1
-- 伪元素选择器 0,0,0,1
-- 通配符选择器 0,0,0,0
-
-（1）每个等级的初始值为0
-（2）每个等级的叠加为选择器出现的次数相加
-（3）不可进位，比如0,99,99,99
-（4）依次表示为：0,0,0,0
-（5）每个等级计数之间没关联
-（6）等级判断从左向右，如果某一位数值相同，则判断下一位数值
-（7）如果两个优先级相同，则最后出现的优先级高，!important也适用
-（8）通配符选择器的特殊性值为：0,0,0,0
-（9）继承样式优先级最低，通配符样式优先级高于继承样式
-（10）相同特殊性值的声明，根据样式引入的顺序，后声明的规则优先级高（距离元素出现最近的）
-（11）!important（权重），它没有特殊性值，但它的优先级是最高的，为了方便记忆，可以认为它的特殊性值为1,0,0,0,0。
-
-
-###  ::before 和::after这 2 个伪元素的作用和区别
-效果上，::before可以把需插入的内容插入到元素的其他内容之前，::after让插入内容在其他内容之后。
-代码顺序上，::after生成的内容比::before生成的内容靠后。
-堆栈视角上，::after生成的内容会在::before生成的内容之上。
-
-
-### 伪类、伪元素的作用与区别
-
-在css3中使用单冒号来表示伪类，用双冒号来表示伪元素。但是为了兼容已有的伪元素的写法，比如:first-line、:firstletter、:before、:after等，在一些浏览器中也可以使用单冒号来表示伪元素。
-css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档树中的部分，比如，一句
-话中的第一个字母，或者是列表中的第一个元素。
-
-伪类用于当已有的元素处于某个状态时，如hover、link等，为其添加对应的样式，这个状态是根据用户行为而动态变化的。比如说，当用户悬停在指定的元素时，我们可以通过:hover来描述这个元素的状态。
-
-伪元素一般匹配特殊的位置，比如after、before等，用于创建一些不在文档树中的元素，并为其添加样式。它们允许我们为元素的某些部分设置样式。比如说，我们可以通过::before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。
-
-### CSS3新增伪类
-（1）elem:nth-child(n)选中父元素下的第n个子元素，并且这个子元素的标签名为elem，n可以接受具体的数值，也可以接受函数。
-（2）elem:nth-last-child(n)作用同上，不过是从后开始查找。
-（3）elem:last-child选中最后一个子元素。
-（4）elem:only-child如果elem是父元素下唯一的子元素，则选中之。
-（5）elem:nth-of-type(n)选中父元素下第n个elem类型元素，n可以接受具体的数值，也可以接受函数。
-（6）elem:first-of-type选中父元素下第一个elem类型元素。
-（7）elem:last-of-type选中父元素下最后一个elem类型元素。
-（8）elem:only-of-type如果父元素下的子元素只有一个elem类型元素，则选中该元素。
-（9）elem:empty选中不包含子元素和内容的elem类型元素。
-（10）elem:target选择当前活动的elem元素。
-（11）:not(elem)选择非elem元素的每个元素。
-（12）:enabled 控制表单控件的禁用状态。
-（13）:disabled 控制表单控件的禁用状态。
-（14）:checked单选框或复选框被选中。
-
-### 关于伪类 LVHA 的解释
-LVHA指a标签的四种状态：链接访问前、链接访问后、鼠标滑过、激活，分别对应四种伪类:link、:visited、:hover、:active；
-
-当链接未访问过时：
-
-（1）当鼠标滑过a链接时，满足:link和:hover两种状态，要改变a标签的颜色，就必须将:hover伪类在:link伪类后面声明；
-（2）当鼠标点击激活a链接时，同时满足:link、:hover、:active三种状态，要显示a标签激活时的样式（:active），必须将:active声明放到:link和:hover之后。因此得出LVHA这个顺序。
-
-当链接访问过时，情况基本同上，只不过需要将:link换成:visited。
-
-这个顺序能不能变？可以，但也只有:link和:visited可以交换位置，因为一个链接要么访问过要么没访问过，不可能同时满足，也就不存在覆盖的问题。
-
-
-### CSS 中哪些属性可以继承
-
-每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值来作为自己的值。当元素的一个非继承属性(在 Mozilla code 里有时称之为reset property) 没有指定值时，则取属性的初始值 initial value（该值在该属性的概述里被指定）。
-
-有继承性的属性：
-（1）字体系列属性
-font、font-family、font-weight、fontsize、font-style、font-variant、fontstretch、font-size-adjust
-（2）文本系列属性
-text-indent、text-align、text-shadow、
-line-height、word-spacing、letterspacing、
-text-transform、direction、color
-（3）表格布局属性
-caption-side border-collapse empty-cells
-（4）列表属性
-list-style-type、list-style-image、liststyle-position、list-style
-（5）光标属性
-cursor
-（6）元素可见性
-visibility
-（7）还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
-
-当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。inherit
-关键字用于显式地指定继承性，可用于任何继承性/非继承性属性。
 
 ### CSS 清除浮动的方式
 
@@ -466,170 +625,11 @@ visibility
 - clear 属性清除浮动：clear 属性规定元素盒子的边不能和浮动元素相邻。该属性只能影响使用清除的元素本身，不能影响其他元素。换而言之，如果已经存在浮动元素的话，那么该元素就不会像原本元素一样受其影响了。
 - 其他的可以归为一类，都是通过触发 BFC 来实现的
 
-### BFC 的概念, 哪些元素可以触发 BFC
-
-> BFC 即 Block Formatting Context (块格式化上下文)， 是 Web 页面的可视化 CSS 渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。
-
-简单来说就是一个封闭的黑盒子，里面元素的布局不会影响外部。
-下列方式会创建块格式化上下文：
-
-- 根元素(\<html>)
-- 浮动元素（元素的 float 不是 none）
-- 绝对定位元素（元素的 position 为 absolute 或 fixed）
-- 行内块元素（元素的 display 为 inline-block）
-- 表格单元格（元素的 display 为 table-cell，HTML 表格单元格默认为该值）
-- 表格标题（元素的 display 为 table-caption，HTML 表格标题默认为该值）
-- 匿名表格单元格元素（元素的 display 为 table、table-row table-row-group、table-header-group、table-footer-group（分别是- HTML table、row、tbody、thead、tfoot 的默认属性）或 inline-table）
-- overflow 值不为 visible 的块元素
-- display 值为 flow-root 的元素
-- contain 值为 layout、content 或 paint 的元素
-- 弹性元素（display 为 flex 或 inline-flex 元素的直接子元素）
-- 网格元素（display 为 grid 或 inline-grid 元素的直接子元素）
-- 多列容器（元素的 column-count 或 column-width 不为 auto，包括 - column-count 为 1）
-- column-span 为 all 的元素始终会创建一个新的 BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
-
 ### 脱离文档流的方式
 
 - float
 - position: absolute
 - position: fixed
-
-### position取值
-
-#### 定位元素 positioned element:除了static外的
-##### static
-默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
-
-#### 相对定位元素  
-##### relative
-生成相对定位的元素，相对于文档正常流所在位置进行定位。元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
-当z-index不是auto的时候，会创造新的层叠上下文。
-
-#### 绝对定位元素
-##### absolute
-生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。即离自己这一级元素最近一级position设置为absolute或者relative的父元素的box的左上角为原点。
-
-##### fixed（老IE不支持）
-生成绝对定位的元素，元素会被移出正常文档流，并不为元素预留空间。相对于viewport进行定位。元素的位置在屏幕滚动时不会改变。当元素祖先的 transform, perspective 或 filter 属性非 none 时，容器的视口改为该祖先。元素会出现在每页的固定位置。
-fixed 属性总是创建新的层叠上下文。 
-
-#### 黏性定位元素 stickily positioned element
-##### sticky
-元素根据正常文档流进行定位，然后相对它的最近滚动祖先 nearest scrolling ancestor和 containing block (最近块级祖先 nearest block-level ancestor)，包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
-sticky值总是创建一个新的层叠上下文。一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（滚动机制：overflow 是 hidden, scroll, auto, 或 overlay的元素）。
-
-reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
-
-
-### display 有哪些值？说明他们的作用
-
-> display 属性可以设置元素的显示类型 display types。元素的外部显示类型 outer display types 将决定该元素在流式布局中的表现（块级或内联元素）；元素的内部显示类型 inner display types 可以控制其子元素的布局（例如：flow layout，grid 或 flex）。
-
-- block
-  块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
-- none
-  元素不显示，并从文档流中移除。这会导致该元素及其所有子代元素不再被屏幕阅读技术 screen reading technology 访问。
-- inline
-  行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
-- inline-block
-  默认宽度为内容宽度，可以设置宽高，同行显示。
-- list-item
-  像块类型元素一样显示，并添加样式列表标记。
-- table
-  此元素会作为块级表格来显示。
-- inherit
-  规定应该从父元素继承 display 属性的值。
-
-reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/display
-
-
-### float 的元素display 是什么
-
-参考文档：https://juejin.cn/post/6911682147000057870
-
-```css
-float 和 absolute 会改变元素的 display 为 inline-block
-```
-
-举个例子验证一下
-
-```html
-span 是个行内元素，对行内元素设置宽高是不生效的，但是再加上了 float 属性之后，发现宽高生效了， 因此可以判断出 span
-由一个行内元素变成了一个块级/行内块级元素。 进一步判断为何是行内块元素？如果是块级元素应该独占一行，实际并不是，因而是
-**行内块元素**
-
-<span style="width: 100px; height: 100px; background-color: #ccc;">123</span>
-<span>456</span>
-```
-
-### inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
-
-```css
-Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
-
-Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding 在水平方向垂直方向都有效，前后无换行符
-
-Inline-block：能设置宽度高度，margin/padding 水平垂直方向 都有效，前后无换行符
-```
-
-```css
-img 是可替换元素。
-
-在 CSS 中，可替换元素（replaced element）的展现效果不是由 CSS 来控制的。这些元素是一种外部对象，它们外观的渲染，是独立于 CSS 的。
-简单来说，它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
-例如 `<iframe>` 元素，可能具有自己的样式表，但它们不会继承父文档的样式。
-
-典型的可替换元素有：
-  <iframe>
-  <video>
-  <embed>
-  <img>
-
-有些元素仅在特定情况下被作为可替换元素处理，例如：
-  <input> "image" 类型的 <input> 元素就像 <img> 一样可替换
-  <option>
-  <audio>
-  <canvas>
-  <object>
-  <applet>（已废弃）
-  CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
-```
-
-### flex-box 
-
-flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目。
-
-一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。我们可以使用flex-direction来指定主轴的方向。我们可以使用justify-content来指定元素在主轴(x轴)上的排列方式，使用align-items来指定元素在交叉轴(y轴)上的排列方式。还可以使用flex-wrap来规定当一行排列不下时的换行方式。
-
-对于容器中的item，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
-
-在container上存在六个属性
-
-- flex-direction 属性决定主轴的方向（即item的排列方向）。
-- flex-wrap 属性定义，如果一条轴线排不下，如何换行。
-- flex-flow 属性是 flex-direction 属性和 flex-wrap 属性的简写形式，默认值为 rownowrap。
-- justify-content 属性定义了item在主轴上的对齐方式。
-- align-items 属性定义item在交叉轴上如何对齐。
-- align-content 属性定义了多根轴线的对齐方式。如果item只有一根轴线，该属性不起作用。
-
-在item上也有六个属性
-
-- order 属性定义item的排列顺序。数值越小，排列越靠前，默认为 0。
-- flex-grow 属性定义item的放大比例，默认为 0，即如果存在剩余空间，也不放大。
-- flex-shrink 属性定义了item的缩小比例，默认为 1，即如果空间不足，该item将缩小。
-- flex-basis 属性定义了在分配多余空间之前，item占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即item的本来大小。
-- flex 属性是 flex-grow，flex-shrink 和 flex-basis 的简写，默认值为 01auto。
-- align-self 属性允许单个item有与其他item不一样的对齐方式，可覆盖 align-items 属性。默认值为auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
-
-### `visibility: hidden`, `opacity: 0`, `display: none`
-
-```css
-opacity: 0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如 click 事件，那么点击该区域，也能触发点击事件的；
-
-visibility: hidden，该元素隐藏起来了，但不会改变页面布局，但是不会触发该元素已经绑定的事件；
-
-display: none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样。
-```
 
 ### 了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法
 
