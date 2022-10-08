@@ -486,9 +486,9 @@ img 是可替换元素。
 #### collapse
 collapse对于不同元素有不同效果。
 
-- 对于 <table> 行、列、列组和行组，表格的行或列将被隐藏并且不占用任何空间（与表格的行/列上的 `display: none` 效果相当）。但是，计算其他行和列的大小时，仍会像显示折叠行或列中的单元格一样进行计算。此值允许从表中快速删除行或列，而不强制重新计算整个表的宽度和高度。
+- 对于 <table> 行、列、列组和行组，表格的行或列将被隐藏并且不占用任何空间（与表格的行/列上的 `display: none` 效果相当）。但是，计算其他行和列的大小时，仍会像显示折叠行或列中的单元格一样进行计算。此值允许从表中快速删除行或列，而不强制重新计算整个表的宽度和高度。注意 `visibility:collapse` 会改变表格的布局，嵌套在其被折叠的单元格中的表格也会同样被折叠，除非专门为此嵌套表格指定 `visibility: visible`。
 - 折叠的弹性项目和<ruby>将被隐藏，它们覆盖的空间会被删除。
-- 对于其他元素， collapse 处理和 hidden 一样.
+- 对于其他元素， collapse 处理和 hidden 一样。但是要注意有些现代浏览器对 `visibility: collapse` 不支持或是不完全支持。所以对于其他元素有时也不会正确地将它显示成 `visibility: hidden` 的效果。
 
 reference:https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 
