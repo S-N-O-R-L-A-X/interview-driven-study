@@ -37,7 +37,8 @@
       - [visible](#visible)
       - [hidden](#hidden)
       - [collapse](#collapse)
-    - [`visibility: hidden`, `opacity: 0`, `display: none`](#visibility-hidden-opacity-0-display-none)
+    - [`visibility: hidden`, `opacity: 0`, `display: none`的区别](#visibility-hidden-opacity-0-display-none的区别)
+    - [`width:auto` 和 `width:100%`的区别](#widthauto-和-width100的区别)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动的方式](#css-清除浮动的方式)
@@ -492,13 +493,18 @@ collapse对于不同元素有不同效果。
 
 reference:https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 
-### `visibility: hidden`, `opacity: 0`, `display: none`
+### `visibility: hidden`, `opacity: 0`, `display: none`的区别
 
 opacity: 0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如 click 事件，那么点击该区域，也能触发点击事件的；
 
 visibility: hidden，该元素隐藏起来了，但不会改变页面布局，但是不会触发该元素已经绑定的事件；
 
 display: none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样。
+
+### `width:auto` 和 `width:100%`的区别
+
+`width:100%`会使元素box的宽度等于父元素的content box的宽度。
+`width:auto`会使元素撑满整个父元素，margin、border、padding、content区域会自动分配水平空间。
 
 ## 应用
 ### 初始化css样式的目的
