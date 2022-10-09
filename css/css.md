@@ -42,6 +42,7 @@
     - [`width:auto` 和 `width:100%`的区别](#widthauto-和-width100的区别)
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
     - [`display`,`position`和`float`的相互关系？](#displayposition和float的相互关系)
+    - [margin合并](#margin合并)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动的方式](#css-清除浮动的方式)
@@ -561,6 +562,67 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 
 reference: https://www.cnblogs.com/jackyWHJ/p/3756087.html
 
+### margin合并
+两个块级元素的margin有时会被合并为一个，且为两个块级元素margin的较大值。
+
+example
+```css
+.box {
+  width: 200px;
+  height: 200px;
+}
+
+.box1 {
+  margin: 0 0 100px 0;
+}
+
+.box2 {
+  margin: 200px 0 0 0;
+}
+```
+
+```html
+<div>
+  <div class="box box1"> margin 100px</div>
+  <div class="box box2"> margin 200px</div>
+</div>
+```
+
+产生合并的必要条件：margin必须是邻接的。
+而根据w3c规范，两个margin是邻接的必须满足以下条件：
+•必须是处于常规文档流（非float和绝对定位）的块级盒子，并且处于同一个BFC当中。
+•没有线盒，没有空隙，没有padding和border将他们分隔开
+•都属于垂直方向上相邻的外边距，可以是下面任意一种情况
+•元素的margin-top与其第一个常规文档流的子元素的margin-top
+•元素的margin-bottom与其下一个常规文档流的兄弟元素的margin-top
+•height为auto的元素的margin-bottom与其最后一个常规文档流的子元素的margin-bottom
+•高度为0并且最小高度也为0，不包含常规文档流的子元素，并且自身没有建立新的BFC的元素的margin-top和margin-bottom
+
+margin合并的3种场景：
+（1）相邻兄弟元素margin合并。
+解决办法：
+•设置块状格式化上下文元素（BFC），即开启BFC
+
+（2）父级和第一个/最后一个子元素的margin合并。
+解决办法：
+对于margin-top合并，可以进行如下操作（满足一个条件即可）：
+•父元素设置为块状格式化上下文元素；即开启BFC
+•父元素设置border-top值；
+•父元素设置padding-top值；
+•父元素和第一个子元素之间添加内联元素进行分隔。
+对于margin-bottom合并，可以进行如下操作（满足一个条件即可）：
+•父元素设置为块状格式化上下文元素；
+•父元素设置border-bottom值；
+•父元素设置padding-bottom值；
+•父元素和最后一个子元素之间添加内联元素进行分隔；
+•父元素设置height、min-height或max-height。
+
+（3）空块级元素的margin合并。
+解决办法：
+•设置垂直方向的border；
+•设置垂直方向的padding；
+•里面添加内联元素（直接Space键空格是没用的）；
+•设置height或者min-height。
 
 ## 应用
 ### 初始化css样式的目的
