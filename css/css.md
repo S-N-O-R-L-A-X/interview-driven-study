@@ -41,6 +41,7 @@
     - [`visibility: hidden`, `opacity: 0`, `display: none`的区别](#visibility-hidden-opacity-0-display-none的区别)
     - [`width:auto` 和 `width:100%`的区别](#widthauto-和-width100的区别)
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
+    - [`display`,`position`和`float`的相互关系？](#displayposition和float的相互关系)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动的方式](#css-清除浮动的方式)
@@ -550,6 +551,16 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 - vh:1vh 等于视口高度的 1%
 - vmin: 选取 vw 和 vh 中最小的那个,即在手机竖屏时，1vmin=1vw
 - vmax:选取 vw 和 vh 中最大的那个 ,即在手机竖屏时，1vmax=1vh
+
+### `display`,`position`和`float`的相互关系？
+（1）首先我们判断display属性是否为none，如果为none，则position和float属性的值不影响元素最后的表现。
+（2）然后判断position的值是否为absolute或者fixed，如果是，则float属性失效，并且display的值应该被设置为table或者block，具体转换需要看初始转换值。
+（3）如果position的值不为absolute或者fixed，则判断float属性的值是否为none，如果不是，则display的值则按上面的规则转换。注意，如果position的值为relative并且float属性的值存在，则relative相对于浮动后的最终位置定位。
+（4）如果float的值为none，则判断元素是否为根元素，如果是根元素则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
+总的来说，可以把它看作是一个类似优先级的机制，"position:absolute"和"position:fixed"优先级最高，有它存在的时候，浮动不起作用，'display'的值也需要调整；其次，元素的'float'特性的值不是"none"的时候或者它是根元素的时候，调整'display'的值；最后，非根元素，并且非浮动元素，并且非绝对定位的元素，'display'特性值同设置值。
+
+reference: https://www.cnblogs.com/jackyWHJ/p/3756087.html
+
 
 ## 应用
 ### 初始化css样式的目的
