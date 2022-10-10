@@ -442,8 +442,12 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 
 格式化上下文影响布局，通常，我们会为定位和清除浮动创建新的 BFC，而不是更改布局，因为它将：
 - 包含内部浮动
+  - 使用 overflow: auto
+  - 使用 display: flow-root
 - 排除外部浮动
+  - 使用 display: flow-root
 - 阻止外边距重叠
+  - 使用 overflow: hidden
 
 ### display 有哪些值？说明他们的作用
 
