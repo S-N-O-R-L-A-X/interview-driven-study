@@ -31,6 +31,7 @@
     - [连续媒体 continuous media](#连续媒体-continuous-media)
     - [flex-box](#flex-box)
     - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
+    - [IFC 行内格式化上下文](#ifc-行内格式化上下文)
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
     - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
@@ -448,6 +449,12 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
   - 使用 display: flow-root
 - 阻止外边距重叠
   - 使用 overflow: hidden
+
+### IFC 行内格式化上下文
+行内格式化上下文是一个网页的渲染结果的一部分。其中，各行内盒子（inline boxes）一个接一个地排列，其排列顺序根据书写模式（writing-mode）的设置来决定：
+
+对于水平书写模式，各个框从左边开始水平地排列
+对于垂直书写模式，各个框从顶部开始水平地排列
 
 ### display 有哪些值？说明他们的作用
 
