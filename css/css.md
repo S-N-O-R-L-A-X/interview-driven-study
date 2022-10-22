@@ -96,6 +96,7 @@
       - [可维护性、健壮性：](#可维护性健壮性)
     - [在网页中应该使用奇数字号还是偶数字号的字体？为什么呢？](#在网页中应该使用奇数字号还是偶数字号的字体为什么呢)
     - [全屏滚动如何实现？](#全屏滚动如何实现)
+    - [如何修改 chrome 记住密码后自动填充表单的黄色背景？](#如何修改-chrome-记住密码后自动填充表单的黄色背景)
 
 ## 概念
 ### CSS3 新特性
@@ -1688,3 +1689,24 @@ transition：all 1000ms ease;
 ```
 
 现在有许多插件可以做这件事，如 https://alvarotrigo.com/fullPage/#page1
+
+
+### 如何修改 chrome 记住密码后自动填充表单的黄色背景？
+
+chrome表单自动填充后，input文本框的背景会变成黄色的，这是由于chrome会默认给自动填充的input表单加上
+```css
+input :-webkit-autofill{
+  backgroundcolor:rgb(250,255,189) !important;
+  background-image:none !important;
+  color:rgb(0,0,0) !important;
+}
+```
+对chrome默认定义的`background-color`，
+`background-image`，`color`使用important是不能提高其优先级的，但是其他属性可使用。
+可以使用足够大的纯色内阴影来覆盖input输入框的黄色背景，处理如下
+```css
+input :-webkit-autofill, textarea :-webkitautofill, select:-webkit-autofill {
+  -webkit-box-shadow:000px 1000px white inset;
+  border:1px solid #CCC !important;
+}
+```
