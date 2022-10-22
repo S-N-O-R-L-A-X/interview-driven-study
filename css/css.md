@@ -51,7 +51,8 @@
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
     - [`display`,`position`和`float`的相互关系？](#displayposition和float的相互关系)
     - [margin合并](#margin合并)
-    - [all属性](#all属性)
+    - [`all` 属性](#all-属性)
+    - [`hasLayout` 属性](#haslayout-属性)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -94,6 +95,7 @@
       - [渲染性能：](#渲染性能)
       - [可维护性、健壮性：](#可维护性健壮性)
     - [在网页中应该使用奇数字号还是偶数字号的字体？为什么呢？](#在网页中应该使用奇数字号还是偶数字号的字体为什么呢)
+    - [全屏滚动如何实现？](#全屏滚动如何实现)
 
 ## 概念
 ### CSS3 新特性
@@ -623,46 +625,49 @@ example
 
 产生合并的必要条件：margin必须是邻接的。
 而根据w3c规范，两个margin是邻接的必须满足以下条件：
-•必须是处于常规文档流（非float和绝对定位）的块级盒子，并且处于同一个BFC当中。
-•没有线盒，没有空隙，没有padding和border将他们分隔开
-•都属于垂直方向上相邻的外边距，可以是下面任意一种情况
-•元素的margin-top与其第一个常规文档流的子元素的margin-top
-•元素的margin-bottom与其下一个常规文档流的兄弟元素的margin-top
-•height为auto的元素的margin-bottom与其最后一个常规文档流的子元素的margin-bottom
-•高度为0并且最小高度也为0，不包含常规文档流的子元素，并且自身没有建立新的BFC的元素的margin-top和margin-bottom
+• 必须是处于常规文档流（非float和绝对定位）的块级盒子，并且处于同一个BFC当中。
+• 没有线盒，没有空隙，没有padding和border将他们分隔开
+• 都属于垂直方向上相邻的外边距，可以是下面任意一种情况
+• 元素的margin-top与其第一个常规文档流的子元素的margin-top
+• 元素的margin-bottom与其下一个常规文档流的兄弟元素的margin-top
+• height为auto的元素的margin-bottom与其最后一个常规文档流的子元素的margin-bottom
+• 高度为0并且最小高度也为0，不包含常规文档流的子元素，并且自身没有建立新的BFC的元素的margin-top和margin-bottom
 
 margin合并的3种场景：
 （1）相邻兄弟元素margin合并。
 解决办法：
-•设置块状格式化上下文元素（BFC），即开启BFC
+• 设置块状格式化上下文元素（BFC），即开启BFC
 
 （2）父级和第一个/最后一个子元素的margin合并。
 解决办法：
 对于margin-top合并，可以进行如下操作（满足一个条件即可）：
-•父元素设置为块状格式化上下文元素；即开启BFC
-•父元素设置border-top值；
-•父元素设置padding-top值；
-•父元素和第一个子元素之间添加内联元素进行分隔。
+• 父元素设置为块状格式化上下文元素；即开启BFC
+• 父元素设置border-top值；
+• 父元素设置padding-top值；
+• 父元素和第一个子元素之间添加内联元素进行分隔。
 对于margin-bottom合并，可以进行如下操作（满足一个条件即可）：
-•父元素设置为块状格式化上下文元素；
-•父元素设置border-bottom值；
-•父元素设置padding-bottom值；
-•父元素和最后一个子元素之间添加内联元素进行分隔；
-•父元素设置height、min-height或max-height。
+• 父元素设置为块状格式化上下文元素；
+• 父元素设置border-bottom值；
+• 父元素设置padding-bottom值；
+• 父元素和最后一个子元素之间添加内联元素进行分隔；
+• 父元素设置height、min-height或max-height。
 
 （3）空块级元素的margin合并。
 解决办法：
-•设置垂直方向的border；
-•设置垂直方向的padding；
-•里面添加内联元素（直接Space键空格是没用的）；
-•设置height或者min-height。
+• 设置垂直方向的border；
+• 设置垂直方向的padding；
+• 里面添加内联元素（直接Space键空格是没用的）；
+• 设置height或者min-height。
 
-### all属性
+### `all` 属性
 all属性实际上是所有CSS属性的缩写，表示所有的CSS属性都怎样怎样，但是，不包括`unicode-bidi`和`direction`
 这两个CSS属性。支持三个CSS通用属性值，initial,inherit,unset。
 initial是初始值的意思，也就是该元素除了unicode-bidi和direction以外的CSS属性都使用属性的默认初始值。
 inherit是继承的意思，也就是该元素除了unicodebidi和direction以外的CSS属性都继承父元素的属性值。
 unset是取消设置的意思，也就是当前元素浏览器或用户设置的CSS忽略，然后如果是具有继承特性的CSS，如color，则使用继承值；如果是没有继承特性的CSS属性，如background-color，则使用初始值。
+
+### `hasLayout` 属性
+hasLayout是IE特有的一个属性。很多的IE下的css bug都与其息息相关。在IE中，一个元素要么自己对自身的内容进行计算大小和组织，要么依赖于父元素来计算尺寸和组织内容。当一个元素的hasLayout属性值为true时，它负责对自己和可能的子孙元素进行尺寸计算和定位。虽然这意味着这个元素需要花更多的代价来维护自身和里面的内容，而不是依赖于祖先元素来完成这些工作。
 
 
 ## 应用
@@ -1674,3 +1679,12 @@ grid,flex,table
 ×0.5=7px的margin，在另一些地方用14×1.5=21px的标题字号。
 （2）浏览器缘故。低版本的浏览器ie6会把奇数字体强制转化为偶数，即13px渲染为14px。
 （3）系统差别。早期的Windows里，中易宋体点阵只有12和14、15、16px，唯独缺少13px。
+
+### 全屏滚动如何实现？
+原理：有点类似于轮播，整体的元素一直排列下去，假设有5个需要展示的全屏页面，那么高度是500%，只是展示100%，容器及容器内的页面取当前可视区高度，同时容器的父级元素overflow属性值设为hidden，通过更改容器可视区的位置来实现全屏滚动效果。主要是响应鼠标事件，页面通过CSS的动画效果，进行移动。
+```css
+overflow：hidden;
+transition：all 1000ms ease;
+```
+
+现在有许多插件可以做这件事，如 https://alvarotrigo.com/fullPage/#page1
