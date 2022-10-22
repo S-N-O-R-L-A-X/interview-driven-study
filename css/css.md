@@ -1,3 +1,10 @@
+<style>
+.warning {
+  background-color:rgba(239,111,27,0.1);
+  border-left:4px solid orange;
+}
+</style>
+
 # CSS
 
 - [CSS](#css)
@@ -285,7 +292,7 @@ div {
 
 效果是子盒子的 margin 为 40px 40px 40px 40px
 
-总结：margin/padding 设置百分比都是相对于父盒子的宽度(width 属性)
+<blockquote class="warning">注意：margin/padding 设置百分比都是相对于父盒子的宽度(width 属性)</blockquote>
 
 ### link 和 @import 的区别
 
@@ -328,11 +335,11 @@ I.如果position是static, relative, sticky，那么包含块要么由它最近�
 II.如果position是absolute，那么包含块由它最近的非static祖先元素的padding边缘组成。
 III.如果position是fixed，在连续媒体的情况下是viewport，在分页媒体的情况下是页区域page area
 IV.如果position是absolute或fixed，包含块也可能由满足以下条件的最近祖先元素的padding边缘组成：
-i.  transform 或 perspective 的值不是 none
-ii. will-change 的值是 transform 或 perspective
-iii.filter 的值不是 none 或 will-change 的值是 filter (只在Firefox下生效).
-iv. contain 的值是 paint 
-v. backdrop-filter 的值不是 none (e.g. backdrop-filter: blur(10px);)
+i.  `transform` 或 `perspective` 的值不是 `none`
+ii. `will-change` 的值是 `transform` 或 `perspective`
+iii.`filter` 的值不是 `none` 或 `will-change` 的值是 `filter` (只在Firefox下生效).
+iv. `contain` 的值是 `paint`
+v. `backdrop-filter` 的值不是 `none` (e.g. backdrop-filter: blur(10px);)
 
 reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
 
@@ -1667,5 +1674,3 @@ grid,flex,table
 ×0.5=7px的margin，在另一些地方用14×1.5=21px的标题字号。
 （2）浏览器缘故。低版本的浏览器ie6会把奇数字体强制转化为偶数，即13px渲染为14px。
 （3）系统差别。早期的Windows里，中易宋体点阵只有12和14、15、16px，唯独缺少13px。
-
-
