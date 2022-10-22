@@ -651,7 +651,7 @@ margin合并的3种场景：
 •设置height或者min-height。
 
 ### all属性
-all属性实际上是所有CSS属性的缩写，表示所有的CSS属性都怎样怎样，但是，不包括unicode-bidi和direction
+all属性实际上是所有CSS属性的缩写，表示所有的CSS属性都怎样怎样，但是，不包括`unicode-bidi`和`direction`
 这两个CSS属性。支持三个CSS通用属性值，initial,inherit,unset。
 initial是初始值的意思，也就是该元素除了unicode-bidi和direction以外的CSS属性都使用属性的默认初始值。
 inherit是继承的意思，也就是该元素除了unicodebidi和direction以外的CSS属性都继承父元素的属性值。
@@ -662,7 +662,11 @@ unset是取消设置的意思，也就是当前元素浏览器或用户设置的
 ### 初始化css样式的目的
 因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面显示差异。
 当然，初始化样式会对SEO(Search Engine Optimization)有一定的影响，所以需要力求影响最小的情况下初始化。
-最简单的初始化方法：*{padding:0;margin:0;}，但是这个会产生较大影响，所以不建议这么初始化。
+最简单的初始化方法：
+```css
+* {padding:0;margin:0;}
+```
+但是这个方法由于需要把所有的标签都遍历一遍，当网站较大时，样式比较多，这样写就大大的加强了网站运行的负载，会使网站加载的时候需要很长时间，因此一般大型的网站都有分层次的一套初始化样式。
 
 淘宝的样式初始化代码：
 ```css
