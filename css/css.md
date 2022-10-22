@@ -97,6 +97,7 @@
     - [在网页中应该使用奇数字号还是偶数字号的字体？为什么呢？](#在网页中应该使用奇数字号还是偶数字号的字体为什么呢)
     - [全屏滚动如何实现？](#全屏滚动如何实现)
     - [如何修改 chrome 记住密码后自动填充表单的黄色背景？](#如何修改-chrome-记住密码后自动填充表单的黄色背景)
+    - [如何让 Chrome 支持小于 12px 的文字？](#如何让-chrome-支持小于-12px-的文字)
 
 ## 概念
 ### CSS3 新特性
@@ -1710,3 +1711,11 @@ input :-webkit-autofill, textarea :-webkitautofill, select:-webkit-autofill {
   border:1px solid #CCC !important;
 }
 ```
+
+### 如何让 Chrome 支持小于 12px 的文字？
+
+在谷歌下css设置字体大小为12px及以下时，显示都是一样大小，都是默认12px。
+解决办法：
+（1）在老版本中，可以使用`webkit-text-size-adjust:none;`，字体大小就不受限制了。但是chrome更新到27版本之后就不再支持-webkit-text-size-adjust样式。
+（2）可以使用css3的transform缩放属性`webkit-transform:scale(0.5);`注意`-webkit-transform:scale(0.75);`收缩的是整个元素的大小，这时候，如果是内联元素，必须要将内联元素转换成块元素。
+（3）使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
