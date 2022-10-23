@@ -54,6 +54,7 @@
         - [ppi](#ppi)
         - [dpr](#dpr)
         - [dpi](#dpi)
+    - [viewport](#viewport)
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
     - [`display`,`position`和`float`的相互关系？](#displayposition和float的相互关系)
     - [margin合并](#margin合并)
@@ -609,6 +610,18 @@ CSS像素 = 设备独立像素 = 逻辑像素
 
 ##### dpi
 DPI: 每英寸多少点。
+
+reference: https://www.cnblogs.com/libin-1/p/7148377.html
+
+### viewport
+在电脑图形学里面，视口代表了一个可看见的多边形区域（通常来说是矩形）。在浏览器范畴里，它代表的是浏览器中网站可见内容的部分。视口外的内容在被滚动进来前都是不可见的。
+
+视口当前可见的部分叫做可视视口（visual viewport）。可视视口可能会比布局视口（layout viewport）更小，因为当用户缩小浏览器缩放比例时，布局视口不变，而可视视口变小了。
+一些移动设备和其他窄屏幕在通常比屏幕宽的虚拟窗口或视口中渲染页面，然后将渲染结果缩小，以便一次全部看到。然后，用户可以平移和缩放以查看页面的不同区域。这样做是因为并非所有页面都针对移动设备进行了优化，并且在以较小的视口宽度呈现时会中断（或至少看起来很糟糕）。这个虚拟视口是一种让非移动优化网站在窄屏设备上看起来更好的方法。
+然而，这种机制对于使用媒体查询针对窄屏幕进行优化的页面来说并不是那么好——例如，如果虚拟视口为 980 像素，则永远不会使用以 640 像素或 480 像素或更小的尺寸启动的媒体查询，从而限制了此类的有效性响应式设计技术。视口元标记缓解了窄屏设备上的虚拟视口问题。
+
+reference: https://developer.mozilla.org/en-US/docs/Glossary/Viewport
+https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
 
 ### vw 和 vh 的概念
 
