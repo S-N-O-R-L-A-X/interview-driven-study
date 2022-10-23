@@ -48,6 +48,12 @@
       - [collapse](#collapse)
     - [`visibility: hidden`, `opacity: 0`, `display: none`的区别](#visibility-hidden-opacity-0-display-none的区别)
     - [`width:auto` 和 `width:100%`的区别](#widthauto-和-width100的区别)
+    - [设备像素、css 像素、设备独立像素、dpr、ppi 之间的区别](#设备像素css-像素设备独立像素dprppi-之间的区别)
+      - [设备像素](#设备像素)
+      - [css像素](#css像素)
+        - [ppi](#ppi)
+        - [dpr](#dpr)
+        - [dpi](#dpi)
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
     - [`display`,`position`和`float`的相互关系？](#displayposition和float的相互关系)
     - [margin合并](#margin合并)
@@ -582,6 +588,27 @@ display: none，把元素隐藏起来，并且会改变页面布局，可以理�
 
 `width:100%`会使元素box的宽度等于父元素的content box的宽度。
 `width:auto`会使元素撑满整个父元素，margin、border、padding、content区域会自动分配水平空间。
+
+### 设备像素、css 像素、设备独立像素、dpr、ppi 之间的区别
+#### 设备像素
+设备像素指的是物理像素，一般手机的分辨率指的就是设备像素，一个设备的设备像素是不可变的。从屏幕在工厂生产出的那天起，它上面设备像素点就固定不变了，单位 pt。
+
+#### css像素
+css像素和设备独立像素是等价的，不管在何种分辨率的设备上，css像素的大小应该是一致的，css像素是一个相对单位，它是相对于设备像素的，而设备像素可以变化。一个css像素的大小取决于页面缩放程度和dpr的大小。单位px。
+
+px最终会受到ppi,dpr,dpi的影响。
+
+DPR = 设备像素 / CSS像素 = 屏幕横向设备像素 / 理想视口的宽
+CSS像素 = 设备独立像素 = 逻辑像素
+
+##### ppi
+每英寸像素(ppi, pixel per inch)指的是每英寸的所拥有的像素(pixel)数目，即像素密度。ppi越大，屏幕的分辨率越大。在显示器上，表示每英寸多少物理像素及显示器设备的点距。数值越高，代表显示屏能够以越高的密度显示图像。
+
+##### dpr
+设备像素比(dpr, device pixel ratio)指的是设备像素和设备独立像素的比值。即未缩放状态下，设备像素和 CSS 像素的初始比例关系，也可以解释为默认缩放比例。通俗来说，它是指在开发中1个 CSS 像素占用多少设备像素，如 dpr=2 代表1个 CSS 像素用2x2个设备像素来绘制。一般的pc屏幕，dpr=1。在iphone4时，苹果推出了retina屏幕，它的dpr为2。屏幕的缩放会改变dpr的值。
+
+##### dpi
+DPI: 每英寸多少点。
 
 ### vw 和 vh 的概念
 
