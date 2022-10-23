@@ -98,6 +98,7 @@
     - [全屏滚动如何实现？](#全屏滚动如何实现)
     - [如何修改 chrome 记住密码后自动填充表单的黄色背景？](#如何修改-chrome-记住密码后自动填充表单的黄色背景)
     - [如何让 Chrome 支持小于 12px 的文字？](#如何让-chrome-支持小于-12px-的文字)
+    - [如何让页面里的字体变清晰，变细？](#如何让页面里的字体变清晰变细)
 
 ## 概念
 ### CSS3 新特性
@@ -1719,3 +1720,10 @@ input :-webkit-autofill, textarea :-webkitautofill, select:-webkit-autofill {
 （1）在老版本中，可以使用`webkit-text-size-adjust:none;`，字体大小就不受限制了。但是chrome更新到27版本之后就不再支持-webkit-text-size-adjust样式。
 （2）可以使用css3的transform缩放属性`webkit-transform:scale(0.5);`注意`-webkit-transform:scale(0.75);`收缩的是整个元素的大小，这时候，如果是内联元素，必须要将内联元素转换成块元素。
 （3）使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
+
+### 如何让页面里的字体变清晰，变细？
+使用`font-smooth`，但是不要在生产环境下使用。
+macOS使用`-webkit-font-smoothing`，用于字体抗锯齿，使用后字体看起来会更清晰舒服，但这只在macOS下生效。
+firefox使用`-moz-osx-font-smoothing`
+
+reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth
