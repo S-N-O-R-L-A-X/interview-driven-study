@@ -622,9 +622,10 @@ reference: https://www.cnblogs.com/libin-1/p/7148377.html
 
 
 视口基础知识
-
+最常见的视口
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+```
 并非所有设备都具有相同的宽度；您应该确保您的页面在各种屏幕尺寸和方向上都能正常工作。
 
 `<meta>` 标签里`viewport`的基本属性包括：
@@ -653,15 +654,10 @@ reference: https://www.cnblogs.com/libin-1/p/7148377.html
 
 视口宽度和屏幕宽度
 站点可以将其视口设置为特定大小。例如，定义“width=320, initial-scale=1”可用于在纵向模式下精确地适合小型手机显示屏。当浏览器不以较大尺寸呈现页面时，这可能会导致问题。为了解决这个问题，如果需要，浏览器将扩展视口宽度以按请求的比例填充屏幕。这在大屏幕设备上特别有用。
-
-对于设置初始或最大比例的页面，这意味着 width 属性实际上转换为最小视口宽度。 例如，如果您的布局需要至少 500 像素的宽度，那么您可以使用以下标记。 当屏幕宽度超过 500 像素时，浏览器会扩大视口（而不是放大）以适应屏幕：
-
+对于设置初始或最大比例的页面，这意味着 width 属性实际上转换为最小视口宽度。 例如，如果您的布局需要至少 500 像素的宽度，那么您可以使用以下标记。当屏幕宽度超过 500 像素时，浏览器会扩大视口（而不是放大）以适应屏幕：
+```html
 <meta name="viewport" content="width=500, initial-scale=1" />
-
-其他可用的属性是最小规模、最大规模和用户可扩展。 这些属性影响初始比例和宽度，以及限制缩放级别的变化。
-
-移动设备和平板设备的常见视口尺寸
-如果您想知道哪些移动设备和平板设备具有哪些视口宽度，请在此处查看移动设备和平板电脑视口大小的完整列表。 这提供了诸如纵向和横向的视口宽度以及物理屏幕尺寸、操作系统和设备的像素密度等信息。
+```
 
 reference: https://developer.mozilla.org/en-US/docs/Glossary/Viewport
 https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
