@@ -114,6 +114,7 @@
     - [如何修改 chrome 记住密码后自动填充表单的黄色背景？](#如何修改-chrome-记住密码后自动填充表单的黄色背景)
     - [如何让 Chrome 支持小于 12px 的文字？](#如何让-chrome-支持小于-12px-的文字)
     - [如何让页面里的字体变清晰，变细？](#如何让页面里的字体变清晰变细)
+    - [position:fixed;在 android 下无效怎么处理？](#positionfixed在-android-下无效怎么处理)
 
 ## 概念
 ### CSS3 新特性
@@ -1823,3 +1824,11 @@ macOS使用`-webkit-font-smoothing`，用于字体抗锯齿，使用后字体看
 firefox使用`-moz-osx-font-smoothing`
 
 reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth
+
+### position:fixed;在 android 下无效怎么处理？
+在移动端显示时，因为layout viewport 的宽度大于移动端屏幕的宽度，所以页面会出现滚动条左右移动。而fixed的元素是相对layout viewport 而不是移动端屏幕来固定位置，所以会出现感觉fixed无效的情况。
+如果想实现fixed相对于屏幕的固定效果，需要把viewport设置为ideal viewport，比如：
+```html
+<meta name="viewport" content="width=device-width,initialscale=1.0,maximum-scale=1.0,minimum-sca
+le=1.0,user-scalable=no"/>
+```
