@@ -55,6 +55,13 @@
         - [dpr](#dpr)
         - [dpi](#dpi)
     - [viewport](#viewport)
+      - [视口基础知识](#视口基础知识)
+      - [屏幕密度](#屏幕密度)
+      - [视口宽度和屏幕宽度](#视口宽度和屏幕宽度)
+      - [三种viewport](#三种viewport)
+        - [可视视口 visual viewport](#可视视口-visual-viewport)
+        - [布局视口 layout viewport](#布局视口-layout-viewport)
+        - [理想视口 ideal viewport](#理想视口-ideal-viewport)
     - [vw 和 vh 的概念](#vw-和-vh-的概念)
     - [`display`,`position`和`float`的相互关系？](#displayposition和float的相互关系)
     - [margin合并](#margin合并)
@@ -614,14 +621,12 @@ CSS像素 = 设备独立像素 = 逻辑像素
 reference: https://www.cnblogs.com/libin-1/p/7148377.html
 
 ### viewport
+#### 视口基础知识
 在电脑图形学里面，视口代表了一个可看见的多边形区域（通常来说是矩形）。在浏览器范畴里，它代表的是浏览器中网站可见内容的部分。视口外的内容在被滚动进来前都是不可见的。
-
-视口当前可见的部分叫做可视视口（visual viewport）。可视视口可能会比布局视口（layout viewport）更小，因为当用户缩小浏览器缩放比例时，布局视口不变，而可视视口变小了。
 一些移动设备和其他窄屏幕在通常比屏幕宽的虚拟窗口或视口中渲染页面，然后将渲染结果缩小，以便一次全部看到。然后，用户可以平移和缩放以查看页面的不同区域。这样做是因为并非所有页面都针对移动设备进行了优化，并且在以较小的视口宽度呈现时会中断（或至少看起来很糟糕）。这个虚拟视口是一种让非移动优化网站在窄屏设备上看起来更好的方法。
 然而，这种机制对于使用媒体查询针对窄屏幕进行优化的页面来说并不是那么好——例如，如果虚拟视口为 980 像素，则永远不会使用以 640 像素或 480 像素或更小的尺寸启动的媒体查询，从而限制了此类的有效性响应式设计技术。视口元标记缓解了窄屏设备上的虚拟视口问题。
 
 
-视口基础知识
 最常见的视口
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -648,16 +653,26 @@ reference: https://www.cnblogs.com/libin-1/p/7148377.html
 * `user-scalable`
 控制页面上是否允许放大和缩小操作。有效值：0、1、yes 或 no。默认值：1，与 yes 相同。将该值设置为 0（与否相同）违反了 Web 内容可访问性指南 (WCAG)。但是，使用 user-scalable=no 可能会给有视力障碍（例如低视力）的用户带来可访问性问题。 WCAG 要求至少 2 倍缩放；但是，最佳做法是启用 5 倍变焦。
 
-屏幕密度
+#### 屏幕密度
 许多浏览器可以通过为每个css像素转换多个硬件像素来以更小的物理尺寸显示它们的页面。在高 dpi 屏幕上，initial-scale=1 的页面将被浏览器有效地缩放。它们的文本将平滑而清晰，但它们的位图图像可能无法利用全屏分辨率。为了在这些屏幕上获得更清晰的图像，Web 开发人员可能希望以比最终尺寸更高的比例设计图像或整个布局，然后使用 CSS 或视口属性将它们缩小。
 默认像素比率取决于显示密度。在密度小于 200dpi 的显示器上，该比率为 1.0。在密度在 200 到 300dpi 之间的显示器上，该比率为 1.5。对于密度超过 300dpi 的显示器，该比率是整数下限（密度/150dpi）。请注意，只有当视口比例等于 1 时，默认比例才为 true。否则，CSS 像素和设备像素之间的关系取决于当前缩放级别。
 
-视口宽度和屏幕宽度
+#### 视口宽度和屏幕宽度
 站点可以将其视口设置为特定大小。例如，定义“width=320, initial-scale=1”可用于在纵向模式下精确地适合小型手机显示屏。当浏览器不以较大尺寸呈现页面时，这可能会导致问题。为了解决这个问题，如果需要，浏览器将扩展视口宽度以按请求的比例填充屏幕。这在大屏幕设备上特别有用。
 对于设置初始或最大比例的页面，这意味着 width 属性实际上转换为最小视口宽度。 例如，如果您的布局需要至少 500 像素的宽度，那么您可以使用以下标记。当屏幕宽度超过 500 像素时，浏览器会扩大视口（而不是放大）以适应屏幕：
 ```html
 <meta name="viewport" content="width=500, initial-scale=1" />
 ```
+#### 三种viewport
+##### 可视视口 visual viewport
+视口当前可见的部分叫做可视视口（visual viewport）。
+
+##### 布局视口 layout viewport
+如果把移动设备上浏览器的可视区域设为viewport的话，某些网站就会因为viewport太窄而显示错乱，所以这些浏览器就决定默认情况下把viewport设为一个较宽的值，比如常见的980px，这样的话即使是那些为桌面设计的网站也能在移动浏览器上正常显示。这个浏览器默认的viewport叫做layout viewport。layout viewport的宽度一般是大于visual viewport的宽度的。当用户缩小浏览器缩放比例时，布局视口不变，而可视视口变小了。visual viewport和layout viewport的关系，就像是我们通过窗户看外面的风景，视觉视口就是窗户，而外面的风景就是布局视口中的网页内容。
+
+##### 理想视口 ideal viewport
+ideal viewport是最适合移动设备的viewport，ideal viewport的宽度等于移动设备的屏幕宽度，只要在css中把某一元素的宽度设为ideal viewport的宽度（单位用
+px），那么这个元素的宽度就是设备屏幕的宽度了，也就是宽度为100%的效果。ideal viewport的意义在于，无论在何种分辨率的屏幕下，那些针对ideal viewport而设计的网站，不需要用户手动缩放，也不需要出现横向滚动条，都可以完美的呈现给用户。
 
 reference: https://developer.mozilla.org/en-US/docs/Glossary/Viewport
 https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
@@ -1019,9 +1034,8 @@ base64编码是一种图片处理格式，通过特定的算法将图片编码�
 
 ### 如果需要手动写动画，你认为最小时间间隔是多久，为什么
 
-```css
 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms＝16.7ms
-```
+
 
 ### 阐述一下 CSSSprites
 
