@@ -68,6 +68,14 @@
     - [`all` 属性](#all-属性)
     - [`hasLayout` 属性](#haslayout-属性)
     - [font-style 属性中 italic 和 oblique 的区别](#font-style-属性中-italic-和-oblique-的区别)
+    - [图片格式](#图片格式)
+      - [BMP](#bmp)
+      - [GIF](#gif)
+      - [JPG](#jpg)
+      - [PNG-8](#png-8)
+      - [PNG-24](#png-24)
+      - [SVG](#svg)
+      - [WEBP](#webp)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -779,6 +787,94 @@ hasLayout是IE特有的一个属性。很多的IE下的css bug都与其息息相
 
 ### font-style 属性中 italic 和 oblique 的区别
 italic本质上是草书，相较于无样式字体使用更少的水平空间。而oblique只是单纯地让文字倾斜。如果当前字体没有对应的斜体字体，那么斜体（italic）和倾斜体（oblique）都会通过人工倾斜常规字体的字形来模拟。（通过字体合成来控制此行为）
+
+### 图片格式
+<table>
+  <th>
+    <td>有损/无损</td>
+    <td>索引色/直接色</td>
+    <td>点阵图/矢量图</td>
+    <td>其他特点</td>
+  </th>
+  <tr>
+    <td>BMP</td>
+    <td>无损</td>
+    <td>均支持</td>
+    <td>点阵图</td>
+    <td>文件较大，是Windows操作系统中的标准图像文件格式。</td>
+  </tr>
+  <tr>
+    <td>GIF</td>
+    <td>无损</td>
+    <td>索引色</td>
+    <td>点阵图</td>
+    <td>文件小，仅支持8bit的索引色。支持动画以及透明。</td>
+  </tr>
+  <tr>
+    <td>JPG</td>
+    <td>有损</td>
+    <td>直接色</td>
+    <td>点阵图</td>
+    <td>文件较大，适合存储照片。但图片会模糊。</td>
+  </tr>
+  <tr>
+    <td>PNG-8</td>
+    <td>无损</td>
+    <td>索引色</td>
+    <td>点阵图</td>
+    <td>在相同的图片效果下，PNG-8比GIF更小。支持透明度的调节。</td>
+  </tr>
+  <tr>
+    <td>PNG-24</td>
+    <td>无损</td>
+    <td>直接色</td>
+    <td>点阵图</td>
+    <td>比BMP小得多。</td>
+  </tr>
+  <tr>
+    <td>SVG</td>
+    <td>无损</td>
+    <td>-</td>
+    <td>矢量图</td>
+    <td>适合用来绘制企业logo，icon。</td>
+  </tr>
+  <tr>
+    <td>WEBP</td>
+    <td>均支持</td>
+    <td>直接色</td>
+    <td>点阵图</td>
+    <td>文件大小相对较小。适合用来绘制企业logo，icon。</td>
+  </tr>
+</table>
+
+#### BMP
+BMP(bitmap)，是无损的、既支持索引色也支持直接色的、点阵图。这种图片格式几乎没有对数据进行压缩，所以BMP格式的图片通常具有较大的文件大小。是Windows操作系统中的标准图像文件格式。
+
+#### GIF
+GIF(Graphics Interchange Format)是无损的、采用索引色的点阵图。采用LZW压缩算法进行编码。文件小，是GIF格式的优点，同时，GIF格式还具有支持动画以及透明的优点。但GIF格式仅支持8bit的索引色，所以GIF格式适用于对色彩要求不高同时需要文件体积较小的场景。
+
+#### JPG
+JPEG(Joint Photographic Experts Group)是有损的、采用直接色的点阵图。JPEG的图片的优点，是采用了直接色，得益于更丰富的色彩，JPEG非常适合用来存储照片，与GIF相比，JPEG不适合用来存储企业Logo、线框类的图。因为有损压缩会导致图片模糊，而直接色的选用，又会导致图片文件较GIF更大。
+
+#### PNG-8
+PNG(Portable Network Graphics)-8是无损的、使用索引色的点阵图。PNG是一种比较新的图片格式，是非常好的GIF格式替代者，在可能的
+情况下，应该尽可能的使用PNG-8而不是GIF。因为在相同的图片效果下，PNG-8具有更小的文件体积。除此之外，PNG-8还支持透明度的调节，而GIF并不支持。现在，除非需要动画的支持，否则我们更应该使用PNG8。
+
+#### PNG-24
+PNG-24是无损的、使用直接色的点阵图。PNG-24的优点在于，它压缩了图片的数据，使得同样效果的图片，PNG-24格式的文件大小要比BMP小得多。当然，PNG24的图片还是要比JPEG、GIF、PNG-8大得多。
+
+#### SVG
+SVG(Scalable Vector Graphics)是无损的矢量图。SVG图片由直线和曲线以及绘制它们的方法组成。当放大一个SVG图片的时候，你看到的还是线和曲线，而不会出现像素点，不会失真。所以它非常适合用来绘制企业Logo、Icon等。
+
+#### WEBP
+WebP是谷歌开发的一种新图片格式，WebP同时支持有损和无损压缩，使用直接色的点阵图。相同质量的图片，WebP具有更小的文件体积。
+* 在无损压缩的情况下，相同质量的WebP图片，文件大小要比PNG小26%；
+* 在有损压缩的情况下，具有相同图片精度的WebP图片，文件大小要比JPEG小25%~34%；
+* WebP图片格式支持图片透明度，一个无损压缩的WebP图片，如果要支持透明度只需要22%的格外文件大小。
+
+但是目前只有Chrome浏览器和Opera浏览器支持WebP格式，兼容性不太好。
+
+
 
 ## 应用
 ### 初始化css样式的目的
