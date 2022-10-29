@@ -122,6 +122,7 @@
       - [方法四 不要闭合标签](#方法四-不要闭合标签)
       - [方法五 通过设置margin](#方法五-通过设置margin)
       - [方法六 通过父元素的`font-size:0`](#方法六-通过父元素的font-size0)
+    - [如何解决`overflow:scroll` 时不能平滑滚动的问题？](#如何解决overflowscroll-时不能平滑滚动的问题)
 
 ## 概念
 ### CSS3 新特性
@@ -1925,3 +1926,7 @@ span {
   <span>第四个span</span>
 </div>
 ```
+### 如何解决`overflow:scroll` 时不能平滑滚动的问题？
+
+如果对某个div或模块使用了`overflow: scroll`属性，在iOS系统的手机上浏览时，则会出现明显的卡顿现象。但是在android系统的手机上则不会出现该问题。
+可以通过添加`-webkit-overflow-scrolling: touch;`来解决。这行代码启用了硬件加速特性，所以滑动很流畅。或者也可以使用IScroll等插件。
