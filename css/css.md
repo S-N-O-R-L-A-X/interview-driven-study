@@ -141,6 +141,12 @@
       - [方法一 宽高判断法](#方法一-宽高判断法)
       - [方法二 canvas判断方法](#方法二-canvas判断方法)
       - [方法三 根据请求header信息](#方法三-根据请求header信息)
+    - [CSS 布局](#css-布局)
+      - [单列布局](#单列布局)
+      - [两列自适应布局](#两列自适应布局)
+      - [三栏布局](#三栏布局)
+      - [黏连布局](#黏连布局)
+      - [等高布局](#等高布局)
 
 ## 概念
 ### CSS3 新特性
@@ -2124,3 +2130,15 @@ function isSupportWebp() {
 reference: 
 https://zhuanlan.zhihu.com/p/70519620
 https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
+
+### CSS 布局
+#### 单列布局
+
+#### 两列自适应布局
+
+#### 三栏布局
+
+#### 黏连布局
+
+#### 等高布局
+reference: https://juejin.cn/post/6844903710070407182#heading-12
