@@ -89,7 +89,7 @@
     - [经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧](#经常遇到的浏览器的兼容性有哪些原因解决方法是什么常用-hack-的技巧)
     - [简单介绍使用图片 base64 编码的优点和缺点](#简单介绍使用图片-base64-编码的优点和缺点)
     - [如果需要手动写动画，你认为最小时间间隔是多久，为什么](#如果需要手动写动画你认为最小时间间隔是多久为什么)
-    - [阐述一下 CSSSprites](#阐述一下-csssprites)
+    - [阐述一下 CSS Sprites](#阐述一下-css-sprites)
     - [画一条 0.5px 的线](#画一条-05px-的线)
     - [transition 和 animation 的区别](#transition-和-animation-的区别)
     - [如何实现单行／多行文本溢出的省略（...）](#如何实现单行多行文本溢出的省略)
@@ -1165,10 +1165,9 @@ base64编码是一种图片处理格式，通过特定的算法将图片编码�
 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms＝16.7ms
 
 
-### 阐述一下 CSSSprites
-
-将一个页面涉及到的所有图片都包含到一张大图中去，然后利用CSS的background-image，background-repeat，background-position的组合进行背景定位。
-利用CSSSprites能很好地减少网页的http请求，从而很好的提高页面的性能；CSSSprites能减少图片的字节。
+### 阐述一下 CSS Sprites
+雪碧图，也叫精灵图，指的是将一个页面涉及到的所有图片都包含到一张大图中去，然后利用CSS的`background-image`，`background-repeat`，`background-position`的组合进行背景定位。
+利用CSS Sprites能很好地减少网页的http请求，从而很好的提高页面的性能；CSS Sprites能减少图片的字节。
 
 优点：
   减少HTTP请求数，极大地提高页面加载速度
