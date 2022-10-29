@@ -115,6 +115,13 @@
     - [如何让 Chrome 支持小于 12px 的文字？](#如何让-chrome-支持小于-12px-的文字)
     - [如何让页面里的字体变清晰，变细？](#如何让页面里的字体变清晰变细)
     - [position:fixed;在 android 下无效怎么处理？](#positionfixed在-android-下无效怎么处理)
+    - [如何去除 `inline-block` 元素间间距？](#如何去除-inline-block-元素间间距)
+      - [方法一 写成一行](#方法一-写成一行)
+      - [方法二 把上一个闭合标签和下一个起始标签连在一起](#方法二-把上一个闭合标签和下一个起始标签连在一起)
+      - [方法三 利用注释标签](#方法三-利用注释标签)
+      - [方法四 不要闭合标签](#方法四-不要闭合标签)
+      - [方法五 通过设置margin](#方法五-通过设置margin)
+      - [方法六 通过父元素的`font-size:0`](#方法六-通过父元素的font-size0)
 
 ## 概念
 ### CSS3 新特性
@@ -1833,4 +1840,88 @@ reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth
 ```html
 <meta name="viewport" 
 content="width=device-width, initialscale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no"/>
+```
+
+### 如何去除 `inline-block` 元素间间距？
+这个间隙是由换行或者回车导致的。只要把标签写成一行或者标签直接没有空格，就不会出现间隙。但这样因为代码生成工具、代码格式化、或者其他人修改了代码等简单的原因非常容易失效。因此需要采用下列方法。
+#### 方法一 写成一行
+简单粗暴但容易失效，不推荐。
+
+```html
+<div>
+  <span>第一个span</span><span>第二个span</span><span>第三个span</span><span>第四个span</span>
+</div>
+```
+
+#### 方法二 把上一个闭合标签和下一个起始标签连在一起
+虽然比方法一好，但不大美观，而且依然容易失效。
+```css
+span {
+  display: inline-block;
+}
+```
+
+```html
+<div>
+  <span>第一个span
+  </span><span>第二个span
+  </span><span>第三个span
+  </span><span>第四个span</span>
+</div>
+```
+
+#### 方法三 利用注释标签
+有点冗余，但是比方法一和方法二好。
+```html
+<div>
+  <span>第一个span</span><!-- 
+  --><span>第二个span</span><!-- 
+  --><span>第三个span</span><!-- 
+  --><span>第四个span</span>
+</div>
+```
+
+#### 方法四 不要闭合标签
+<blockquote class="warning"> 虽然网上提到了这个方法，但我尝试后发现在chrome里并没有用，但在此处还是列出。</blockquote>
+为了兼容IE6/IE7，最后一个标签需要闭合。
+```html
+<div>
+  <span>第一个span
+  <span>第二个span
+  <span>第三个span
+  <span>第四个span</span>
+</div>
+```
+
+#### 方法五 通过设置margin
+<blockquote class="warning"> 注意：此处的margin与字体大小有关。</blockquote>
+```css
+span {
+  display: inline-block;
+  margin: 0;
+}
+```
+```html
+<div>
+  <span>第一个span</span>
+  <span>第二个span</span>
+  <span>第三个span</span>
+  <span>第四个span</span>
+</div>
+```
+
+#### 方法六 通过父元素的`font-size:0`
+```css
+span {
+  display: inline-block;
+  font-size: 14px;
+}
+```
+```html
+<div style="font-size:0;-webkit-text-size-adjust: none;">
+  <span>第一个span</span>
+  <span>第二个span</span>
+  <span>第三个span</span>
+  <span>第四个span</span>
+</div>
 ```
