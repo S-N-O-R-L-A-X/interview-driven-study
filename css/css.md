@@ -132,6 +132,10 @@
       - [方法六 通过父元素的`font-size:0`](#方法六-通过父元素的font-size0)
     - [如何解决`overflow:scroll` 时不能平滑滚动的问题？](#如何解决overflowscroll-时不能平滑滚动的问题)
     - [有一个高度自适应的 div，里面有两个div，一个高度 100px，希望另一个填满剩下的高度。](#有一个高度自适应的-div里面有两个div一个高度-100px希望另一个填满剩下的高度)
+    - [浏览器如何判断是否支持 webp 格式图片](#浏览器如何判断是否支持-webp-格式图片)
+      - [方法一 宽高判断法](#方法一-宽高判断法)
+      - [方法二 canvas判断方法](#方法二-canvas判断方法)
+      - [方法三 根据请求header信息](#方法三-根据请求header信息)
 
 ## 概念
 ### CSS3 新特性
@@ -2033,3 +2037,66 @@ span {
 （1）外层div使用`position：relative；`高度要求自适应的div使用 `position:absolute;top:100px;bottom:0; left:0;right:0;`
 （2）使用flex布局，设置主轴为竖轴，第二个div设置
 `flex-grow:1`。
+
+### 浏览器如何判断是否支持 webp 格式图片
+
+#### 方法一 宽高判断法
+创建image对象，将其src属性设置为webp格式的图片，然后在onload事件中获取图片的宽高，如果能够获取，则说明浏览器支持webp格式图片。如果不能获取或者触发了onerror函数，那么就说明浏览器不支持webp格式的图片。
+```js
+const supportsWebp = ({ createImageBitmap, Image }) => {
+  if (!createImageBitmap || !Image) return Promise.resolve(false);
+
+  return new Promise(resolve => {
+    const image = new Image();
+    image.onload = () => {
+        createImageBitmap(image)
+            .then(() => {
+                resolve(true);
+            })
+            .catch(() => {
+                resolve(false);
+            });
+    };
+    image.onerror = () => {
+        resolve(false);
+    };
+    image.src = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
+  });
+};
+
+const webpIsSupported = () => {
+  let memo = null;
+  return () => {
+      if (!memo) {
+          memo = supportsWebp(window);
+      }
+      return memo;
+  };
+};
+
+webpIsSupported()().then(res => {
+    console.log("是否支持 webp", res)
+}).catch(err => {
+    console.log(err)
+})
+```
+
+#### 方法二 canvas判断方法
+我们可以动态的创建一个canvas对象，通过canvas的toDataURL将设置为webp格式，然后判断返回值中是否含有image/webp字段，如果包含则说明支持WebP，反之则不支持。
+
+```js
+function isSupportWebp() {
+  try {
+    return document.createElement('canvas').toDataURL('image/webp', 0.5).indexOf('data:image/webp') === 0;
+  } catch(err) {
+    return false;
+  }
+}
+```
+
+#### 方法三 根据请求header信息
+在图片请求发出的时候，Request Headers 里有Accept，服务端可以根据 Accept 里面是否有 image/webp 进行判断。
+
+reference: 
+https://zhuanlan.zhihu.com/p/70519620
+https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
