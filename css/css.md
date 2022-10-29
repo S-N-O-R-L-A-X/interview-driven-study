@@ -123,6 +123,7 @@
       - [方法五 通过设置margin](#方法五-通过设置margin)
       - [方法六 通过父元素的`font-size:0`](#方法六-通过父元素的font-size0)
     - [如何解决`overflow:scroll` 时不能平滑滚动的问题？](#如何解决overflowscroll-时不能平滑滚动的问题)
+    - [有一个高度自适应的 div，里面有两个div，一个高度 100px，希望另一个填满剩下的高度。](#有一个高度自适应的-div里面有两个div一个高度-100px希望另一个填满剩下的高度)
 
 ## 概念
 ### CSS3 新特性
@@ -1930,3 +1931,9 @@ span {
 
 如果对某个div或模块使用了`overflow: scroll`属性，在iOS系统的手机上浏览时，则会出现明显的卡顿现象。但是在android系统的手机上则不会出现该问题。
 可以通过添加`-webkit-overflow-scrolling: touch;`来解决。这行代码启用了硬件加速特性，所以滑动很流畅。或者也可以使用IScroll等插件。
+
+### 有一个高度自适应的 div，里面有两个div，一个高度 100px，希望另一个填满剩下的高度。
+
+（1）外层div使用`position：relative；`高度要求自适应的div使用 `position:absolute;top:100px;bottom:0; left:0;right:0;`
+（2）使用flex布局，设置主轴为竖轴，第二个div设置
+`flex-grow:1`。
