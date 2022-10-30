@@ -92,6 +92,11 @@
     - [如果需要手动写动画，你认为最小时间间隔是多久，为什么](#如果需要手动写动画你认为最小时间间隔是多久为什么)
     - [阐述一下 CSS Sprites](#阐述一下-css-sprites)
     - [画一条 0.5px 的线](#画一条-05px-的线)
+      - [方法一 viewport](#方法一-viewport)
+      - [方法二 transform](#方法二-transform)
+      - [方法三 采用 border-image 的方式](#方法三-采用-border-image-的方式)
+      - [方法四 采用 box-shadow 的方式](#方法四-采用-box-shadow-的方式)
+      - [方法五 采用svg](#方法五-采用svg)
     - [transition 和 animation 的区别](#transition-和-animation-的区别)
     - [如何实现单行／多行文本溢出的省略（...）](#如何实现单行多行文本溢出的省略)
     - [常见的元素隐藏方式](#常见的元素隐藏方式)
@@ -1197,26 +1202,28 @@ base64编码是一种图片处理格式，通过特定的算法将图片编码�
 
 ### 画一条 0.5px 的线
 
-参考文档：https://juejin.cn/post/6844903582370643975
+#### 方法一 viewport
 
-[**实现**](./css实现0.5px.html)
+采用 meta viewport 的方式，这样子就能缩放到原来的0.5倍，如果是1px那么就会变成0.5px，但是要记得viewport只针对于移动端，只在移动端上才能看到效果
 
-```text
-1. 采用 meta viewport 的方式，这样子就能缩放到原来的0.5倍，如果是1px那么就会变成0.5px，但是要记得viewport只针对于移动端，只在移动端上才能看到效果
+#### 方法二 transform
 
-2. 采用 transform: scale() 的方式: transform: scaleY(0.5)
+采用 transform: scale() 的方式: transform: scaleY(0.5)
 
-3. 采用 border-image 的方式
+#### 方法三 采用 border-image 的方式
 
-4. 采用 box-shadow 的方式
-
-    div {
-      height: 1px;
-      background: none;
-      box-shadow: 0 0.5px 0 #000;
-    }
-
+#### 方法四 采用 box-shadow 的方式
+```css
+div {
+  height: 1px;
+  background: none;
+  box-shadow: 0 0.5px 0 #000;
+}
 ```
+
+#### 方法五 采用svg
+
+reference：https://juejin.cn/post/6844903582370643975
 
 ### transition 和 animation 的区别
 
