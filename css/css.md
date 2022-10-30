@@ -97,6 +97,8 @@
       - [方法三 采用 border-image 的方式](#方法三-采用-border-image-的方式)
       - [方法四 采用 box-shadow 的方式](#方法四-采用-box-shadow-的方式)
       - [方法五 采用svg](#方法五-采用svg)
+      - [方法六 直接设置0.5px](#方法六-直接设置05px)
+      - [方法七 采用linear-gradient](#方法七-采用linear-gradient)
     - [transition 和 animation 的区别](#transition-和-animation-的区别)
     - [如何实现单行／多行文本溢出的省略（...）](#如何实现单行多行文本溢出的省略)
     - [常见的元素隐藏方式](#常见的元素隐藏方式)
@@ -1203,12 +1205,27 @@ base64编码是一种图片处理格式，通过特定的算法将图片编码�
 ### 画一条 0.5px 的线
 
 #### 方法一 viewport
-
-采用 meta viewport 的方式，这样子就能缩放到原来的0.5倍，如果是1px那么就会变成0.5px，但是要记得viewport只针对于移动端，只在移动端上才能看到效果
+```html
+<meta name="viewport" content="width=device-width,initial-scale=0.5">
+```
+采用 meta 标签修改scale的方式，这样子就能缩放到原来的0.5倍。但是viewport只针对于移动端，只在移动端上才能看到效果。
 
 #### 方法二 transform
+```css
+.scale-half {
+    height: 1px;
+    transform: scaleY(0.5);
+}
+```
+Chrome/Safari都变虚了，只有Firefox比较完美看起来是实的而且还很细，效果和直接设置0.5px一样。所以通过transform: scale会导致Chrome变虚，而粗细几乎没有变化。但是如果加上transform-origin: 50% 100%就很完美了。
 
-采用 transform: scale() 的方式: transform: scaleY(0.5)
+```css
+.scale-half {
+  height: 1px;
+  transform: scaleY(0.5);
+  transform-origin:50% 100%;
+}
+```
 
 #### 方法三 采用 border-image 的方式
 
@@ -1222,6 +1239,46 @@ div {
 ```
 
 #### 方法五 采用svg
+利用SVG的描边等属性的1px还是物理像素的1px，而不是高清屏的1px
+```css
+.svg {
+    background: none;
+    height: 1px;
+    background: url("data:image/svg+xml;utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='1px'><line x1='0' y1='0' x2='100%' y2='0' stroke='#000'></line></svg>");
+}
+```
+
+或者
+```html
+<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='1px'>
+    <line x1='0' y1='0' x2='100%' y2='0' stroke='#000'></line>
+</svg>
+```
+使用svg的line元素画线，stroke表示描边颜色，默认描边宽度stroke-width="1"，由于svg的描边等属性的1px是物理像素的1px，相当于高清屏的0.5px，另外还可以使用svg的rect等元素进行绘制。
+可是由于firefox的background-image只支持命名颜色的svg，如"black"、"red"等，如果把上面代码的svg里面的#000改成black的话就可以显示出来，但是这样就很不灵活了。但是可以通过把svg转成base64的形式来解决firefox的兼容问题。
+
+#### 方法六 直接设置0.5px
+```css
+.half-px {
+  height: 0.5px;
+  width: 300px;
+  background-color: #000;
+}
+```
+其中Chrome把0.5px四舍五入变成了1px，而firefox/safari能够画出半个像素的边。Chrome会把小于0.5px的当成0，而Firefox会把不小于0.55px当成1px，Safari会把不小于0.75px当成1px。在手机上观察IOS的Chrome，却会画出0.5px的边，而安卓5.0原生浏览器是不行的。所以直接设置0.5px不同浏览器的差异比较大，并且我们看到不同系统的不同浏览器对小数点的px有不同的处理。所以如果我们把单位设置成小数的px包括宽高等，其实不太可靠，因为不同浏览器表现不一样。
+
+#### 方法七 采用linear-gradient
+渐变的角度从下往上，从白色#fff渐变到黑色#000，而且是线性的，在高清屏上，1px的逻辑像素代表的物理（设备）像素有2px，由于是线性渐变，所以第1个px只能是#fff，而剩下的那个像素只能是#000，这样就达到了画一半的目的。
+但这种方法在各个流览器上面都不完美，效果都是虚的，和完美的0.5px还是有差距。这个效果和scale 0.5的差不多，都是通过虚化线，让人觉得变细了。
+
+```css
+.gradient {
+    height: 1px;
+    background: linear-gradient(0deg, #fff, #000);
+}
+```
+
+
 
 reference：https://juejin.cn/post/6844903582370643975
 
