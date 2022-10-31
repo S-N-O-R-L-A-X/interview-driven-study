@@ -1273,22 +1273,19 @@ div {
 
 ```css
 .gradient {
-    height: 1px;
-    background: linear-gradient(0deg, #fff, #000);
+  height: 1px;
+  background: linear-gradient(0deg, #fff, #000);
 }
 ```
-
-
 
 reference：https://juejin.cn/post/6844903582370643975
 
 ### transition 和 animation 的区别
 
-```css
-transition关注的是CSSproperty的变化，property值和时间的关系是一个三次贝塞尔曲线。
+transition关注的是CSSproperty的变化，property值和时间的关系是一个三次贝塞尔曲线。transition只有两个状态：开始状态和结束状态。transition需要借助别的方式来触发
 
-animation作用于元素本身而不是样式属性，可以使用关键帧的概念，应该说可以实现更自由的动画效果。
-```
+animation作用于元素本身而不是样式属性，可以使用关键帧的概念，应该说可以实现更自由的动画效果。animation可能是多个状态，有帧的概念。animation可以自动触发。
+
 
 ### 如何实现单行／多行文本溢出的省略（...）
 
