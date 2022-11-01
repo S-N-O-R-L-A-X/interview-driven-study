@@ -156,6 +156,7 @@
       - [黏连布局](#黏连布局)
       - [等高布局](#等高布局)
     - [`height:100%`失效的情况](#height100失效的情况)
+    - [min-width和max-width属性间的覆盖规则？](#min-width和max-width属性间的覆盖规则)
 
 ## 概念
 ### CSS3 新特性
@@ -2216,3 +2217,6 @@ reference: https://juejin.cn/post/6844903710070407182#heading-12
 
 对于普通文档流中的元素，百分比高度值要想起作用，其父级必须有一个可以生效的高度值。
 如果包含块的高度没有显式指定（即高度由内容决定），并且该元素不是绝对定位，则计算值为auto，所以无法参与计算。而使用绝对定位的元素会有计算值，即使祖先元素的height计算为auto也是如此。
+
+### min-width和max-width属性间的覆盖规则？
+max-width会覆盖width，即使width是行类样式或者设置了!important；当min-width和max-width冲突的时候，min-width会覆盖max-width。
