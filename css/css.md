@@ -157,6 +157,7 @@
       - [等高布局](#等高布局)
     - [`height:100%`失效的情况](#height100失效的情况)
     - [min-width和max-width属性间的覆盖规则？](#min-width和max-width属性间的覆盖规则)
+    - [幽灵空白节点是怎么回事？](#幽灵空白节点是怎么回事)
 
 ## 概念
 ### CSS3 新特性
@@ -2220,3 +2221,16 @@ reference: https://juejin.cn/post/6844903710070407182#heading-12
 
 ### min-width和max-width属性间的覆盖规则？
 max-width会覆盖width，即使width是行类样式或者设置了!important；当min-width和max-width冲突的时候，min-width会覆盖max-width。
+
+### 幽灵空白节点是怎么回事？
+> "Each line box starts with a zero-width inline box with the element's font and line height properties. We call that imaginary box a 'strut'."
+每个行框盒子都以一个具有元素的字体和行高属性的零宽度行内框开始。我们称这个假想的盒子为"支柱"。
+
+在HTML5文档声明中，内联元素的所有解析和渲染表现就如同每个行框盒子的前面有一个“空白节点”一样。这个“空白节点”永远透明，不占据任何宽度，看不见也无法通过脚本获取，就好像幽灵一样，但又确确实实地存在，表现如同文本节点一样，因此，我称之为“幽灵空白节点”。
+
+解决方案：
+1. 让vertical-align失效：vertical-align属性对于块级元素是无感的，因此我们只需要为元素设置`display:block`即可;
+2. 修改vertical-align属性值：修改其默认值baseline值为其他属性值，使其不再相对基线对齐;
+3. 修改line-height的值：由于line-height的定义是两基线之间的距离，因此，只要line-height足够小，便可以消除图片下面的空隙。（注意这里是要在div上设置line-height，然后让div的inline boxes继承line-height属性）
+
+reference: https://zhuanlan.zhihu.com/p/391118319
