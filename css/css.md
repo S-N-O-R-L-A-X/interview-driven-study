@@ -41,6 +41,7 @@
     - [IFC 行内格式化上下文](#ifc-行内格式化上下文)
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
+    - [替换元素](#替换元素)
     - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
     - [visibility](#visibility)
       - [visible](#visible)
@@ -577,6 +578,14 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 <span style="width: 100px; height: 100px; background-color: #ccc;">123</span>
 <span>456</span>
 ```
+
+### 替换元素
+通过修改某个属性值呈现的内容就可以被替换的元素称为“替换元素”。因此，`<img>`、`<object>`、`<video>`、`<iframe>`或者表单元素`<textarea>`和`<input>`和`<select>`都是典型的替换元素。
+替换元素除了内容可替换这一特性以外，还有以下一些特性。
+（1）内容外观不受页面上的CSS的影响。即样式表现在CSS作用域之外。如何更改替换元素本身的外观需要类似appearance属性，或者浏览器自身暴露的一些样式接口，
+（2）有自己的尺寸。在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如`<video>`、`<iframe>`或者`<canvas>`等，也有少部分替换元素为0像素，如`<img>`，而表单元素的替换元素的尺寸则和浏览器有关，没有明显的规律。
+（3）在很多CSS属性上有自己的一套表现规则。比较具有代表性的就是vertical-align属性，对于替换元素和非替换元素，vertical-align属性值的解释是不一样的。比方说vertical-align的默认值的baseline，被定义为字符x的下边缘，而替换元素的基线却被定义成了元素的下边缘。
+（4）所有的替换元素都是内联水平元素，也就是替换元素和替换元素、替换元素和文字都是可以在一行显示的。但是，替换元素默认的display值却是不一样的，有的是inline，有的是inline-block。
 
 ### inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
 
