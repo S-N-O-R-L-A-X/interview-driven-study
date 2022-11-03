@@ -42,7 +42,7 @@
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
     - [替换元素(replaced element)](#替换元素replaced-element)
-    - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
+    - [inline-block、inline 和 block 的区别](#inline-blockinline-和-block-的区别)
     - [visibility](#visibility)
       - [visible](#visible)
       - [hidden](#hidden)
@@ -580,7 +580,7 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 ```
 
 ### 替换元素(replaced element)
-替换元素指那些展示内容不由css控制的元素。它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
+替换元素指那些展示内容不由css控制的元素。它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到替换元素自身的内容。
 典型的替换元素元素有
 `<iframe>`、`<video>`、`<embed>`、`<img>`
 特定情况下可作为替换元素的有
@@ -591,6 +591,7 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 
 CSS 在某些情况下会对替换元素做一些特殊处理，比如计算外边距（margin）和一些 auto 的值。
 有一部分替换元素具有内部尺寸和定好的基线，这会被一些 CSS 属性用到，例如 `vertical-align: baseline`, 非替换元素的基线定义为字符的下边缘，而替换元素的基线定义为元素的下边缘。只有替换元素才能具有这种自带值。
+替换元素拥有内置宽高，它们可以设置`width`和`height`。
 
 控制`content-box`中的对象位置
 `object-fit`指定替换元素的内容对象在元素盒区域中的大小。
@@ -601,38 +602,14 @@ CSS 在某些情况下会对替换元素做一些特殊处理，比如计算外�
 
 reference:https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element
 
-### inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
+### inline-block、inline 和 block 的区别
 
-```css
 Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
 
 Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding 在水平方向垂直方向都有效，前后无换行符
 
 Inline-block：能设置宽度高度，margin/padding 水平垂直方向 都有效，前后无换行符
-```
 
-```css
-img 是可替换元素。
-
-在 CSS 中，可替换元素（replaced element）的展现效果不是由 CSS 来控制的。这些元素是一种外部对象，它们外观的渲染，是独立于 CSS 的。
-简单来说，它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
-例如 `<iframe>` 元素，可能具有自己的样式表，但它们不会继承父文档的样式。
-
-典型的可替换元素有：
-  <iframe>
-  <video>
-  <embed>
-  <img>
-
-有些元素仅在特定情况下被作为可替换元素处理，例如：
-  <input> "image" 类型的 <input> 元素就像 <img> 一样可替换
-  <option>
-  <audio>
-  <canvas>
-  <object>
-  <applet>（已废弃）
-  CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
-```
 
 ### visibility
 三个取值
