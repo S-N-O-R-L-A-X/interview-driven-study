@@ -41,7 +41,7 @@
     - [IFC 行内格式化上下文](#ifc-行内格式化上下文)
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
-    - [替换元素](#替换元素)
+    - [替换元素(replaced element)](#替换元素replaced-element)
     - [inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高](#inline-blockinline-和-block-的区别为什么-img-是-inline-还可以设置宽高)
     - [visibility](#visibility)
       - [visible](#visible)
@@ -579,13 +579,27 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 <span>456</span>
 ```
 
-### 替换元素
-通过修改某个属性值呈现的内容就可以被替换的元素称为“替换元素”。因此，`<img>`、`<object>`、`<video>`、`<iframe>`或者表单元素`<textarea>`和`<input>`和`<select>`都是典型的替换元素。
-替换元素除了内容可替换这一特性以外，还有以下一些特性。
-（1）内容外观不受页面上的CSS的影响。即样式表现在CSS作用域之外。如何更改替换元素本身的外观需要类似appearance属性，或者浏览器自身暴露的一些样式接口，
-（2）有自己的尺寸。在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如`<video>`、`<iframe>`或者`<canvas>`等，也有少部分替换元素为0像素，如`<img>`，而表单元素的替换元素的尺寸则和浏览器有关，没有明显的规律。
-（3）在很多CSS属性上有自己的一套表现规则。比较具有代表性的就是vertical-align属性，对于替换元素和非替换元素，vertical-align属性值的解释是不一样的。比方说vertical-align的默认值的baseline，被定义为字符x的下边缘，而替换元素的基线却被定义成了元素的下边缘。
-（4）所有的替换元素都是内联水平元素，也就是替换元素和替换元素、替换元素和文字都是可以在一行显示的。但是，替换元素默认的display值却是不一样的，有的是inline，有的是inline-block。
+### 替换元素(replaced element)
+替换元素指那些展示内容不由css控制的元素。它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
+典型的替换元素元素有
+`<iframe>`、`<video>`、`<embed>`、`<img>`
+特定情况下可作为替换元素的有
+`<option>`、`<audio>`、`<canvas>`、`<object>`、`object`、`<applet>`
+
+`<input type="image">`因为类似`<img>`也会被算作替换元素，但其他type的input不会算作替换元素。
+用 `content` 属性插入的对象是匿名的替换元素。它们并不存在于 HTML 标记中，因此是“匿名的”。
+
+CSS 在某些情况下会对替换元素做一些特殊处理，比如计算外边距（margin）和一些 auto 的值。
+有一部分替换元素具有内部尺寸和定好的基线，这会被一些 CSS 属性用到，例如 `vertical-align: baseline`, 非替换元素的基线定义为字符的下边缘，而替换元素的基线定义为元素的下边缘。只有替换元素才能具有这种自带值。
+
+控制`content-box`中的对象位置
+`object-fit`指定替换元素的内容对象在元素盒区域中的大小。
+`object-position`指定替换元素的内容对象在元素盒区域中的位置。
+
+在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如`<video>`、`<iframe>`或者`<canvas>`等，也有少部分替换元素为0像素，如`<img>`。
+所有的替换元素都是inline元素，也就是替换元素和非替换元素、文字都是可以在一行显示的。但是，替换元素默认的display值却是不一样的，有的是inline，有的是inline-block。
+
+reference:https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element
 
 ### inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
 
