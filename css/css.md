@@ -165,6 +165,7 @@
     - [min-width和max-width属性间的覆盖规则？](#min-width和max-width属性间的覆盖规则)
     - [幽灵空白节点是怎么回事？](#幽灵空白节点是怎么回事)
     - [`margin: auto` 填充规则](#margin-auto-填充规则)
+    - [margin在什么情况下无效？](#margin在什么情况下无效)
 
 ## 概念
 ### CSS3 新特性
@@ -2267,3 +2268,11 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 `margin: auto`用来计算元素对应方向应该获得的剩余间距大小。但是触发`margin:auto`计算有一个前提条件，就是width或height为auto时，元素具有对应方向的自动填充特性。
 （1）如果一侧定值，一侧auto，则auto为剩余空间大小。
 （2）如果两侧均是auto，则平分剩余空间。
+
+### margin在什么情况下无效？
+* `display:inline`的非替换元素的垂直margin无效。对于内联替换元素，垂直margin有效，并且没有margin合并的问题。
+* 表格中的`<tr>`和`<td>`元素无效
+* 设置`display:table-cell`或`display:table-row`的元素无效。
+* 绝对定位元素非定位方位的margin值失效。
+* 定高容器子元素的margin-bottom或者定宽容器子元素的margin-right失效。
+
