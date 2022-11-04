@@ -23,6 +23,7 @@
     - [绝对定位元素与非绝对定位元素的百分比计算的区别](#绝对定位元素与非绝对定位元素的百分比计算的区别)
     - [link 和 @import 的区别](#link-和-import-的区别)
     - [基线、行高](#基线行高)
+    - [line-height的计算](#line-height的计算)
     - [position取值](#position取值)
       - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
         - [static](#static)
@@ -390,6 +391,18 @@ reference:
 https://developer.mozilla.org/zh-CN/docs/Glossary/baseline
 https://developer.aliyun.com/article/330933
 https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/x-height
+
+### line-height的计算
+* 对于非替换元素的内联元素，其可视高度完全由`line-height`决定。比如文本，`line-height`指定了用来计算行框盒子高度的基础高度。
+* 内联元素的高度由固定高度和不固定高度组成，这个不固定的部分就是这里的“行距”。在CSS中，“行距”分散在当前文字的上方和下方，即使是第一行文字，其上方也有“行距”，只不过这个“行距”的高度仅仅是完整“行距”的一半，因此，也被称为“半行距”。
+* 行距 = `line-height` - `font-size`（因为上下都存在）。
+* `border`以及`line-height`等传统CSS属性并没有小数像素的概念。如果标注的是文字上边距，则向下取整；如果是文字下边距，则向上取整。
+* 对于纯文本元素，`line-height`直接决定了最终的高度。但是，如果同时有替换元素，则`line-height`只能决定最小高度。
+* 对于块级元素，`line-height`对其本身是没有任何作用的。改变`line-height`，块级元素的高度跟着变化实际上是因为改变块级元素里面内联元素高度改变。
+* `line-height`的默认值是`normal`，还支持数值、百分比值以及长度值。为数值或百分比类型时，其最终的计算值是和当前`font-size`相乘后的值；为长度值时不变。
+* 如果使用数值作为`line-height`的属性值，那么所有的子元素继承的都是这个值；但是，如果使用百分比值或者长度值作为属性值，那么所有的子元素继承的是最终的计算值。
+* 无论内联元素`line-height`如何设置，最终父级元素的高度都是由数值大的那个`line-height`决定的。
+* 只要有“内联盒子”在，就一定会有“行框盒子”，即每一行内联元素外面包裹的一层看不见的盒子。并且，在每个“行框盒子”前面有一个宽度为0的具有该元素字体和行高属性的“幽灵空白节点”。
 
 ### position取值
 
