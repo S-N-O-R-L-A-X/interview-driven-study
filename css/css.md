@@ -164,6 +164,7 @@
     - [`height:100%`失效的情况](#height100失效的情况)
     - [min-width和max-width属性间的覆盖规则？](#min-width和max-width属性间的覆盖规则)
     - [幽灵空白节点是怎么回事？](#幽灵空白节点是怎么回事)
+    - [`margin: auto` 填充规则](#margin-auto-填充规则)
 
 ## 概念
 ### CSS3 新特性
@@ -2261,3 +2262,8 @@ max-width会覆盖width，即使width是行类样式或者设置了!important；
 3. 修改line-height的值：由于line-height的定义是两基线之间的距离，因此，只要line-height足够小，便可以消除图片下面的空隙。（注意这里是要在div上设置line-height，然后让div的inline boxes继承line-height属性）
 
 reference: https://zhuanlan.zhihu.com/p/391118319
+
+### `margin: auto` 填充规则
+`margin: auto`用来计算元素对应方向应该获得的剩余间距大小。但是触发`margin:auto`计算有一个前提条件，就是width或height为auto时，元素具有对应方向的自动填充特性。
+（1）如果一侧定值，一侧auto，则auto为剩余空间大小。
+（2）如果两侧均是auto，则平分剩余空间。
