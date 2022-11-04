@@ -90,6 +90,7 @@
       - [后处理器](#后处理器)
     - [使用 rem 布局的优缺点](#使用-rem-布局的优缺点)
     - [首选最小宽度](#首选最小宽度)
+    - [border的一些特殊性质](#border的一些特殊性质)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -168,7 +169,6 @@
     - [幽灵空白节点是怎么回事？](#幽灵空白节点是怎么回事)
     - [`margin: auto` 填充规则](#margin-auto-填充规则)
     - [margin在什么情况下无效？](#margin在什么情况下无效)
-    - [border的一些特殊性质](#border的一些特殊性质)
 
 ## 概念
 ### CSS3 新特性
@@ -449,7 +449,7 @@ HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，层叠上下
 某些元素的渲染顺序是由其 z-index 的值影响的。这是因为这些元素具有能够使他们形成一个层叠上下文的特殊属性。
 
 文档中的层叠上下文由满足以下任意一个条件的元素形成：
-- 文档根元素（<html>）；
+- 文档根元素（`<html>`）；
 - position 值为 absolute 或 relative 且 z-index 值不为 auto 的元素；
 - position 值为 fixed 或 sticky 的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；
 - flex (flex) 容器中z-index 值不为 auto的子元素；
@@ -544,7 +544,7 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 简单来说就是一个封闭的黑盒子，里面元素的布局不会影响外部。
 下列方式会创建块格式化上下文：
 
-- 根元素(\<html>)
+- 根元素(`<html>`)
 - 浮动元素（元素的 float 不是 none）
 - 绝对定位元素（元素的 position 为 absolute 或 fixed）
 - 行内块元素（元素的 display 为 inline-block）
@@ -984,6 +984,13 @@ CSS后处理器是对CSS进行处理，并最终生成CSS的预处理器，它�
 首选最小宽度指的是元素最适合的最小宽度。
 东亚文字（如中文）最小宽度为每个汉字的宽度。西方文字最小宽度由特定的连续的英文字符单元决定。并不是所有的英文字符都会组成连续单元，一般会终止于空格（普通空格）、短横线、问号以及其他非英文字符等。
 如果想让英文字符和中文一样，每一个字符都用最小宽度单元，可以使用`word-break:breakall`。
+
+### border的一些特殊性质
+* `border-width`却不支持百分比。
+* `border-style`的默认值是`none`，而不是`solid`。这也是单纯设置`border-width`或`border-color`没有边框显示的原因。
+* `border-style:double`的表现规则：双线宽度永远相等，中间间隔±1。
+* `border-color`默认颜色是元素内容的颜色而非black。
+* 默认background背景图片是相对于padding-box定位的。
 
 
 ## 应用
@@ -2304,11 +2311,4 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 * 设置`display:table-cell`或`display:table-row`的元素无效。
 * 绝对定位元素非定位方位的`margin`值失效。
 * 定高容器子元素的`margin-bottom`或者定宽容器子元素的`margin-right`失效。
-
-### border的一些特殊性质
-* `border-width`却不支持百分比。
-* `border-style`的默认值是`none`，而不是`solid`。这也是单纯设置`border-width`或`border-color`没有边框显示的原因。
-* `border-style:double`的表现规则：双线宽度永远相等，中间间隔±1。
-* `border-color`默认颜色是元素内容的颜色而非black。
-* 默认background背景图片是相对于padding-box定位的。
 
