@@ -22,6 +22,7 @@
     - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
     - [绝对定位元素与非绝对定位元素的百分比计算的区别](#绝对定位元素与非绝对定位元素的百分比计算的区别)
     - [link 和 @import 的区别](#link-和-import-的区别)
+    - [基线、行高](#基线行高)
     - [position取值](#position取值)
       - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
         - [static](#static)
@@ -375,6 +376,20 @@ div {
 4. 可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用@import 的方式插入样式。
 5. link 引入的样式权重大于@import 引入的样式。
 
+### 基线、行高
+![](./images/line-height.png)
+基线是指欧洲和西亚文字排版中，用于在上面放置字符的一条假想的基准线。
+字符的降部比如 g 和 p 会向下超出基线，带弧形的会向上和向下扩展的字形，比如 C 或 3 会略微向下超出基线。
+东亚文字没有基线，他们的字形放置在方盒子，没有升部和降部。
+
+顶线和底线之间为内容区，一般就是字体大小。
+
+x-height指的是小写字母x的高度，即基线和等分线（meanline，也称作中线，midline）之间的距离。现已废弃。
+
+reference:
+https://developer.mozilla.org/zh-CN/docs/Glossary/baseline
+https://developer.aliyun.com/article/330933
+https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/x-height
 
 ### position取值
 
