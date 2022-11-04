@@ -46,6 +46,7 @@
       - [替换元素特点](#替换元素特点)
       - [控制`content-box`中的对象位置](#控制content-box中的对象位置)
       - [样式计算](#样式计算)
+      - [匿名替换元素](#匿名替换元素)
     - [inline-block、inline 和 block 的区别](#inline-blockinline-和-block-的区别)
     - [visibility](#visibility)
       - [visible](#visible)
@@ -617,7 +618,16 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 但如果“固有尺寸”含有固有的宽高比例，同时仅设置了宽度或仅设置了高度，则元素依然按照固有的宽高比例显示。
 如果都没有设置，则最终宽度表现为300像素，高度为150像素。
 
-reference:https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element
+#### 匿名替换元素
+CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的替换元素。
+
+使用content生成的文本是无法选中、无法复制的，好像设置了user select:none声明一般，但是普通元素的文本却可以被轻松选中。同时，content生成的文本无法被屏幕阅读设备读取，也无法被搜索引擎抓取，因此，千万不要自以为是地把重要的文本信息使用content属性生成，因为这对可访问性和SEO都很不友好。
+content生成的内容不能左右:empty伪类。
+content动态生成值无法获取。
+
+reference:
+https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/content
 
 ### inline-block、inline 和 block 的区别
 
