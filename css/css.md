@@ -42,6 +42,10 @@
     - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
     - [float 的元素display 是什么](#float-的元素display-是什么)
     - [替换元素(replaced element)](#替换元素replaced-element)
+      - [替换元素范围](#替换元素范围)
+      - [替换元素特点](#替换元素特点)
+      - [控制`content-box`中的对象位置](#控制content-box中的对象位置)
+      - [样式计算](#样式计算)
     - [inline-block、inline 和 block 的区别](#inline-blockinline-和-block-的区别)
     - [visibility](#visibility)
       - [visible](#visible)
@@ -581,7 +585,9 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 
 ### 替换元素(replaced element)
 替换元素指那些展示内容不由css控制的元素。它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到替换元素自身的内容。
-典型的替换元素元素有
+
+#### 替换元素范围
+典型的替换元素有
 `<iframe>`、`<video>`、`<embed>`、`<img>`
 特定情况下可作为替换元素的有
 `<option>`、`<audio>`、`<canvas>`、`<object>`、`object`、`<applet>`
@@ -589,16 +595,27 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 `<input type="image">`因为类似`<img>`也会被算作替换元素，但其他type的input不会算作替换元素。
 用 `content` 属性插入的对象是匿名的替换元素。它们并不存在于 HTML 标记中，因此是“匿名的”。
 
-CSS 在某些情况下会对替换元素做一些特殊处理，比如计算外边距（margin）和一些 auto 的值。
-有一部分替换元素具有内部尺寸和定好的基线，这会被一些 CSS 属性用到，例如 `vertical-align: baseline`, 非替换元素的基线定义为字符的下边缘，而替换元素的基线定义为元素的下边缘。只有替换元素才能具有这种自带值。
-替换元素拥有内置宽高，它们可以设置`width`和`height`。
+#### 替换元素特点
+* CSS 在某些情况下会对替换元素做一些特殊处理，比如计算外边距（margin）和一些 auto 的值。
+* 有一部分替换元素具有内部尺寸和定好的基线，这会被一些 CSS 属性用到，例如 `vertical-align: baseline`, 非替换元素的基线定义为字符的下边缘，而替换元素的基线定义为元素的下边缘。只有替换元素才能具有这种自带值。
+* 在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如`<video>`、`<iframe>`或者`<canvas>`等，也有少部分替换元素为0像素，如`<img>`。
+* 所有的替换元素都是inline元素，也就是替换元素和非替换元素、文字都是可以在一行显示的。但是，替换元素默认的display值却是不一样的，有的是inline，有的是inline-block。
+* 替换元素拥有内置宽高，它们可以设置`width`和`height`。
 
-控制`content-box`中的对象位置
+#### 控制`content-box`中的对象位置
 `object-fit`指定替换元素的内容对象在元素盒区域中的大小。
 `object-position`指定替换元素的内容对象在元素盒区域中的位置。
 
-在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如`<video>`、`<iframe>`或者`<canvas>`等，也有少部分替换元素为0像素，如`<img>`。
-所有的替换元素都是inline元素，也就是替换元素和非替换元素、文字都是可以在一行显示的。但是，替换元素默认的display值却是不一样的，有的是inline，有的是inline-block。
+#### 样式计算
+替换元素的尺寸从内而外分为3类：固有尺寸、HTML尺寸和CSS尺寸。
+（1）固有尺寸指的是替换内容原本的尺寸。例如，图片、视频作为一个独立文件存在的时候，都是有着自己的宽度和高度的。
+（2）HTML尺寸只能通过HTML原生属性改变，这些HTML原生属性包括`<img>`的width和height属性、`<input>`的size属性、`<textarea>`的cols和rows属性等。
+（3）CSS尺寸特指可以通过CSS的width和height或者max-width/min-width和max-height/minheight设置的尺寸，对应盒尺寸中的content box。
+
+计算规则具体如下：
+优先级： 固有尺寸 < HTML尺寸 < CSS尺寸
+但如果“固有尺寸”含有固有的宽高比例，同时仅设置了宽度或仅设置了高度，则元素依然按照固有的宽高比例显示。
+如果都没有设置，则最终宽度表现为300像素，高度为150像素。
 
 reference:https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element
 
