@@ -166,6 +166,7 @@
     - [幽灵空白节点是怎么回事？](#幽灵空白节点是怎么回事)
     - [`margin: auto` 填充规则](#margin-auto-填充规则)
     - [margin在什么情况下无效？](#margin在什么情况下无效)
+    - [border的一些特殊性质](#border的一些特殊性质)
 
 ## 概念
 ### CSS3 新特性
@@ -2270,9 +2271,16 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 （2）如果两侧均是auto，则平分剩余空间。
 
 ### margin在什么情况下无效？
-* `display:inline`的非替换元素的垂直margin无效。对于内联替换元素，垂直margin有效，并且没有margin合并的问题。
+* `display:inline`的非替换元素的垂直`margin`无效。对于内联替换元素，垂直`margin`有效，并且没有`margin`合并的问题。
 * 表格中的`<tr>`和`<td>`元素无效
 * 设置`display:table-cell`或`display:table-row`的元素无效。
-* 绝对定位元素非定位方位的margin值失效。
-* 定高容器子元素的margin-bottom或者定宽容器子元素的margin-right失效。
+* 绝对定位元素非定位方位的`margin`值失效。
+* 定高容器子元素的`margin-bottom`或者定宽容器子元素的`margin-right`失效。
+
+### border的一些特殊性质
+* `border-width`却不支持百分比。
+* `border-style`的默认值是`none`，而不是`solid`。这也是单纯设置`border-width`或`border-color`没有边框显示的原因。
+* `border-style:double`的表现规则：双线宽度永远相等，中间间隔±1。
+* `border-color`默认颜色是元素内容的颜色而非black。
+* 默认background背景图片是相对于padding-box定位的。
 
