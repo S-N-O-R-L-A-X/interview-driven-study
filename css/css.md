@@ -1726,7 +1726,7 @@ div {
 ```
 
 - display: table
-```
+```css
 .outer {
     position: relative;
     display: table;
@@ -1795,90 +1795,86 @@ HTML 代码如下：
 
 - 方法一：通过定位的方式，中间一列通过 `margin: auto` 实现自适应
 
-  CSS 样式：
-
-  ```css
-  .left {
-    width: 200px;
-    height: 100%;
-    background-color: red;
-    position: absolute;
-    left: 0;
-  }
-  .right {
-    width: 200px;
-    height: 100%;
-    background-color: red;
-    position: absolute;
-    right: 0;
-  }
-  .main {
-    height: 100%;
-    background-color: green;
-    position: absolute;
-    left: 200px;
-    right: 200px;
-    margin: auto; /* 这个千万不能少 */
-  }
-  ```
+```css
+.left {
+  width: 200px;
+  height: 100%;
+  background-color: red;
+  position: absolute;
+  left: 0;
+}
+.right {
+  width: 200px;
+  height: 100%;
+  background-color: red;
+  position: absolute;
+  right: 0;
+}
+.main {
+  height: 100%;
+  background-color: green;
+  position: absolute;
+  left: 200px;
+  right: 200px;
+  margin: auto; /* 这个千万不能少 */
+}
+```
 
 - 方法二：flex 布局
-  CSS 样式：
 
-  ```css
-  html,
-  body {
-    height: 100%;
-  }
-  .div {
-    height: 100%; /* 想要实现高度百分百必须让父元素都有高度 */
-    display: flex;
-  }
-  .left {
-    flex: 0 0 200px;
-    order: 1; /* order定义显示的顺序 */
-    background-color: red;
-  }
-  .right {
-    flex: 0 0 200px;
-    order: 3;
-    background-color: red;
-  }
-  .main {
-    flex: auto;
-    order: 2;
-    background-color: green;
-  }
-  ```
+```css
+html,
+body {
+  height: 100%;
+}
+.div {
+  height: 100%; /* 想要实现高度百分百必须让父元素都有高度 */
+  display: flex;
+}
+.left {
+  flex: 0 0 200px;
+  order: 1; /* order定义显示的顺序 */
+  background-color: red;
+}
+.right {
+  flex: 0 0 200px;
+  order: 3;
+  background-color: red;
+}
+.main {
+  flex: auto;
+  order: 2;
+  background-color: green;
+}
+```
 
 - 方法三：左右浮动布局，这种布局方式，必须先写浮动部分，最后再写中间部分，否则右浮动块会掉到下一行。
-  CSS 样式：
 
-  ```css
-  html,
-  body {
-    height: 100%;
-  }
-  .div {
-    height: 100%;
-  }
-  .left {
-    float: left;
-    width: 200px;
-    height: 100%;
-    background-color: red;
-  }
-  .right {
-    float: right;
-    width: 200px;
-    height: 100%;
-    background-color: red;
-  }
-  .main {
-    height: 100%;
-    background-color: green;
-  }
-  ```
+```css
+html,
+body {
+  height: 100%;
+}
+.div {
+  height: 100%;
+}
+.left {
+  float: left;
+  width: 200px;
+  height: 100%;
+  background-color: red;
+}
+.right {
+  float: right;
+  width: 200px;
+  height: 100%;
+  background-color: red;
+}
+.main {
+  height: 100%;
+  background-color: green;
+}
+```
 
 ### 实现自适应九宫格
 
