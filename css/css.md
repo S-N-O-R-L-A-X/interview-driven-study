@@ -23,6 +23,7 @@
     - [绝对定位元素与非绝对定位元素的百分比计算的区别](#绝对定位元素与非绝对定位元素的百分比计算的区别)
     - [link 和 @import 的区别](#link-和-import-的区别)
     - [基线、行高](#基线行高)
+    - [vertical-align](#vertical-align)
     - [line-height的计算](#line-height的计算)
     - [position取值](#position取值)
       - [定位元素 positioned element:除了static外的](#定位元素-positioned-element除了static外的)
@@ -385,12 +386,22 @@ div {
 
 顶线和底线之间为内容区，一般就是字体大小。
 
-x-height指的是小写字母x的高度，即基线和等分线（meanline，也称作中线，midline）之间的距离。现已废弃。
+x-height指的是小写字母x的高度。现已废弃。
 
 reference:
 https://developer.mozilla.org/zh-CN/docs/Glossary/baseline
 https://developer.aliyun.com/article/330933
 https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/x-height
+
+
+### vertical-align
+* `vertical-align`的默认值是`baseline`，即基线对齐，而基线的定义是字母x的下边缘。因此，内联元素默认都是沿着字母x的下边缘对齐的。图片等替换元素使用元素本身的下边缘作为基线。如果一个`inline-block`元素里没有内联元素，或者`overflow`不是`visible`，则该元素的基线就是其margin底边缘；否则其基线就是元素里面最后一行内联元素的基线。
+* `vertical-align:top`是垂直上边缘对齐。如果是内联元素，则和这一行位置最高的内联元素的顶部对齐；对于`display:table-cell`的元素，则和`<td>`元素类似，与`<tr>`元素上边缘对齐。
+* `vertical-align:middle`是中间对齐，对于内联元素，元素的垂直中心点和行框盒子基线往上1/2 x-height处对齐。对于`table-cell`元素，单元格填充盒子相对于外面的表格行居中对齐。
+* `vertical-align`支持数值属性，相对于基线偏移。如果是负值，往下偏移，如果是正值，往上偏移。
+* `vertical-align`属性的百分比值是相对于`line-height`的计算值计算的。
+* `vertical-align`只能应用于内联元素以及`display:table-cell`的元素。
+* `table-cell`元素设置`vertical-align`垂直对齐的是子元素，但是其作用的并不是子元素，而是`table-cell`元素自身。
 
 ### line-height的计算
 * 对于非替换元素的内联元素，其可视高度完全由`line-height`决定。比如文本，`line-height`指定了用来计算行框盒子高度的基础高度。
