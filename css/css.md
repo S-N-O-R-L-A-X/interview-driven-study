@@ -99,7 +99,7 @@
       - [scroll](#scroll)
       - [auto](#auto)
       - [overlay](#overlay)
-      - [无依赖绝对定位](#无依赖绝对定位)
+    - [无依赖绝对定位](#无依赖绝对定位)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -178,6 +178,7 @@
     - [幽灵空白节点是怎么回事？](#幽灵空白节点是怎么回事)
     - [`margin: auto` 填充规则](#margin-auto-填充规则)
     - [margin在什么情况下无效？](#margin在什么情况下无效)
+    - [absolute 与 overflow 会相互制约吗？](#absolute-与-overflow-会相互制约吗)
 
 ## 概念
 ### CSS3 新特性
@@ -1036,9 +1037,8 @@ CSS后处理器是对CSS进行处理，并最终生成CSS的预处理器，它�
 #### overlay
 行为与 auto 相同，但是滚动条绘制在内容之上，而不是占据空间。
 
-#### 无依赖绝对定位
+### 无依赖绝对定位
 没有设置left/top/right/bottom属性值的绝对定位称为“无依赖绝对定位”。
-
 
 ## 应用
 ### 初始化css样式的目的
@@ -2355,3 +2355,7 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 * 绝对定位元素非定位方位的`margin`值失效。
 * 定高容器子元素的`margin-bottom`或者定宽容器子元素的`margin-right`失效。
 
+### absolute 与 overflow 会相互制约吗？
+* 如果overflow不是定位元素且绝对定位元素和overflow容器之间也没有定位元素，则overflow无法对absolute元素进行剪裁。
+* 如果是`overflow:auto`或者`overflow:scroll`，即使绝对定位元素高宽比overflow元素高宽还要大，也都不会出现滚动条。
+* 当overflow元素自身有`transform`的时候，Chrome和Opera浏览器下的overflow剪裁是无效的。
