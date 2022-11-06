@@ -37,6 +37,8 @@
         - [sticky](#sticky)
     - [包含块 containing block](#包含块-containing-block)
     - [层叠上下文 stacking context](#层叠上下文-stacking-context)
+      - [特性](#特性)
+      - [产生原因](#产生原因)
     - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
     - [连续媒体 continuous media](#连续媒体-continuous-media)
     - [flex-box](#flex-box)
@@ -472,6 +474,14 @@ reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
 HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，层叠上下文就是对这些 HTML 元素的一个三维构想。
 某些元素的渲染顺序是由其 z-index 的值影响的。这是因为这些元素具有能够使他们形成一个层叠上下文的特殊属性。
 
+#### 特性
+* 层叠上下文可以包含在其他层叠上下文中，并且一起创建一个层叠上下文的层级。
+* 每个层叠上下文都完全独立于它的兄弟元素：当处理层叠时只考虑子元素。
+* 每个层叠上下文都是自包含的：当一个元素的内容发生层叠后，该元素将被作为整体在父级层叠上下文中按顺序进行层叠。。
+* 层叠上下文可以阻断元素的混合模式。
+* 层叠上下文可以嵌套，内部层叠上下文及其所有子元素均受制于外部的“层叠上下文”。
+
+#### 产生原因
 文档中的层叠上下文由满足以下任意一个条件的元素形成：
 - 文档根元素（`<html>`）；
 - position 值为 absolute 或 relative 且 z-index 值不为 auto 的元素；
