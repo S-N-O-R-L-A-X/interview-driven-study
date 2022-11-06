@@ -45,6 +45,7 @@
   - [!z-index1](#)
         - [例子二](#例子二)
         - [例子三](#例子三)
+        - [例子四](#例子四)
     - [连续媒体 continuous media](#连续媒体-continuous-media)
     - [flex-box](#flex-box)
     - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
@@ -564,9 +565,133 @@ z-index 属性设定了一个定位元素及其后代元素或 flex 项目的 z-
 
 ---
 
+##### 例子四
+```css
+* {
+  margin: 0;
+}
 
-reference：[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
+html {
+  padding: 20px;
+  font: 12px/20px Arial, sans-serif;
+}
 
+div {
+  opacity: 0.7;
+  position: relative;
+}
+
+h1 {
+  font: inherit;
+  font-weight: bold;
+}
+
+#div1,
+#div2 {
+  border: 1px dashed #696;
+  padding: 10px;
+  background-color: #cfc;
+}
+
+#div1 {
+  z-index: 5;
+  margin-bottom: 190px;
+}
+
+#div2 {
+  z-index: 2;
+}
+
+#div3 {
+  z-index: 4;
+  opacity: 1;
+  position: absolute;
+  top: 40px;
+  left: 180px;
+  width: 330px;
+  border: 1px dashed #900;
+  background-color: #fdd;
+  padding: 40px 20px 20px;
+}
+
+#div4,
+#div5 {
+  border: 1px dashed #996;
+  background-color: #ffc;
+}
+
+#div4 {
+  z-index: 6;
+  margin-bottom: 15px;
+  padding: 25px 10px 5px;
+}
+
+#div5 {
+  z-index: 1;
+  margin-top: 15px;
+  padding: 5px 10px;
+}
+
+#div6 {
+  z-index: 3;
+  position: absolute;
+  top: 20px;
+  left: 180px;
+  width: 150px;
+  height: 125px;
+  border: 1px dashed #009;
+  padding-top: 125px;
+  background-color: #ddf;
+  text-align: center;
+}
+```
+
+```html
+<div id="div1">
+  <h1>Division Element #1</h1>
+  <code>position: relative;<br/>
+      z-index: 5;</code>
+</div>
+
+<div id="div2">
+  <h1>Division Element #2</h1>
+  <code>position: relative;<br/>
+      z-index: 2;</code>
+</div>
+
+<div id="div3">
+  <div id="div4">
+    <h1>Division Element #4</h1>
+    <code>position: relative;<br/>
+        z-index: 6;</code>
+  </div>
+
+  <h1>Division Element #3</h1>
+  <code>position: absolute;<br/>
+      z-index: 4;</code>
+
+  <div id="div5">
+    <h1>Division Element #5</h1>
+    <code>position: relative;<br/>
+        z-index: 1;</code>
+  </div>
+
+  <div id="div6">
+    <h1>Division Element #6</h1>
+    <code>position: absolute;<br/>
+        z-index: 3;</code>
+  </div>
+</div>
+```
+
+![](images/z-index04.png)
+
+---
+
+reference：
+[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index
 
 ### 连续媒体 continuous media
 连续媒体是源与终点之间的时间联系数据。
