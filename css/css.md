@@ -39,7 +39,12 @@
     - [层叠上下文 stacking context](#层叠上下文-stacking-context)
       - [特性](#特性)
       - [产生原因](#产生原因)
-    - [z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别](#z-index-是干什么用的默认值是什么与-z-index-0-的区别)
+    - [z-index](#z-index)
+      - [例子](#例子)
+        - [例子一](#例子一)
+  - [!z-index1](#)
+        - [例子二](#例子二)
+        - [例子三](#例子三)
     - [连续媒体 continuous media](#连续媒体-continuous-media)
     - [flex-box](#flex-box)
     - [BFC 的概念, 哪些元素可以触发 BFC](#bfc-的概念-哪些元素可以触发-bfc)
@@ -505,39 +510,63 @@ reference:
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
 https://dev.opera.com/articles/css-will-change-property/
 
-### z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别
+### z-index
+z-index 属性设定了一个定位元素及其后代元素或 flex 项目的 z-order。当元素之间重叠的时候，z-index 较大的元素会覆盖较小的元素在上层进行显示。
 
-参考链接：[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
+* z-index只在属性 `position: relative/absolute/fixed` 的时候才生效。
+* `z-index` 默认值是auto
+* `z-index: 0` 会创建一个新的堆叠上下文，而`z-index: auto` 不会创建新的堆叠上下文
+* 后代的 `z-index` 不与此元素之外的元素的 `z-index` 进行比较。
 
-> z-index 属性设置元素的堆叠顺序，且只在属性 position: relative/absolute/fixed 的时候才生效。
-> `z-index: auto` 是默认值，与`z-index: 0`是有区别的：
-> `z-index: 0` 会创建一个新的堆叠上下文，而 `z-index: auto` 不会创建新的堆叠上下文
+#### 例子
 
-举例：考虑如下这种情况
-
+##### 例子一
+没有z-index的时候，按照从上到下的顺序。
 ```html
-<div class="A">
-  <div class="a"></div>
+<div style="position:absolute;width:400px; height:400px;background-color:blue;">
+  <div style="width:200px; height:200px;background-color:green"></div>
 </div>
-<div class="B">
-  <div class="b"></div>
+<div style="position:absolute;top:50px;left:50px;width:400px; height:400px;background-color:red">
+  <div style="width:200px; height:200px;background-color:yellow"></div>
 </div>
 ```
 
-![z-index1](../images/z-index1.png)
+![z-index1](images/z-index01.png)
+---
+##### 例子二
 
-> 上图中 div 的`z-index`均为整数的时候 div(a)的`z-index`虽然比 div(B)大，但是 div(A)和 div(a)是在一个堆叠上下文，而 div(B)和 div(b)是在一个堆叠上下文，这两个堆叠上下文是通过父级也就是 div(A)和 div(B)的`z-index`来决定层叠顺序的。
+蓝色的父元素创造了自己的层叠上下文。
+```html
+<div style="position:absolute;width:400px; height:400px;background-color:blue;z-index:1">
+  <div style="width:200px; height:200px;background-color:green"></div>
+</div>
+<div style="position:absolute;top:50px;left:50px;width:400px; height:400px;background-color:red">
+  <div style="width:200px; height:200px;background-color:yellow"></div>
+</div>
+```
+
+![](images/z-index02.png)
+
+---
+##### 例子三
+
+蓝色父元素创造了自己的层叠上下文并且z-index小于红色，其子元素绿色元素虽然拥有大的z-index，但是也没有用。
+```html
+<div style="position:absolute;width:400px; height:400px;background-color:blue;z-index:3">
+  <div style="width:200px; height:200px;background-color:green;z-index:6"></div>
+</div>
+<div style="position:absolute;top:50px;left:50px;width:400px; height:400px;background-color:red;z-index:4">
+  <div style="width:200px; height:200px;background-color:yellow;z-index:2"></div>
+</div>
+```
+
+![](images/z-index01.png)
 
 ---
 
-![z-index1](../images/z-index2.png)
 
-> 上图将 div(A)的 z-index 设置为 auto，这时候因为`z-index: auto` 不会创建新的堆叠上下文，因而 div(a)的`z-index`比 div(B)大，所以 div(a)会在 div(B)的上面
+reference：[搞懂 Z-index 的所有细节](https://www.jianshu.com/p/cdd90d28380b)
 
-总结：
-
-1. 当 Z-index 的值设置为 auto 时,不建立新的堆叠上下文,当前堆叠上下文中生成的 div 的堆叠级别与其父项的框相同。
-2. 当 Z-index 的值设置为一个整数时,该整数是当前堆叠上下文中生成的 div 的堆栈级别。该框还建立了其堆栈级别的本地堆叠上下文。这意味着后代的 z-index 不与此元素之外的元素的 z-index 进行比较。
 
 ### 连续媒体 continuous media
 连续媒体是源与终点之间的时间联系数据。
