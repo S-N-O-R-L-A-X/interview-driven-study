@@ -92,6 +92,13 @@
     - [使用 rem 布局的优缺点](#使用-rem-布局的优缺点)
     - [首选最小宽度](#首选最小宽度)
     - [border的一些特殊性质](#border的一些特殊性质)
+    - [overflow](#overflow)
+      - [visible](#visible-1)
+      - [hidden](#hidden-1)
+      - [clip](#clip)
+      - [scroll](#scroll)
+      - [auto](#auto)
+      - [overlay](#overlay)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -1003,6 +1010,30 @@ CSS后处理器是对CSS进行处理，并最终生成CSS的预处理器，它�
 * `border-color`默认颜色是元素内容的颜色而非black。
 * 默认background背景图片是相对于padding-box定位的。
 
+### overflow
+`overflow`设置了元素溢出时所需的行为——即当元素的内容太大而无法适应它的块级格式化上下文时。
+
+#### visible
+内容不能被裁减并且可能渲染到padding-box外。
+
+#### hidden
+如果需要，内容将被裁减以适应padding-box。不提供滚动条，也不支持允许用户滚动（例如通过拖拽或者使用滚轮）。内容可以以编程的方式滚动（例如，通过设置 scrollLeft 等属性的值或 scrollTo() 方法）, 因此该元素仍然是一个滚动的容器。
+
+一个设置了`overflow:hidden`声明的元素，假设同时存在border属性和padding属性，则当子元素内容超出容器宽度高度限制的时候，剪裁的边界是border-box的内边缘，而非padding-box的内边缘。
+
+#### clip
+类似于 hidden，内容将以元素的padding-box进行裁剪。`clip` 关键字禁止所有滚动，包括以编程方式的滚动。该盒子不是一个滚动的容器，并且不会启动新的格式化上下文。如果希望开启一个新的格式化上下文，你可以使用`display: flow-root`来这样做。
+
+#### scroll
+如果需要，内容将被裁减以适应padding-box。无论是否实际裁剪了任何内容，浏览器总是显示滚动条，以防止滚动条在内容改变时出现或者消失。打印机可能会打印溢出的内容。
+
+> HTML中有两个标签默认可以产生滚动条，一个是根元素`<html>`，另一个是文本域`<textarea>`。不仅如此，滚动条会占用容器的可用宽度或高度。
+
+#### auto
+取决于用户代理。如果内容适应padding-box，它看起来与 `visible` 相同，但是仍然建立了一个新的块级格式化上下文。如果内容溢出，则桌面浏览器提供滚动条。
+
+#### overlay
+行为与 auto 相同，但是滚动条绘制在内容之上，而不是占据空间。
 
 ## 应用
 ### 初始化css样式的目的
