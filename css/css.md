@@ -115,6 +115,7 @@
       - [bolder](#bolder)
       - [回退机制](#回退机制)
     - [letter-spacing](#letter-spacing)
+    - [word-spacing](#word-spacing)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -1252,6 +1253,14 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-weight
 reference: 
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/letter-spacing
 https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing
+
+### word-spacing
+`word-spacing` 设置标签、单词之间的空格长度。它仅作用于空格字符。
+
+过大的正或负的 `word-spacing` 将使应用样式的句子不可读。对于使用非常大正值样式的文本，单词将相距非常远甚至不再显示为句子。对于使用非常大负值样式的文本，单词将相互重叠，甚至每个单词的开头和结尾都无法识别。
+清晰的 `word-spacing` 必须根据具体情况确定，因为不同的字体具有不同的字符宽度。没有一个值可以确保所有字体系列都自动保持其易读性。
+
+reference:https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing
 
 ## 应用
 ### 初始化css样式的目的
