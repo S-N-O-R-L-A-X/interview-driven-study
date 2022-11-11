@@ -114,6 +114,7 @@
       - [lighter](#lighter)
       - [bolder](#bolder)
       - [回退机制](#回退机制)
+    - [letter-spacing](#letter-spacing)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -1242,6 +1243,15 @@ CSS后处理器是对CSS进行处理，并最终生成CSS的预处理器，它�
 
 reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-weight
+
+### letter-spacing
+`letter-spacing` 属性用于设置文本字符的间距表现。
+默认值是`normal`，会按照当前字体的正常间距确定间距。和 0 不同的是，会让用户代理调整文字之间空间来对齐文字。
+某些书面语言不应应用任何字母间距。例如，使用阿拉伯文字的语言希望字母连接来保持视觉连接。而应用字母间距将导致文本看起来损坏。
+
+reference: 
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/letter-spacing
+https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing
 
 ## 应用
 ### 初始化css样式的目的
