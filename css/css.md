@@ -220,6 +220,7 @@
       - [方法一 利用vw](#方法一-利用vw)
       - [方法二 利用元素的margin/padding百分比相对父元素width的性质](#方法二-利用元素的marginpadding百分比相对父元素width的性质)
       - [方法三 利用子元素的margin-top](#方法三-利用子元素的margin-top)
+    - [实现水平垂直居中，且宽高比为 2:1的自适应矩形](#实现水平垂直居中且宽高比为-21的自适应矩形)
 
 ## 概念
 ### CSS3 新特性
@@ -2991,5 +2992,20 @@ reference: https://www.jianshu.com/p/30bc9751e3e8
   content: '';
   display: block;
   margin-top: 100%;
+}
+```
+
+### 实现水平垂直居中，且宽高比为 2:1的自适应矩形
+```css
+.box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  width: 20%;
+  height: 10vw;
+  background: tomato;
 }
 ```
