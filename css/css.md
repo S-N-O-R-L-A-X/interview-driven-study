@@ -203,6 +203,9 @@
     - [margin在什么情况下无效？](#margin在什么情况下无效)
     - [absolute 与 overflow 会相互制约吗？](#absolute-与-overflow-会相互制约吗)
     - [隐藏元素的background-image是否加载？](#隐藏元素的background-image是否加载)
+    - [实现上下固定中间自适应布局](#实现上下固定中间自适应布局)
+      - [利用绝对定位](#利用绝对定位)
+      - [利用flex布局](#利用flex布局)
 
 ## 概念
 ### CSS3 新特性
@@ -2620,3 +2623,67 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 如果不是`background-image`，而是`<img>`元素，则所有浏览器下都依旧会请求图片资源，无论是否设置`display:none`。
 如果设置的样式没有对应的元素，则`background-image`也不会加载。`:hover`情况下的`background-image`，在触发时加载。
 
+### 实现上下固定中间自适应布局
+#### 利用绝对定位
+```css
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background: red;
+}
+
+.container {
+  position: absolute;
+  top: 100px;
+  bottom: 100px;
+  width: 100%;
+  background: green;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  background: red;
+}
+```
+
+#### 利用flex布局
+```css
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+}
+
+.header {
+  height: 100px;
+  background: red;
+}
+
+.container {
+  flex-grow: 1;
+  background: green;
+}
+
+.footer {
+  height: 100px;
+  background: red;
+}
+```
+
+reference: https://www.jianshu.com/p/30bc9751e3e8
