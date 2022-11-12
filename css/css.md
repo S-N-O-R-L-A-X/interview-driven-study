@@ -202,6 +202,7 @@
     - [`margin: auto` 填充规则](#margin-auto-填充规则)
     - [margin在什么情况下无效？](#margin在什么情况下无效)
     - [absolute 与 overflow 会相互制约吗？](#absolute-与-overflow-会相互制约吗)
+    - [隐藏元素的background-image是否加载？](#隐藏元素的background-image是否加载)
 
 ## 概念
 ### CSS3 新特性
@@ -2609,3 +2610,9 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 * 如果overflow不是定位元素且绝对定位元素和overflow容器之间也没有定位元素，则overflow无法对absolute元素进行剪裁。
 * 如果是`overflow:auto`或者`overflow:scroll`，即使绝对定位元素高宽比overflow元素高宽还要大，也都不会出现滚动条。
 * 当overflow元素自身有`transform`的时候，Chrome和Opera浏览器下的overflow剪裁是无效的。
+
+### 隐藏元素的background-image是否加载？
+根据测试，一个元素如果`display: none`，在IE浏览器下依然会发送图片请求，Firefox浏览器不会，至于Chrome和Safari浏览器则似乎更加智能一点：如果隐藏元素同时又设置了background-image，则图片依然会去加载；如果父元素有`display: none`，则背景图不会请求。
+如果不是`background-image`，而是`<img>`元素，则所有浏览器下都依旧会请求图片资源，无论是否设置`display:none`。
+还需要注意的是如果设置的样式没有对应的元素，则`background-image`也不会加载。`hover`情况下的`background-image`，在触发时加载。
+
