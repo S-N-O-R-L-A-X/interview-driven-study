@@ -216,6 +216,10 @@
       - [方法二 利用flex布局](#方法二-利用flex布局-1)
       - [方法三 利用绝对定位1](#方法三-利用绝对定位1)
       - [方法四 利用绝对定位2](#方法四-利用绝对定位2)
+    - [实现一个宽高自适应的正方形](#实现一个宽高自适应的正方形)
+      - [方法一 利用vw](#方法一-利用vw)
+      - [方法二 利用元素的margin/padding百分比相对父元素width的性质](#方法二-利用元素的marginpadding百分比相对父元素width的性质)
+      - [方法三 利用子元素的margin-top](#方法三-利用子元素的margin-top)
 
 ## 概念
 ### CSS3 新特性
@@ -2955,3 +2959,37 @@ reference: https://www.jianshu.com/p/30bc9751e3e8
 }
 ```
  
+### 实现一个宽高自适应的正方形
+#### 方法一 利用vw
+```css
+.square {
+  width: 10vw;
+  height: 10vw;
+  background: tomato;
+}
+```
+
+#### 方法二 利用元素的margin/padding百分比相对父元素width的性质
+```css
+.square {
+  width: 20%;
+  height: 0;
+  padding-top: 20%;
+  background: orange;
+}
+```
+
+#### 方法三 利用子元素的margin-top
+```css
+.square {
+  width: 30%;
+  overflow: hidden;
+  background: yellow;
+}
+
+.square::after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+```

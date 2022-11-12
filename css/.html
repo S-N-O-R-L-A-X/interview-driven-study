@@ -7,161 +7,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
-		.outer {
-			position: relative;
-			height: 100px;
-		}
-
-		.left {
-			position: absolute;
-			width: 100px;
-			height: 100px;
+		/*1.第一种方式是利用vw来实现*/
+		.square {
+			width: 10vw;
+			height: 10vw;
 			background: tomato;
 		}
 
-		.right {
-			position: absolute;
-			top: 0;
-			right: 0;
-			width: 200px;
-			height: 100px;
-			background: gold;
+		/*2.第二种方式是利用元素的margin/padding百分
+比是相对父元素width的性质来实现*/
+		.square {
+			width: 20%;
+			height: 0;
+			padding-top: 20%;
+			background: orange;
 		}
 
-		.center {
-			margin-left: 100px;
-			margin-right: 200px;
-			height: 100px;
-			background: lightgreen;
+		/*3.第三种方式是利用子元素的margin-top的值来
+实现的*/
+		.square {
+			width: 30%;
+			overflow: hidden;
+			background: yellow;
 		}
 
-		/*（2）利用flex布局的方式，左右两栏的宽度分别
-设置为100px和200px，中间一栏增长系数设置为
-1*/
-		.outer {
-			display: flex;
-			height: 100px;
-		}
-
-		.left {
-			width: 100px;
-			background: tomato;
-		}
-
-		.right {
-			width: 200px;
-			background: gold;
-		}
-
-		.center {
-			flex-grow: 1;
-			background: lightgreen;
-		}
-
-		/*（3）利用浮动的方式，左右两栏设置固定大小，
-并设置对应方向的浮动。中间一栏设置左右两个方向
-的margin值，注意这种方式，中间一栏必须放到最
-后。*/
-		.outer {
-			height: 100px;
-		}
-
-		.left {
-			float: left;
-			width: 100px;
-			height: 100px;
-			background: tomato;
-		}
-
-		.right {
-			float: right;
-			width: 200px;
-			height: 100px;
-			background: gold;
-		}
-
-		.center {
-			height: 100px;
-			margin-left: 100px;
-			margin-right: 200px;
-			background: lightgreen;
-		}
-
-		/*（4）圣杯布局，利用浮动和负边距来实现。父级
-元素设置左右的 padding，三列均设置向左浮动，
-中间一列放在最前面，宽度设置为父级元素的宽度，
-因此后面两列都被挤到了下一行，通过设置 margin
-负值将其移动到上一行，再利用相对定位，定位到两
-边。*/
-		.outer {
-			/* 为左右栏腾出空间 */
-			padding-left: 100px;
-			padding-right: 200px;
-		}
-
-		.left {
-			float: left;
-			width: 100px;
-			height: 100px;
-			background-color: red;
-			margin-left: -100%;
-			position: relative;
-			left: -100px;
-		}
-
-		.center {
-			float: left;
-			width: 100%;
-			height: 100px;
-			background-color: #bfa;
-		}
-
-		.right {
-			float: left;
-			width: 200px;
-			height: 100px;
-			background-color: orange;
-			margin-left: -200px;
-			position: relative;
-			left: 200px;
-		}
-
-		/*（5）双飞翼布局，双飞翼布局相对于圣杯布局来
-说，左右位置的保留是通过中间列的 margin 值来
-实现的，而不是通过父元
-素的 padding 来实现的。本质上来说，也是通过浮
-动和外边距负值来实现的。*/
-		.outer {
-			height: 100px;
-		}
-
-		.left {
-			float: left;
-			margin-left: -100%;
-			width: 100px;
-			height: 100px;
-			background: tomato;
-		}
-
-		.right {
-			float: left;
-			margin-left: -200px;
-			width: 200px;
-			height: 100px;
-			background: gold;
-		}
-
-		.wrapper {
-			float: left;
-			width: 100%;
-			height: 100px;
-			background: lightgreen;
-		}
-
-		.center {
-			margin-left: 100px;
-			margin-right: 200px;
-			height: 100px;
+		.square::after {
+			content: '';
+			display: block;
+			margin-top: 100%;
 		}
 	</style>
 </head>
