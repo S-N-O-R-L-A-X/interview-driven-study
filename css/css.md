@@ -20,7 +20,9 @@
     - [CSS 中哪些属性可以继承](#css-中哪些属性可以继承)
     - [CSS 盒模型](#css-盒模型)
     - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
-    - [绝对定位元素与非绝对定位元素的百分比计算的区别](#绝对定位元素与非绝对定位元素的百分比计算的区别)
+    - [百分比计算](#百分比计算)
+      - [宽高计算](#宽高计算)
+      - [其他属性计算](#其他属性计算)
     - [link 和 @import 的区别](#link-和-import-的区别)
     - [基线、行高](#基线行高)
     - [vertical-align](#vertical-align)
@@ -390,10 +392,25 @@ div {
 }
 ```
 
-### 绝对定位元素与非绝对定位元素的百分比计算的区别
+### 百分比计算
+#### 宽高计算
+* 元素的 `height` 和 `width` 设置为百分比时，基准分别为包含块的 `height` 和 `width`。
+* 绝对定位元素的宽高百分比是相对于包含块的padding box来计算的。
+* 非绝对定位元素的宽高百分比则是相对于父元素的content box来计算的。
+* 移动设备分别相对于 Layout viewport 的 `height`、`width`计算。
 
-绝对定位元素的宽高百分比是相对于临近的position不为static的祖先元素的padding box来计算的。
-非绝对定位元素的宽高百分比则是相对于父元素的content box来计算的。
+#### 其他属性计算
+* `position: fixed` 的元素的top和bottom、left和right分别相对于为初始包含块（也就是视口）的 `height`、`width`计算。
+* 元素的 `margin` 和 `padding` 设置为百分比时，相对于包含块的 `width`计算。
+* 元素的 `border-width`，不支持百分比。
+* 元素的 `text-indent`，相对于包含块的 `width`计算。
+* 元素的 `border-radius`，分别相对于自身的`height`、`width`计算。
+* 元素的 `background-size`，分别相对于自身的`height`、`width`计算。
+* 元素的 `translateX`、`translateY`，分别相对于自身的`height`、`width`计算。
+* 元素的 `line-height`，相对于自身的 `font-size`计算。
+* 元素的 `font-size`，相对于父元素的`font-size`计算。
+
+
 
 > 假设一个 div, 宽 400px, 高 200px, 它有个子 div 的 margin:10%, 求它的 margin 的 top, right, bottom, left 是多少？
 
