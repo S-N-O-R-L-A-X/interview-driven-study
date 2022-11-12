@@ -997,8 +997,8 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 （1）首先我们判断display属性是否为none，如果为none，则position和float属性的值不影响元素最后的表现。
 （2）然后判断position的值是否为absolute或者fixed，如果是，则float属性失效，并且display的值应该被设置为table或者block，具体转换需要看初始转换值。
 （3）如果position的值不为absolute或者fixed，则判断float属性的值是否为none，如果不是，则display的值则按上面的规则转换。注意，如果position的值为relative并且float属性的值存在，则relative相对于浮动后的最终位置定位。
-（4）如果float的值为none，则判断元素是否为根元素，如果是根元素则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
-总的来说，可以把它看作是一个类似优先级的机制，"position:absolute"和"position:fixed"优先级最高，有它存在的时候，浮动不起作用，'display'的值也需要调整；其次，元素的'float'特性的值不是"none"的时候或者它是根元素的时候，调整'display'的值；最后，非根元素，并且非浮动元素，并且非绝对定位的元素，'display'特性值同设置值。
+（4）如果`float:none`，则判断元素是否为根元素，如果是根元素则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
+总的来说，可以把它看作是一个类似优先级的机制，`position:absolute`和`position:fixed`优先级最高，有它存在的时候，浮动不起作用，`display`的值也需要调整；其次，元素的`float`特性的值不是`none`的时候或者它是根元素的时候，调整`display`的值；最后，非根元素，并且非浮动元素，并且非绝对定位的元素，`display`特性值同设置值。
 
 reference: https://www.cnblogs.com/jackyWHJ/p/3756087.html
 
@@ -1033,10 +1033,10 @@ example
 • 必须是处于常规文档流（非float和绝对定位）的块级盒子，并且处于同一个BFC当中。
 • 没有线盒，没有空隙，没有padding和border将他们分隔开
 • 都属于垂直方向上相邻的外边距，可以是下面任意一种情况
-• 元素的margin-top与其第一个常规文档流的子元素的margin-top
-• 元素的margin-bottom与其下一个常规文档流的兄弟元素的margin-top
-• height为auto的元素的margin-bottom与其最后一个常规文档流的子元素的margin-bottom
-• 高度为0并且最小高度也为0，不包含常规文档流的子元素，并且自身没有建立新的BFC的元素的margin-top和margin-bottom
+• 元素的`margin-top`与其第一个常规文档流的子元素的`margin-top`
+• 元素的`margin-bottom`与其下一个常规文档流的兄弟元素的`margin-top`
+• `height:auto`的元素的`margin-bottom`与其最后一个常规文档流的子元素的`margin-bottom`
+• 高度为0并且最小高度也为0，不包含常规文档流的子元素，并且自身没有建立新的BFC的元素的`margin-top`和`margin-bottom`
 
 margin合并的3种场景：
 （1）相邻兄弟元素margin合并。
@@ -1045,15 +1045,17 @@ margin合并的3种场景：
 
 （2）父级和第一个/最后一个子元素的margin合并。
 解决办法：
+
 对于margin-top合并，可以进行如下操作（满足一个条件即可）：
 • 父元素设置为块状格式化上下文元素；即开启BFC
-• 父元素设置border-top值；
-• 父元素设置padding-top值；
+• 父元素设置`border-top`值；
+• 父元素设置`padding-top`值；
 • 父元素和第一个子元素之间添加内联元素进行分隔。
-对于margin-bottom合并，可以进行如下操作（满足一个条件即可）：
+
+对于`margin-bottom`合并，可以进行如下操作（满足一个条件即可）：
 • 父元素设置为块状格式化上下文元素；
-• 父元素设置border-bottom值；
-• 父元素设置padding-bottom值；
+• 父元素设置`border-bottom`值；
+• 父元素设置`padding-bottom`值；
 • 父元素和最后一个子元素之间添加内联元素进行分隔；
 • 父元素设置height、min-height或max-height。
 
@@ -1669,7 +1671,9 @@ p {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+```
 
+```css
 /*多行文本溢出*/
 p {
   position: relative;
@@ -1690,19 +1694,19 @@ p:after {
 
 ### 常见的元素隐藏方式
 
-1. 使用 display:none;隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。
+1. 使用 `display: none;` 隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。
 
-2. 使用 visibility:hidden;隐藏元素。元素在页面中仍占据空间，但是不会响应绑定的监听事件。
+2. 使用 `visibility: hidden;` 隐藏元素。元素在页面中仍占据空间，但是不会响应绑定的监听事件。
 
-3. 使用 opacity:0;将元素的透明度设置为 0，以此来实现元素的隐藏。元素在页面中仍然占据空间，并且能够响应元素绑定的监听事件。
+3. 使用 `opacity: 0;` 将元素的透明度设置为 0，以此来实现元素的隐藏。元素在页面中仍然占据空间，并且能够响应元素绑定的监听事件。
 
 4. 通过使用绝对定位将元素移除可视区域内，以此来实现元素的隐藏。
 
-5. 通过 z-index 负值，来使其他元素遮盖住该元素，以此来实现隐藏。
+5. 通过 `z-index` 负值，来使其他元素遮盖住该元素，以此来实现隐藏。
 
-6. 通过 clip/clip-path 元素裁剪的方法来实现元素的隐藏，这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
+6. 通过 `clip/clip-path` 元素裁剪的方法来实现元素的隐藏，这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
 
-7. 通过 transform:scale(0,0)来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
+7. 通过 `transform: scale(0,0)` 来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
 
 ### CSS3 @font-face 有用过吗
 
@@ -1739,10 +1743,10 @@ li:nth-of-type(even) {
 } /* 偶数行 */
 ```
 
-注意：nth-child() 和 nth-of-type() 的区别
+`nth-child()` 和 `nth-of-type()` 的区别：
 
-- nth-child() 就是根据元素的个数来计算的
-- nth-of-type() 是根据类型来计算的，也就是 `li:nth-of-type(2)` 表示的是第 2 个 li 标签
+- `nth-child()` 就是根据元素的个数来计算的
+- `nth-of-type()` 是根据类型来计算的，也就是 `li:nth-of-type(2)` 表示的是第 2 个 li 标签
 
 ### 一个满屏品字布局如何设计
 
