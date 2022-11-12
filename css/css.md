@@ -197,6 +197,8 @@
         - [方法一 利用绝对定位](#方法一-利用绝对定位)
         - [方法二 利用flex布局](#方法二-利用flex布局)
         - [方法三 利用浮动](#方法三-利用浮动)
+        - [圣杯布局](#圣杯布局)
+        - [双飞翼布局](#双飞翼布局)
       - [黏连布局](#黏连布局)
       - [等高布局](#等高布局)
     - [`height:100%`失效的情况](#height100失效的情况)
@@ -2670,6 +2672,82 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
   margin-left: 100px;
   margin-right: 200px;
   background: lightgreen;
+}
+```
+
+##### 圣杯布局
+利用浮动和负边距来实现。父级元素设置左右的 padding，三列均设置向左浮动，中间一列放在最前面，宽度设置为父级元素的宽度，因此后面两列都被挤到了下一行，通过设置 margin负值将其移动到上一行，再利用`position: relative`定位到两边。
+
+```css
+.outer {
+  /* 为左右栏腾出空间 */
+  padding-left: 100px;
+  padding-right: 200px;
+}
+
+.left {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin-left: -100%;
+  position: relative;
+  left: -100px;
+}
+
+.center {
+  float: left;
+  width: 100%;
+  height: 100px;
+  background-color: #bfa;
+}
+
+.right {
+  float: left;
+  width: 200px;
+  height: 100px;
+  background-color: orange;
+  margin-left: -200px;
+  position: relative;
+  left: 200px;
+}
+```
+
+##### 双飞翼布局
+双飞翼布局相对于圣杯布局来说，左右位置的保留是通过中间列的 `margin` 值来实现，而不是通过父元素的 `padding` 来实现。本质上来说，也是通过浮动和外边距负值来实现的。
+
+```css
+.outer {
+  height: 100px;
+}
+
+.left {
+  float: left;
+  margin-left: -100%;
+  width: 100px;
+  height: 100px;
+  background: tomato;
+}
+
+.right {
+  float: left;
+  margin-left: -200px;
+  width: 200px;
+  height: 100px;
+  background: gold;
+}
+
+.wrapper {
+  float: left;
+  width: 100%;
+  height: 100px;
+  background: lightgreen;
+}
+
+.center {
+  margin-left: 100px;
+  margin-right: 200px;
+  height: 100px;
 }
 ```
 
