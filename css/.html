@@ -7,60 +7,117 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
-		body {
-			padding: 0;
-			margin: 0;
+		/*两栏布局一般指的是页面中一共两栏，左边固定，右
+边自适应的布局，一共有四种实现的方式。*/
+		/*以左边宽度固定为200px为例*/
+		/*（1）利用浮动，将左边元素宽度设置为200px，并
+且设置向左浮动。将右边元素的margin-left设置为
+200px，宽度设置为auto（默认为auto，撑满整个父
+元素）。*/
+		.outer {
+			height: 100px;
 		}
 
-		.header {
+		.left {
+			float: left;
+			height: 100px;
+			width: 200px;
+			background: tomato;
+		}
+
+		.right {
+			margin-left: 200px;
+			width: auto;
+			height: 100px;
+			background: gold;
+		}
+
+		/*（2）第二种是利用flex布局，将左边元素宽度设置
+为200px。将右边的元素的放大比例设置为1。*/
+		.outer {
+			display: flex;
+			height: 100px;
+		}
+
+		.left {
+			width: 200px;
+			background: tomato;
+		}
+
+		.right {
+			flex-grow: 1;
+			background: gold;
+		}
+
+		/*（3）第三种是利用绝对定位布局的方式，将父级元
+素设置相对定位。左边元素设置为absolute定位，并
+且宽度设置为
+200px。将右边元素的margin-left的值设置为
+200px。*/
+		.outer {
+			position: relative;
+			height: 100px;
+		}
+
+		.left {
+			position: absolute;
+			width: 200px;
+			height: 100px;
+			background: tomato;
+		}
+
+		.right {
+			margin-left: 200px;
+			height: 100px;
+			background: gold;
+		}
+
+		/*（4）第四种还是利用绝对定位的方式，将父级元素
+设置为相对定位。左边元素宽度设置为200px，右边元
+素设置为绝对定位，左边定位为200px，其余方向定位
+为0。*/
+		.outer {
+			position: relative;
+			height: 100px;
+		}
+
+		.left {
+			width: 200px;
+			height: 100px;
+			background: tomato;
+		}
+
+		.right {
 			position: absolute;
 			top: 0;
-			width: 100%;
-			height: 100px;
-			background: red;
-		}
-
-		.container {
-			position: absolute;
-			top: 100px;
-			bottom: 100px;
-			width: 100%;
-			background: green;
-		}
-
-		.footer {
-			position: absolute;
+			right: 0;
 			bottom: 0;
+			left: 200px;
+			background: gold;
+		}
+
+		/*（4）第四种还是利用绝对定位的方式，将父级元素
+设置为相对定位。左边元素宽度设置为200px，右边元
+素设置为绝对定位，左边定位为200px，其余方向定位
+为0。*/
+		.outer {
+			position: relative;
 			height: 100px;
-			width: 100%;
-			background: red;
 		}
 
-		利用flex布局实现 html,
-		body {
-			height: 100%;
-		}
-
-		body {
-			display: flex;
-			padding: 0;
-			margin: 0;
-			flex-direction: column;
-		}
-
-		.header {
+		.left {
+			width: 200px;
 			height: 100px;
-			background: red;
+			background: tomato;
 		}
 
-		.container {
-			flex-grow: 1;
-			background: green;
-		}
-
-		.footer {
-			height: 100px;
-			background: red;
+		.right {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 200px;
+			background: gold;
 		}
 	</style>
 </head>
