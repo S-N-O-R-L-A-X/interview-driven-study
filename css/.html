@@ -7,117 +7,161 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
-		/*两栏布局一般指的是页面中一共两栏，左边固定，右
-边自适应的布局，一共有四种实现的方式。*/
-		/*以左边宽度固定为200px为例*/
-		/*（1）利用浮动，将左边元素宽度设置为200px，并
-且设置向左浮动。将右边元素的margin-left设置为
-200px，宽度设置为auto（默认为auto，撑满整个父
-元素）。*/
 		.outer {
+			position: relative;
 			height: 100px;
 		}
 
 		.left {
-			float: left;
+			position: absolute;
+			width: 100px;
 			height: 100px;
-			width: 200px;
 			background: tomato;
 		}
 
 		.right {
-			margin-left: 200px;
-			width: auto;
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 200px;
 			height: 100px;
 			background: gold;
 		}
 
-		/*（2）第二种是利用flex布局，将左边元素宽度设置
-为200px。将右边的元素的放大比例设置为1。*/
+		.center {
+			margin-left: 100px;
+			margin-right: 200px;
+			height: 100px;
+			background: lightgreen;
+		}
+
+		/*（2）利用flex布局的方式，左右两栏的宽度分别
+设置为100px和200px，中间一栏增长系数设置为
+1*/
 		.outer {
 			display: flex;
 			height: 100px;
 		}
 
 		.left {
-			width: 200px;
+			width: 100px;
 			background: tomato;
 		}
 
 		.right {
+			width: 200px;
+			background: gold;
+		}
+
+		.center {
 			flex-grow: 1;
-			background: gold;
+			background: lightgreen;
 		}
 
-		/*（3）第三种是利用绝对定位布局的方式，将父级元
-素设置相对定位。左边元素设置为absolute定位，并
-且宽度设置为
-200px。将右边元素的margin-left的值设置为
-200px。*/
+		/*（3）利用浮动的方式，左右两栏设置固定大小，
+并设置对应方向的浮动。中间一栏设置左右两个方向
+的margin值，注意这种方式，中间一栏必须放到最
+后。*/
 		.outer {
-			position: relative;
 			height: 100px;
 		}
 
 		.left {
-			position: absolute;
-			width: 200px;
+			float: left;
+			width: 100px;
 			height: 100px;
 			background: tomato;
 		}
 
 		.right {
-			margin-left: 200px;
+			float: right;
+			width: 200px;
 			height: 100px;
 			background: gold;
 		}
 
-		/*（4）第四种还是利用绝对定位的方式，将父级元素
-设置为相对定位。左边元素宽度设置为200px，右边元
-素设置为绝对定位，左边定位为200px，其余方向定位
-为0。*/
-		.outer {
-			position: relative;
+		.center {
 			height: 100px;
+			margin-left: 100px;
+			margin-right: 200px;
+			background: lightgreen;
+		}
+
+		/*（4）圣杯布局，利用浮动和负边距来实现。父级
+元素设置左右的 padding，三列均设置向左浮动，
+中间一列放在最前面，宽度设置为父级元素的宽度，
+因此后面两列都被挤到了下一行，通过设置 margin
+负值将其移动到上一行，再利用相对定位，定位到两
+边。*/
+		.outer {
+			/* 为左右栏腾出空间 */
+			padding-left: 100px;
+			padding-right: 200px;
 		}
 
 		.left {
-			width: 200px;
+			float: left;
+			width: 100px;
 			height: 100px;
-			background: tomato;
+			background-color: red;
+			margin-left: -100%;
+			position: relative;
+			left: -100px;
+		}
+
+		.center {
+			float: left;
+			width: 100%;
+			height: 100px;
+			background-color: #bfa;
 		}
 
 		.right {
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
+			float: left;
+			width: 200px;
+			height: 100px;
+			background-color: orange;
+			margin-left: -200px;
+			position: relative;
 			left: 200px;
-			background: gold;
 		}
 
-		/*（4）第四种还是利用绝对定位的方式，将父级元素
-设置为相对定位。左边元素宽度设置为200px，右边元
-素设置为绝对定位，左边定位为200px，其余方向定位
-为0。*/
+		/*（5）双飞翼布局，双飞翼布局相对于圣杯布局来
+说，左右位置的保留是通过中间列的 margin 值来
+实现的，而不是通过父元
+素的 padding 来实现的。本质上来说，也是通过浮
+动和外边距负值来实现的。*/
 		.outer {
-			position: relative;
 			height: 100px;
 		}
 
 		.left {
-			width: 200px;
+			float: left;
+			margin-left: -100%;
+			width: 100px;
 			height: 100px;
 			background: tomato;
 		}
 
 		.right {
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 200px;
+			float: left;
+			margin-left: -200px;
+			width: 200px;
+			height: 100px;
 			background: gold;
+		}
+
+		.wrapper {
+			float: left;
+			width: 100%;
+			height: 100px;
+			background: lightgreen;
+		}
+
+		.center {
+			margin-left: 100px;
+			margin-right: 200px;
+			height: 100px;
 		}
 	</style>
 </head>

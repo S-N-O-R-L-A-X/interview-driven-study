@@ -194,6 +194,9 @@
       - [单列布局](#单列布局)
       - [两列自适应布局](#两列自适应布局)
       - [三栏布局](#三栏布局)
+        - [方法一 利用绝对定位](#方法一-利用绝对定位)
+        - [方法二 利用flex布局](#方法二-利用flex布局)
+        - [方法三 利用浮动](#方法三-利用浮动)
       - [黏连布局](#黏连布局)
       - [等高布局](#等高布局)
     - [`height:100%`失效的情况](#height100失效的情况)
@@ -208,7 +211,7 @@
       - [利用flex布局](#利用flex布局)
     - [css 两栏布局](#css-两栏布局)
       - [方法一 利用浮动](#方法一-利用浮动)
-      - [方法二 利用flex布局](#方法二-利用flex布局)
+      - [方法二 利用flex布局](#方法二-利用flex布局-1)
       - [方法三 利用绝对定位1](#方法三-利用绝对定位1)
       - [方法四 利用绝对定位2](#方法四-利用绝对定位2)
 
@@ -2579,6 +2582,96 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
 #### 两列自适应布局
 
 #### 三栏布局
+三栏布局一般指的是页面中一共有三栏，左右两栏宽度固定，中间自适应的布局。这里以左边宽度固定为100px，右边宽度固定为200px为例。
+
+##### 方法一 利用绝对定位
+左右两栏设置为`position: absolute`，中间设置对应方向大小的margin的值。
+
+```css
+.outer {
+  position: relative;
+  height: 100px;
+}
+
+.left {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: tomato;
+}
+
+.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100px;
+  background: gold;
+}
+
+.center {
+  margin-left: 100px;
+  margin-right: 200px;
+  height: 100px;
+  background: lightgreen;
+}
+```
+
+##### 方法二 利用flex布局
+左右两栏的宽度分别设置为100px和200px，中间一栏增长系数设置为1。
+
+```css
+.outer {
+  display: flex;
+  height: 100px;
+}
+
+.left {
+  width: 100px;
+  background: tomato;
+}
+
+.right {
+  width: 200px;
+  background: gold;
+}
+
+.center {
+  flex-grow: 1;
+  background: lightgreen;
+}
+```
+
+##### 方法三 利用浮动
+左右两栏设置固定大小，并设置对应方向的浮动。中间一栏设置左右两个方向的margin值，
+<blockquote class="warning">这种方式的中间一栏css样式必须放到最后声明。</blockquote>
+
+```css
+.outer {
+  height: 100px;
+}
+
+.left {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: tomato;
+}
+
+.right {
+  float: right;
+  width: 200px;
+  height: 100px;
+  background: gold;
+}
+
+.center {
+  height: 100px;
+  margin-left: 100px;
+  margin-right: 200px;
+  background: lightgreen;
+}
+```
 
 #### 黏连布局
 
@@ -2783,3 +2876,4 @@ reference: https://www.jianshu.com/p/30bc9751e3e8
   background: gold;
 }
 ```
+ 
