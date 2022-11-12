@@ -1628,7 +1628,7 @@ div {
 </svg>
 ```
 使用svg的line元素画线，stroke表示描边颜色，默认描边宽度stroke-width="1"，由于svg的描边等属性的1px是物理像素的1px，相当于高清屏的0.5px，另外还可以使用svg的rect等元素进行绘制。
-可是由于firefox的background-image只支持命名颜色的svg，如"black"、"red"等，如果把上面代码的svg里面的#000改成black的话就可以显示出来，但是这样就很不灵活了。但是可以通过把svg转成base64的形式来解决firefox的兼容问题。
+可是由于firefox的`background-image`只支持命名颜色的svg，如"black"、"red"等，如果把上面代码的svg里面的#000改成black的话就可以显示出来，但是这样就很不灵活了。但是可以通过把svg转成base64的形式来解决firefox的兼容问题。
 
 #### 方法六 直接设置0.5px
 ```css
@@ -2612,7 +2612,7 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 * 当overflow元素自身有`transform`的时候，Chrome和Opera浏览器下的overflow剪裁是无效的。
 
 ### 隐藏元素的background-image是否加载？
-根据测试，一个元素如果`display: none`，在IE浏览器下依然会发送图片请求，Firefox浏览器不会，至于Chrome和Safari浏览器则似乎更加智能一点：如果隐藏元素同时又设置了background-image，则图片依然会去加载；如果父元素有`display: none`，则背景图不会请求。
+根据测试，一个元素如果`display: none`，在IE浏览器下依然会发送图片请求，Firefox浏览器不会，而Chrome和Safari浏览器则似乎更加智能一点：如果隐藏元素同时又设置了`background-image`，则图片依然会去加载；如果父元素有`display: none`，则背景图不会请求。
 如果不是`background-image`，而是`<img>`元素，则所有浏览器下都依旧会请求图片资源，无论是否设置`display:none`。
-还需要注意的是如果设置的样式没有对应的元素，则`background-image`也不会加载。`hover`情况下的`background-image`，在触发时加载。
+如果设置的样式没有对应的元素，则`background-image`也不会加载。`:hover`情况下的`background-image`，在触发时加载。
 
