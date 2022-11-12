@@ -116,6 +116,13 @@
       - [回退机制](#回退机制)
     - [letter-spacing](#letter-spacing)
     - [word-spacing](#word-spacing)
+    - [white-space](#white-space)
+      - [normal](#normal-1)
+      - [nowrap](#nowrap)
+      - [pre](#pre)
+      - [pre-wrap](#pre-wrap)
+      - [pre-line](#pre-line)
+      - [break-spaces](#break-spaces)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -1261,6 +1268,34 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing
 清晰的 `word-spacing` 必须根据具体情况确定，因为不同的字体具有不同的字符宽度。没有一个值可以确保所有字体系列都自动保持其易读性。
 
 reference:https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing
+
+### white-space
+`white-space`说明了是否以及如何折叠空白字符；行是否采用软换行。
+
+> 硬换行在文本的换行点处插入真实换行符，软换行时，真实文本仍在同一行上，但看起来分为几行。
+
+#### normal
+空白符序列会被合并，换行符会被当作空白符来处理。在填充「行框盒子 (line boxes)」时如有必要也会换行。
+
+#### nowrap
+空白符序列会被合并，但不允许在源内换行，即不允许文本环绕。
+
+#### pre
+空白符序列会被保留，只有遇到换行符或`<br>`才换行。
+
+#### pre-wrap
+空白符序列会被保留，遇到换行符，`<br>`会换行，在填充「行框盒子 (line boxes)」时如有必要也会换行。
+
+#### pre-line
+空白符序列会被折叠，遇到换行符，`<br>`，在填充「行框盒子 (line boxes)」时如有必要也会换行。
+
+#### break-spaces
+类似`pre-wrap`，除了以下几点
+* 任何保留的空白符序列总是占用空间，包括在行尾。
+* 每个保留的空格字符后都存在换行机会，包括空白字符之间。
+* 这样保留的空间占用空间而不会挂起，从而影响盒子的固有尺寸（最小内容大小和最大内容大小）。
+
+reference: https://stackoverflow.com/questions/319925/difference-between-hard-wrap-and-soft-wrap
 
 ## 应用
 ### 初始化css样式的目的
