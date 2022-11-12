@@ -206,6 +206,11 @@
     - [实现上下固定中间自适应布局](#实现上下固定中间自适应布局)
       - [利用绝对定位](#利用绝对定位)
       - [利用flex布局](#利用flex布局)
+    - [css 两栏布局](#css-两栏布局)
+      - [方法一 利用浮动](#方法一-利用浮动)
+      - [方法二 利用flex布局](#方法二-利用flex布局)
+      - [方法三 利用绝对定位1](#方法三-利用绝对定位1)
+      - [方法四 利用绝对定位2](#方法四-利用绝对定位2)
 
 ## 概念
 ### CSS3 新特性
@@ -2687,3 +2692,94 @@ body {
 ```
 
 reference: https://www.jianshu.com/p/30bc9751e3e8
+
+### css 两栏布局
+两栏布局一般指的是页面中一共两栏，左边固定，右边自适应的布局。下述以左边宽度固定为200px为例。
+
+#### 方法一 利用浮动
+将左边元素宽度设置为200px，并且设置向左浮动。将右边元素的margin-left设置为200px，宽度设置为auto（默认为auto，撑满整个父元素）。
+```css
+.outer {
+  height: 100px;
+}
+
+.left {
+  float: left;
+  height: 100px;
+  width: 200px;
+  background: tomato;
+}
+
+.right {
+  margin-left: 200px;
+  width: auto;
+  height: 100px;
+  background: gold;
+}
+```
+
+#### 方法二 利用flex布局
+将左边元素宽度设置为200px。将右边的元素的放大比例设置为1。
+
+```css
+.outer {
+  display: flex;
+  height: 100px;
+}
+
+.left {
+  width: 200px;
+  background: tomato;
+}
+
+.right {
+  flex-grow: 1;
+  background: gold;
+}
+```
+
+#### 方法三 利用绝对定位1
+将父级元素设置相对定位。左边元素设置为`position: absolute; width:200px`。将右边元素设置为`margin-left:200px`。
+```css 
+.outer {
+  position: relative;
+  height: 100px;
+}
+
+.left {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  background: tomato;
+}
+
+.right {
+  margin-left: 200px;
+  height: 100px;
+  background: gold;
+}
+```
+
+#### 方法四 利用绝对定位2
+将父级元素设置为`position: relative`。左边元素设置为`position: absolute; width: 200px;`，右边元素设置为`position: absolute; left:200px`，其余方向定位为0。
+```css
+.outer {
+  position: relative;
+  height: 100px;
+}
+
+.left {
+  width: 200px;
+  height: 100px;
+  background: tomato;
+}
+
+.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 200px;
+  background: gold;
+}
+```
