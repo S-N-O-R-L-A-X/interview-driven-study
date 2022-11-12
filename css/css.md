@@ -1295,6 +1295,16 @@ reference:https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing
 * 每个保留的空格字符后都存在换行机会，包括空白字符之间。
 * 这样保留的空间占用空间而不会挂起，从而影响盒子的固有尺寸（最小内容大小和最大内容大小）。
 
+
+|                | 换行符 | 空格和制表符 | 文字换行 | 行尾空格 |
+| -------------- | ------ | ------------ | -------- | -------- |
+| `normal`       | 合并   | 合并         | 换行     | 删除     |
+| `nowrap`       | 合并   | 合并         | 不换行   | 删除     |
+| `pre`          | 保留   | 保留         | 不换行   | 保留     |
+| `pre-wrap`     | 保留   | 保留         | 换行     | 挂起     |
+| `pre-line`     | 保留   | 合并         | 换行     | 删除     |
+| `break-spaces` | 保留   | 保留         | 换行     | 换行     |
+
 reference: https://stackoverflow.com/questions/319925/difference-between-hard-wrap-and-soft-wrap
 
 ## 应用
