@@ -1,6 +1,12 @@
-# HTML
+<style>
+.warning {
+  background-color:rgba(239,111,27,0.1);
+  border-left:4px solid orange;
+}
+</style>
+# 测试
 
-- [HTML](#html)
+- [测试](#测试)
   - [测试的重要性](#测试的重要性)
   - [单元测试](#单元测试)
     - [测试框架](#测试框架)
@@ -12,6 +18,9 @@
       - [Karma](#karma)
       - [Chai](#chai)
   - [如何对 canvas 做单测](#如何对-canvas-做单测)
+  - [控制流测试](#控制流测试)
+    - [基路径测试](#基路径测试)
+  - [数据流测试](#数据流测试)
 
 ## 测试的重要性
 * 提高代码质量
@@ -103,3 +112,16 @@ Chai 是一个BDD/TDD的断言库。
 reference: https://juejin.cn/post/6844904194600599560
 
 ## 如何对 canvas 做单测
+
+## 控制流测试
+
+### 基路径测试
+路径是节点的序列。
+语句覆盖$\leftrightarrow$覆盖长度为0的边。
+判定覆盖$\leftrightarrow$覆盖长度为1的边。
+
+基路径：除了路径开始节点和终止节点以外，其他节点最多出现一次的路径
+<blockquote class="warning">注意：基路径不一定是完整路径。</blockquote>
+
+
+## 数据流测试
