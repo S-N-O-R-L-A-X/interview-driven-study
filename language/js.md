@@ -16,8 +16,8 @@
     - [匿名函数自调用](#匿名函数自调用)
     - [for...in for...of 区别](#forin-forof-区别)
     - [map weakMap set weakSet 区别](#map-weakmap-set-weakset-区别)
-    - [{} 和 [] 的 valueOf 和 toString 的结果是什么](#-和--的-valueof-和-tostring-的结果是什么)
-    - [|| 和 && 操作符的返回值](#-和--操作符的返回值)
+    - [{} 和 \[\] 的 valueOf 和 toString 的结果是什么](#-和--的-valueof-和-tostring-的结果是什么)
+    - [|| 和 \&\& 操作符的返回值](#-和--操作符的返回值)
     - [JavaScript 继承的几种实现方式](#javascript-继承的几种实现方式)
     - [eval 是做什么的](#eval-是做什么的)
     - [事件对象中的 clientX offsetX screenX pageX 的区别](#事件对象中的-clientx-offsetx-screenx-pagex-的区别)
@@ -73,6 +73,8 @@
     - [js 的对象的常用的方法](#js-的对象的常用的方法)
     - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
     - [js 的数组的常用的方法](#js-的数组的常用的方法)
+    - [`import` 和 `require`的区别](#import-和-require的区别)
+      - [如何混用import和require](#如何混用import和require)
 
 ## 类型相关
 ### js 基本数据类型
@@ -1282,4 +1284,15 @@ arr.flat(); //数组降维 ，返回新数组
 arr.flat(1);
 arr.flat(Infinity);
 arr.entries(); //将数组返回一个对象，包含对象索引的键值对
+```
+
+### `import` 和 `require`的区别
+
+#### 如何混用import和require
+
+在设置`type:module`后
+```js
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const fs = require("fs");
 ```
