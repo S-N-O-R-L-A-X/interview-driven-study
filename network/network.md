@@ -3,6 +3,7 @@
 	- [TCP和UDP区别](#tcp和udp区别)
 	- [拥塞控制与流量控制](#拥塞控制与流量控制)
 	- [TCP 如何保持长连接 / TCP的keep-alive机制](#tcp-如何保持长连接--tcp的keep-alive机制)
+	- [cookie vs session vs local storage vs session storage](#cookie-vs-session-vs-local-storage-vs-session-storage)
 
 # Network
 
@@ -85,3 +86,71 @@
 当一个 TCP 连接建立之后，启用 TCP keep-alive 的一端便会启动一个计时器，当这个计时器数值到达 0 之后，服务器端会发出一个ACK探测包，理论上不包含任何数据，或仅包含一个无意义字节。
 I.如果客户主机依然正常运行，并从服务器可达。客户的TCP响应正常，而服务器也知道对方是正常的，服务器将keep-alive定时器复位。
 II. 如果客户的TCP没有响应，那么将继续发送九个探测包，如果依然无响应则关闭连接。
+
+## cookie vs session vs local storage vs session storage
+
+<table>
+	<thead>
+		<th></th>
+		<th>cookie</th>
+		<th>session</th>
+		<th>local storage</th>
+		<th>session storage</th>
+	</thead>
+	<tr>
+		<td>用处</td>
+		<td>一种记录客户端状态的机制</td>
+		<td>一种记录客户端状态的机制</td>
+		<td>存储跨session大量数据的机制</td>
+		<td>存储大量数据的机制</td>
+	</tr>
+	<tr>
+		<td>其它特点</td>
+		<td>每次请求会放在请求头，不安全</td>
+		<td>服务端向客户端发送SESSIONID的cookie</td>
+		<td>数据操作比 cookie 方便</td>
+		<td>数据操作比 cookie 方便</td>
+	</tr>
+	<tr>
+		<td>存储方式</td>
+		<td>键值对</td>
+		<td>类似于哈希表</td>
+		<td>键值对</td>
+		<td>键值对</td>
+	</tr>
+	<tr>
+		<td>存储位置</td>
+		<td>客户端</td>
+		<td>服务端</td>
+		<td>客户端</td>
+		<td>客户端</td>
+	</tr>
+	<tr>
+		<td>存储大小</td>
+		<td>4KB</td>
+		<td>无限制</td>
+		<td>5MB</td>
+		<td>5MB</td>
+	</tr>
+	<tr>
+		<td>生命周期</td>
+		<td>无过期时间内存，关闭浏览器后消失，有过期时间硬盘</td>
+		<td>session有效期</td>
+		<td>永久</td>
+		<td>当前会话</td>
+	</tr>
+	<tr>
+		<td>作用域</td>
+		<td>-</td>
+		<td>-</td>
+		<td>相同浏览器的不同页面可共享</td>
+		<td>相同页面的同源iframe可共享</td>
+	</tr>
+	<tr>
+		<td>应用场景</td>
+		<td>不敏感信息</td>
+		<td>服务端使用</td>
+		<td>长期登录</td>
+		<td>一次性登录</td>
+	</tr>
+</table>
