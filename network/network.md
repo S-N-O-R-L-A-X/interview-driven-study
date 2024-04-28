@@ -6,6 +6,8 @@
 	- [cookie vs session vs local storage vs session storage](#cookie-vs-session-vs-local-storage-vs-session-storage)
 	- [XSS](#xss)
 		- [后果](#后果)
+	- [CSRF](#csrf)
+		- [后果](#后果-1)
 
 # Network
 
@@ -158,7 +160,8 @@ II. 如果客户的TCP没有响应，那么将继续发送九个探测包，如�
 </table>
 
 ## XSS
-XSS（Cross-Site Scripting，跨站脚本攻击）是一种常见的网络安全漏洞。攻击者通过注入恶意脚本来利用用户对网站的信任，从而在用户的浏览器上执行恶意操作。
+XSS（Cross-Site Scripting，跨站脚本攻击）通过注入恶意脚本来利用用户对网站的信任，从而在用户的浏览器上执行恶意操作。
+
 <table>
 	<thead>
 		<th></th>
@@ -185,4 +188,12 @@ XSS（Cross-Site Scripting，跨站脚本攻击）是一种常见的网络安全
 - 在用户账户下执行未授权的操作
 - 重定向用户到恶意站点
 - 传播恶意链接和脚本，影响其他用户
-- 篡改网页内容，伪造虚假信息。
+- 篡改网页内容，伪造虚假信息
+
+## CSRF
+CSRF（Cross-Site Request Forgery，跨站请求伪造）利用用户已经认证过的会话信息来伪造用户的请求，从而在用户不知情的情况下执行恶意操作。
+通常在用户登录认证后通过引诱用户点击图片或链接后伪造请求，而后获得用户认证信息并执行恶意操作。
+
+### 后果
+- 用户数据丢失
+- 用户数据被修改
