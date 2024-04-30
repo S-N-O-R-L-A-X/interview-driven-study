@@ -12,6 +12,14 @@
 			- [后果](#后果-1)
 			- [预防方式](#预防方式-1)
 		- [异同](#异同)
+	- [跨域问题](#跨域问题)
+		- [跨域资源共享(CORS, Cross Origin Resource Sharing)](#跨域资源共享cors-cross-origin-resource-sharing)
+			- [简单请求](#简单请求)
+		- [解决方案](#解决方案)
+			- [node 正向代理](#node-正向代理)
+			- [nginx 反向代理](#nginx-反向代理)
+			- [JSONP 不推荐](#jsonp-不推荐)
+			- [后端配置](#后端配置)
 
 # Network
 
@@ -221,3 +229,33 @@ CSRF（Cross-Site Request Forgery，跨站请求伪造）利用用户已经认�
 - XSS是双向攻击，允许攻击者执行恶意脚本、访问响应，并将后续敏感数据发送到攻击者选择的目的地；CSRF是一种单向攻击机制，这意味着攻击者只能发起HTTP请求，但不能检索已发起请求的响应。
 - XSS不需要用户身份验证的用户处于活动会话，CSRF攻击要求经过身份验证的用户处于活动会话中。
 - XSS攻击的恶意代码存储在站点中，CSRF攻击的恶意代码存储在受害用户访问的第三方站点中。
+
+## 跨域问题
+跨域，本质是跨源问题。
+同源策略需要协议+域名+端口相同
+img, link, script标签本身允许跨域加载资源。
+
+### 跨域资源共享(CORS, Cross Origin Resource Sharing)
+CORS使用额外的HTTP头来告诉浏览器让运行在一个 origin (domain) 上的 Web 应用被准许访问来自不同源服务器上的指定的资源。
+
+#### 简单请求
+- 仅使用GET/POST/HEAD方法
+- 标头除了被用户代理自动设置的标头字段（例如 Connection、User-Agent 或其他在 Fetch 规范中定义为禁用标头名称的标头）外只可使用 Accept, Accept-Language, Content-Language, Content-Type（仅允许text/plain, multipart/form-data, application/x-www-form-urlencoded）, Range（只允许简单的范围标头值）
+- 如果请求是使用 XMLHttpRequest 对象发出,在返回的XMLHttpRequest.upload 对象属性上不能注册任何事件监听器
+- 请求中没有使用 ReadableStream 对象
+
+### 解决方案
+
+#### node 正向代理
+利用服务端请求不会跨域的特性，让接口和当前站点同域。
+主流框架都可以通过配置proxy来解决，虽然是不同框架，但基本都用的http-proxy-middleware。
+
+#### nginx 反向代理
+在浏览器和服务器之间加一个反向代理服务器
+
+#### JSONP 不推荐
+JSONP(JSON with Padding)主要利用script标签没有跨域限制的特性，但仅支持get方法。
+由于没有使用XHR请求，所以没有跨域问题。
+
+#### 后端配置
+后端配置Access-Control-Allow-Origin
