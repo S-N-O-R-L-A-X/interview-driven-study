@@ -59,7 +59,12 @@
   - [Ajax 的 readyState 的几种状态分别代表什么](#ajax-的-readystate-的几种状态分别代表什么)
   - [Ajax 禁用浏览器的缓存功能](#ajax-禁用浏览器的缓存功能)
   - [js 的模块规范](#js-的模块规范)
-  - [ES6 模块与 CommonJS 模块、AMD、CMD 的差异](#es6-模块与-commonjs-模块amdcmd-的差异)
+    - [commonjs(cjs)](#commonjscjs)
+    - [AMD(Asynchronous Module Definition)](#amdasynchronous-module-definition)
+    - [UMD(Universal Module Definition)](#umduniversal-module-definition)
+    - [CMD](#cmd)
+    - [ESM](#esm)
+    - [CJS vs ESM](#cjs-vs-esm)
   - [arguments 怎么转化成真数组](#arguments-怎么转化成真数组)
   - [js 的对象的常用的方法](#js-的对象的常用的方法)
   - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
@@ -1096,25 +1101,123 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 
 ## js 的模块规范
 
-js 中现在比较成熟的有四种模块加载方案。
+### commonjs(cjs)
+CommonJS 方案通过 require 来引入模块，通过 module.exports 定义模块的输出接口。这种模块加载方案以同步的方式来引入模块，是服务器端的解决方案，因为在服务端文件都存储在本地磁盘，所以读取非常快。但如果是在浏览器端，由于模块的加载是使用网络请求，因此使用异步加载的方式更加合适。而且cjs无法直接在浏览器端工作。所以cjs一般不用在浏览器端。
 
-第一种是 CommonJS 方案，它通过 require 来引入模块，通过 module.exports 定义模块的输出接口。这种模块加载方案是
-服务器端的解决方案，它是以同步的方式来引入模块的，因为在服务端文件都存储在本地磁盘，所以读取非常快，所以以同步的方式
-加载没有问题。但如果是在浏览器端，由于模块的加载是使用网络请求，因此使用异步加载的方式更加合适。
+```js
+//importing 
+const doSomething = require('./doSomething.js'); 
 
-第二种是 AMD 方案，这种方案采用异步加载的方式来加载模块，模块的加载不影响后面语句的执行，所有依赖这个模块的语句都定
-义在一个回调函数里，等到加载完成后再执行回调函数。require.js 实现了 AMD 规范。
+//exporting
+module.exports = function doSomething(n) {
+  // do something
+}
+```
 
-第三种是 CMD 方案，这种方案和 AMD 方案都是为了解决异步模块加载的问题，sea.js 实现了 CMD 规范。它和 require.js
-的区别在于模块定义时对依赖的处理不同和对依赖模块的执行时机的处理不同。
+### AMD(Asynchronous Module Definition)
+异步模块定义方案采用异步加载的方式来加载模块，模块的加载不影响后面语句的执行，所有依赖这个模块的语句都定义在一个回调函数里，等到加载完成后再执行回调函数。require.js就实现了 AMD 规范。
 
-第四种方案是 ES6 提出的方案，使用 import 和 export 的形式来导入导出模块。这种方案和上面三种方案都不同。
+```js
+define(['dep1', 'dep2'], function (dep1, dep2) {
+    //Define the module value by returning a value.
+    return function () {};
+});
+```
 
+### UMD(Universal Module Definition)
+通用模块定义是AMD和CommonJS的一个糅合，先判断是否支持CJS的模块，存在就使用CJS；再判断是否支持AMD（define是否存在），存在则使用AMD的方式加载。
 
-## ES6 模块与 CommonJS 模块、AMD、CMD 的差异
+```js
+((root, factory) => {
+  if (typeof define === 'function' && define.amd) {
+    //AMD
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    //CommonJS
+    var $ = requie('jquery');
+    module.exports = factory($);
+  } else {
+    //都不是，浏览器全局定义
+    root.testModule = factory(root.jQuery);
+  }
+})(this, ($) => {
+  //do something...  这里是真正的函数体
+});
+```
 
-> CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。
-> CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。CommonJS 模块就是对象，即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+### CMD
+通过依赖就近，延迟执行来提升性能
+
+```js
+/** CMD写法 **/
+define(function (require, exports, module) {
+    var a = require('./a');
+    //在需要时申明
+    a.doSomething();
+    if (false) {
+        var b = require('./b');
+        b.doSomething();
+    }
+});
+
+/** sea.js **/
+// 定义模块 math.js
+define(function (require, exports, module) {
+    var $ = require('jquery.js');
+    var add = function (a, b) {
+        return a + b;
+    }
+    exports.add = add;
+});
+// 加载模块
+seajs.use(['math.js'], function (math) {
+    var sum = math.add(1 + 2);
+});
+```
+
+### ESM
+ESM使用 import 和 export 的形式来导入导出模块。
+
+```js
+import x from "";
+
+export default function a(){
+
+}
+```
+
+$$
+无模块 \stackrel{模块化需求}{\longrightarrow} CJS \stackrel{异步需求}{\longrightarrow} AMD \stackrel{性能问题}{\longrightarrow} CMD \stackrel{适应 CJS 和 AMD}{\longrightarrow} UMD \stackrel{简化定义，导入，导出方式}{\longrightarrow} ESM
+$$
+
+### CJS vs ESM
+<table>
+	<thead>
+		<th></th>
+		<th>CJS</th>
+		<th>ESM</th>
+	</thead>
+	<tr>
+		<td>输出</td>
+		<td>值的拷贝</td>
+		<td>值的引用</td>
+	</tr>
+  <tr>
+		<td>修改</td>
+		<td>允许直接修改值</td>
+		<td>不允许直接修改值（对象修改除外）</td>
+	</tr>
+	<tr>
+		<td>加载时间</td>
+		<td>运行时加载</td>
+		<td>编译时输出接口</td>
+	</tr>
+  <tr>
+		<td>加载方式</td>
+		<td>同步</td>
+		<td>异步</td>
+	</tr>
+</table>
 
 ## arguments 怎么转化成真数组
 
