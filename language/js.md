@@ -66,6 +66,7 @@
   - [js 的对象的常用的方法](#js-的对象的常用的方法)
   - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
   - [js 的数组的常用的方法](#js-的数组的常用的方法)
+  - [拍平数组](#拍平数组)
 
 ## js 基本数据类型
 
@@ -1235,4 +1236,21 @@ arr.flat(); //数组降维 ，返回新数组
 arr.flat(1);
 arr.flat(Infinity);
 arr.entries(); //将数组返回一个对象，包含对象索引的键值对
+```
+
+## 拍平数组
+```js
+const ret = arr.flat(Infinity);
+```
+
+```ts
+type MultiDimensionalArray = (number | MultiDimensionalArray)[];
+
+const flat = function (arr: MultiDimensionalArray, depth: number): MultiDimensionalArray {
+  while (depth > 0 && arr.some(Array.isArray)) {
+    arr = [].concat(...arr);
+    depth--;
+  }
+  return arr;
+};
 ```
