@@ -19,6 +19,9 @@
 			- [node 正向代理](#node-正向代理)
 			- [nginx 反向代理](#nginx-反向代理)
 			- [JSONP 不推荐](#jsonp-不推荐)
+				- [优点](#优点)
+				- [缺点](#缺点)
+				- [实现方式](#实现方式)
 			- [后端配置](#后端配置)
 
 # Network
@@ -254,8 +257,37 @@ CORS使用额外的HTTP头来告诉浏览器让运行在一个 origin (domain) �
 在浏览器和服务器之间加一个反向代理服务器
 
 #### JSONP 不推荐
-JSONP(JSON with Padding)主要利用script标签没有跨域限制的特性，但仅支持get方法。
-由于没有使用XHR请求，所以没有跨域问题。
+JSONP(JSON with Padding)主要利用script标签没有跨域限制的特性，由于没有使用XHR请求，所以没有跨域问题。
+
+##### 优点
+- 兼容性好
+- 在请求完毕后可以通过调用 callback 的方式回传结果
+  
+##### 缺点
+- 仅支持get方法
+- 只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面之间如何进行 JavaScript 调用的问题
+- JSONP 在调用失败的时候不会返回各种 HTTP 状态码
+- 提供 JSONP 的服务若存在页面注入漏洞，则所有调用这个 JSONP 的网站都会存在漏洞。
+
+##### 实现方式
+与服务端约定好一个回调函数名，服务端接收到请求后，将返回一段 Javascript，在这段 Javascript 代码中调用了约定好的回调函数，并且将数据作为参数进行传递。当网页接收到这段 Javascript 代码后，就会执行这个回调函数，这时数据已经成功传输到客户端了。
+
+前端代码
+
+```js
+<script>
+function test(data) {
+    console.log(data.name);
+}
+</script>
+<script src="http://127.0.0.1:8088/jsonp?callback=test"></script>
+```
+
+后端代码
+
+```js
+res.end('test({"name": "Monkey"})');
+```
 
 #### 后端配置
-后端配置Access-Control-Allow-Origin
+普通跨域请求：只需服务端设置 `Access-Control-Allow-Origin` 即可，前端无须设置，若要带 cookie 请求：前后端都需要设置。前端设置`withCredentials`为 true,后端设置`Access-Control-Allow-Credentials`为 true, 同时`Access-Control-Allow-Origin`不能设置为`*`

@@ -32,9 +32,6 @@
   - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
   - [async await](#async-await)
   - [Event Loop 事件循环](#event-loop-事件循环)
-  - [JS 跨域怎么做](#js-跨域怎么做)
-  - [JSONP 怎么实现的](#jsonp-怎么实现的)
-  - [JOSNP 有什么优缺点](#josnp-有什么优缺点)
   - [new 运算符的过程](#new-运算符的过程)
   - [数组的 push() 和 pop() 方法的返回值是什么](#数组的-push-和-pop-方法的返回值是什么)
   - [JS 作用域](#js-作用域)
@@ -59,7 +56,7 @@
   - [Ajax 的 readyState 的几种状态分别代表什么](#ajax-的-readystate-的几种状态分别代表什么)
   - [Ajax 禁用浏览器的缓存功能](#ajax-禁用浏览器的缓存功能)
   - [js 的模块规范](#js-的模块规范)
-    - [commonjs(cjs)](#commonjscjs)
+    - [CommonJS(cjs)](#commonjscjs)
     - [AMD(Asynchronous Module Definition)](#amdasynchronous-module-definition)
     - [UMD(Universal Module Definition)](#umduniversal-module-definition)
     - [CMD](#cmd)
@@ -666,69 +663,6 @@ console.log(bar()); // yeah 隔1秒同时输出 lee fan
 执行流程：
 ![event loop流程](./../images/event%20loop.jpg)
 
-## JS 跨域怎么做
-
-> 什么是跨域？当一个请求 url 的 协议、域名、端口三者之间任意一个与当前页面 url 不同即为跨域。
->
-> 参考链接:[前端常见跨域解决方案（全）](https://segmentfault.com/a/1190000011145364)
-
-1. JSONP (JSON with Padding)
-   通过动态创建 script，再请求一个带参网址实现跨域通信。
-   > 参考链接：[jsonp 的原理与实现](https://segmentfault.com/a/1190000007665361#articleHeader1)
-2. CORS (跨域资源共享)
-   CORS 的基本思想就是使用自定义的 HTTP 头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是失败。
-
-   普通跨域请求：只需服务端设置 `Access-Control-Allow-Origin` 即可，前端无须设置，若要带 cookie 请求：前后端都需要设置。前端设置`withCredentials`为 true,后端设置`Access-Control-Allow-Credentials`为 true,同时`Access-Control-Allow-Origin`不能设置为`*`
-
-   目前，所有浏览器都支持该功能(IE8+；IE8/9 需要使用 XDomainRequest 对象来支持 CORS)，CORS 也已经成为主流的跨域解决方案。
-
-3. window.postMessage
-   现代浏览器中多窗口通信使用 HTML5 规范的 targetWindow.postMessage(data, origin);其中 data 是需要发送的对象，origin 是目标窗口的 origin。window.addEventListener('message', handler, false);handler 的 event.data 是 postMessage 发送来的数据，event.origin 是发送窗口的 origin，event.source 是发送消息的窗口引用
-4. 服务器代理
-   内部服务器代理请求跨域 url，然后返回数据
-
-## JSONP 怎么实现的
-
-> JSONP 的理念就是，与服务端约定好一个回调函数名，服务端接收到请求后，将返回一段 Javascript，在这段 Javascript 代码中调用了约定好的回调函数，并且将数据作为参数进行传递。当网页接收到这段 Javascript 代码后，就会执行这个回调函数，这时数据已经成功传输到客户端了。
-
-举个例子来说明具体情况：
-
-前端代码
-
-```js
-<script>
-function test(data) {
-    console.log(data.name);
-}
-</script>
-<script src="http://127.0.0.1:8088/jsonp?callback=test"></script>
-```
-
-后端代码
-
-```js
-res.end('test({"name": "Monkey"})');
-```
-
-以上就实现了 JSONP 跨域，前端正常打印出了"Monkey"
-
-请求 JSONP 之前就定义好回调函数 test，后端返回的是调用 test 函数的 js 代码，浏览器加载这段代码后立即执行
-
-## JOSNP 有什么优缺点
-
-缺点：
-
-1. 它只支持 GET 请求而不支持 POST 等其它类型的 HTTP 请求
-2. 它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面之间如何进行 JavaScript 调用的问题。
-3. JSONP 在调用失败的时候不会返回各种 HTTP 状态码。
-4. 安全性。假如提供 JSONP 的服务存在页面注入漏洞，即它返回的 JavaScript 的内容被人控制的。那么结果是什么？所有调用这个 JSONP 的网站都会存在漏洞。于是无法把危险控制在一个域名下…所以在使用 JSONP 的时候必须要保证使用的 JSONP 服务必须是安全可信的。
-
-优点：
-
-1. 它不像 XMLHttpRequest 对象实现的 Ajax 请求那样受到同源策略的限制，JSONP 可以跨越同源策略；
-2. 它的兼容性更好，在更加古老的浏览器中都可以运行，不需要 XMLHttpRequest 或 ActiveX 的支持
-3. 在请求完毕后可以通过调用 callback 的方式回传结果。
-
 ## new 运算符的过程
 
 1. 创建一个空对象{}；
@@ -1101,7 +1035,7 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 
 ## js 的模块规范
 
-### commonjs(cjs)
+### CommonJS(cjs)
 CommonJS 方案通过 require 来引入模块，通过 module.exports 定义模块的输出接口。这种模块加载方案以同步的方式来引入模块，是服务器端的解决方案，因为在服务端文件都存储在本地磁盘，所以读取非常快。但如果是在浏览器端，由于模块的加载是使用网络请求，因此使用异步加载的方式更加合适。而且cjs无法直接在浏览器端工作。所以cjs一般不用在浏览器端。
 
 ```js
@@ -1218,6 +1152,9 @@ $$
 		<td>异步</td>
 	</tr>
 </table>
+
+参考链接
+https://zhuanlan.zhihu.com/p/467991875
 
 ## arguments 怎么转化成真数组
 
