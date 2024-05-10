@@ -67,6 +67,7 @@
   - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
   - [js 的数组的常用的方法](#js-的数组的常用的方法)
   - [拍平数组](#拍平数组)
+  - [防抖](#防抖)
 
 ## js 基本数据类型
 
@@ -1253,4 +1254,18 @@ const flat = function (arr: MultiDimensionalArray, depth: number): MultiDimensio
   }
   return arr;
 };
+```
+
+## 防抖
+```ts
+type F = (...args: number[]) => void
+
+function debounce(fn: F, t: number): F {
+    let time = null;
+    return function (...args) {
+        if (time) clearTimeout(time);
+        time = setTimeout(() => fn(...args), t);
+    }
+};
+
 ```
