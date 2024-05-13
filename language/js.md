@@ -68,6 +68,7 @@
   - [js 的数组的常用的方法](#js-的数组的常用的方法)
   - [拍平数组](#拍平数组)
   - [防抖](#防抖)
+  - [节流](#节流)
 
 ## js 基本数据类型
 
@@ -1268,4 +1269,21 @@ function debounce(fn: F, t: number): F {
     }
 };
 
+```
+
+## 节流
+```ts
+type F = (...args: number[]) => void
+
+function throttle(func: F, interval: number): () => void {
+    let lastTime = 0;
+    const _throttle = function(...args) {
+        const remainTime = interval - (Date.now() - lastTime);
+        if (remainTime <= 0) {
+            lastTime = nowTime;
+            func(...args);
+        }
+    }
+    return _throttle;
+}
 ```
