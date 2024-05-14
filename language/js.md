@@ -32,6 +32,8 @@
   - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
   - [async await](#async-await)
   - [Event Loop 事件循环](#event-loop-事件循环)
+    - [宏任务与微任务](#宏任务与微任务)
+      - [微任务的执行顺序](#微任务的执行顺序)
   - [new 运算符的过程](#new-运算符的过程)
   - [数组的 push() 和 pop() 方法的返回值是什么](#数组的-push-和-pop-方法的返回值是什么)
   - [JS 作用域](#js-作用域)
@@ -647,24 +649,21 @@ console.log(bar()); // yeah 隔1秒同时输出 lee fan
 
 ## Event Loop 事件循环
 
-> 参考链接：[详解 JavaScript 中的 Event Loop（事件循环）机制](https://zhuanlan.zhihu.com/p/33058983?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936)
+### 宏任务与微任务
+宏任务：整体代码块、setTimeout、setInterval、I/O、setImmediate(Node.js 环境)、UI 交互事件
+微任务：promise.then(promise中的内容立即执行)、process.nextTick(Nodejs)、queueMicrotask、Mutation Observer、async/await(await后的函数立刻执行，await下面的内容在微任务队列)
 
-```js
-微任务: promise.then(不是promise，promise里是立即执行)   MutationObserver  process.nextTick(Node.js 环境)
-宏任务: script(整体代码)  setTimeout  setInterval   I/O  setImmediate(Node.js 环境)   UI 交互事件
-同一次事件循环中:  微任务永远在宏任务之前执行
-```
+#### 微任务的执行顺序
+1. next tick mircotask queue
+2. other microtask queue
+3. timer queue
+4. poll queue
+5. check queue
+6. close queue
 
-事件循环的过程：
+整体代码块是一个大的异步任务，同步任务会先在主线程上执行。异步任务分别加入微任务队列和宏任务队列。在当前执行栈为空的时候，主线程会查看微任务队列是否有事件存在。如果不存在，那么再去宏任务队列中取出一个事件并把对应的回到加入当前执行栈。
 
-> 首先 script 脚本整体是一个大的异步任务，先执行 script 脚本。这个 script 脚本会包含同步任务和异步任务，同步任务会先在主线程上执行，异步任务（分为宏任务和微任务）会添加到任务队列中，任务队列分为宏任务队列和微任务队列，宏任务放到宏任务队列，微任务放到微任务队列。
->
-> 当同步任务执行完毕后，此时的执行栈已经被清空，会去执行异步任务。此时会先从微任务队列中取一个微任务放到执行栈中执行，若有新的微任务或宏任务产生，添加到相应的任务队列中，循环往复，直至微任务队列清空。
->
-> 紧接着会从宏任务队列取一个宏任务放到执行栈中执行，此时可能会产生新的微任务，将微任务放到微任务队列中，当这个宏任务执行完后会继续执行微任务队列，如果没有产生就继续执行下一个宏任务。循环往复，直至所有任务执行完毕。
-
-执行流程：
-![event loop流程](./../images/event%20loop.jpg)
+reference: https://juejin.cn/post/7067780709548720136
 
 ## new 运算符的过程
 
