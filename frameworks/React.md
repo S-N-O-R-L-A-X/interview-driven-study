@@ -1,6 +1,6 @@
 - [React](#react)
   - [什么是 React](#什么是-react)
-  - [react 生命周期(><16.3)](#react-生命周期163)
+  - [react 生命周期](#react-生命周期)
   - [react 中发起网络请求应该在哪个生命周期中进行？为什么？](#react-中发起网络请求应该在哪个生命周期中进行为什么)
   - [state 和 props 触发更新的生命周期分别？](#state-和-props-触发更新的生命周期分别)
   - [虚拟 dom、更新原理](#虚拟-dom更新原理)
@@ -33,7 +33,7 @@
   - [React 中遍历的方法有哪些？](#react-中遍历的方法有哪些)
   - [Vue 和 React 数据驱动的区别](#vue-和-react-数据驱动的区别)
   - [react 循环列表为什么要使用 key](#react-循环列表为什么要使用-key)
-  - [hooks APi](#hooks-api)
+  - [hooks](#hooks)
   - [react 与 vue 区别](#react-与-vue-区别)
     - [相同点](#相同点)
     - [不同点](#不同点)
@@ -51,19 +51,20 @@ https://juejin.cn/post/6941546135827775525
 https://juejin.cn/post/6940942549305524238
 ```
 
-```txt
+
 值得借鉴的面经
 
 https://www.nowcoder.com/discuss/123161?type=post&order=jing&pos=&page=2&ncTraceId=&channel=-1&source_id=search_post_nctrack&subType=2&gio_id=6F75134E4ACC8F86EF18014BC2C6C0D9-1646830844478
 
 https://blog.csdn.net/qq_32534855/article/details/**107484533**
-```
+
 
 ## 什么是 React
 
-React 是一个简单的 javascript UI 库，用于构建高效、快速的用户界面。它是一个轻量级库，因此很受欢迎。它遵循组件设计模式、声明式编程范式和函数式编程概念，以使前端应用程序更高效。它使用虚拟 DOM 来有效地操作 DOM。它遵循从高阶组件到低阶组件的单向数据流
+The library for web and native user interfaces. 
+React 是一个用于网页和原生用户界面的 UI 库。它遵循组件设计模式（高内聚低耦合）、声明式编程范式（直观组合）和函数式编程概念，而且使用虚拟 DOM 来有效地操作 DOM，具备通用性，使得前端应用程序更高效。
 
-## react 生命周期(><16.3)
+## react 生命周期
 
 - react < 16.3
 
@@ -1060,7 +1061,7 @@ react 中实现双向绑定
 - 组件没有设置 key 时，react 会默认将 react 索引设置为 key 属性的值，对于静态的页面（首次渲染后不变化），当第一次渲染时，子组件 列表的 key 属性被赋值为数组索引， 如果仅仅在尾部插入一个新的组件，前面组件的索引值并不会被变化， 但是，对数据进行了重新排序，数组索引 index 仍然稳定地从 0 开始自增， React 认为组件并没有发生变更。比如：复选框勾选的数据，需要移动，会发现复选框并没有移动。
 - key 是稳定+唯一的，不能是随即数
 
-## hooks APi
+## hooks
 
 https://juejin.cn/post/7008433550307360798
 
