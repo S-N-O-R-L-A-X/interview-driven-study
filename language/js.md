@@ -71,6 +71,7 @@
   - [拍平数组](#拍平数组)
   - [防抖](#防抖)
   - [节流](#节流)
+  - [实现并发控制](#实现并发控制)
 
 ## js 基本数据类型
 
@@ -1284,5 +1285,25 @@ function throttle(func: F, interval: number): () => void {
         }
     }
     return _throttle;
+}
+```
+
+## 实现并发控制
+```js
+async function asyncPool(poolLimit, array, iteratorFn) {
+  const ret = [];
+  const executing = [];
+  for (const item of array) {
+    const p = Promise.resolve().then(() => iteratorFn(item)); // compatible with synchronous function
+    ret.push(p);
+    if (poolLimit <= array.length) {
+      const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+      executing.push(e);
+      if (executing.length >= poolLimit) {
+        await Promise.race(executing);
+      }
+    }
+  }
+  return Promise.all(ret);
 }
 ```
