@@ -8,6 +8,7 @@
   - [前端路由 router](#前端路由-router)
     - [hash](#hash)
     - [history](#history)
+  - [浏览器渲染过程](#浏览器渲染过程)
 
 ## HTML5 的新特性
 
@@ -65,3 +66,9 @@ History是H5推出的API，利用popState事件来监听历史栈的变化。
 
 优势：URL更加美观，利于SEO，可以使用浏览器的前进后退功能
 劣势：需要服务端配置支持，否则刷新会404
+
+## 浏览器渲染过程
+1. 浏览器首先获取HTML文件，然后从上到下逐行解析HTML文档，生成DOM（Document Object Model）树。于此同时，浏览器也会解析CSS文件，生成CSSOM（CSS Object Model）树。
+2. 将DOM树和CSSOM树合并，生成渲染树（Render Tree）
+3. 浏览器根据渲染树，计算每个元素的位置和大小，生成布局（Layout）
+4. 浏览器根据渲染树和计算出的布局信息，将每个元素绘制（Paint）到屏幕上
