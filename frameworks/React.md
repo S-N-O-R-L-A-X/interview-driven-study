@@ -15,6 +15,7 @@
   - [如何理解 hooks、为什么要用 hooks，解决了哪些问题](#如何理解-hooks为什么要用-hooks解决了哪些问题)
   - [useEffect 与 useLayoutEffect 的区别](#useeffect-与-uselayouteffect-的区别)
   - [fiber 架构的理解](#fiber-架构的理解)
+    - [fiber 工作原理](#fiber-工作原理)
   - [react 性能优化的手段，避免不必要的 render](#react-性能优化的手段避免不必要的-render)
   - [react 组件中怎么做事件代理？它的原理是什么？SyntheticEvent 层（合成事件层)](#react-组件中怎么做事件代理它的原理是什么syntheticevent-层合成事件层)
   - [如何解决 react 层级嵌套过深的问题](#如何解决-react-层级嵌套过深的问题)
@@ -614,7 +615,11 @@ useLayoutEffect 会在所有的 DOM 变更之后同步调用，需要避免在 u
 
 ## fiber 架构的理解
 
-在React 16之前的版本中使用递归的方式处理组件树更新，这种方式直到整个组件树都被遍历完之前不能中断。这种机制在处理大量数据或复杂视图时可能导致主线程被阻塞，从而使应用无法及时响应用户的输入或其他高优先级任务。React的fiber架构使得组件树遍历过程可以中断和恢复。通过在在浏览器每一帧的时间中，预留一些时间给 JS 线程，当预留的时间不够用时，React 将线程控制权交还给浏览器使其有时间渲染 UI，React 则等待下一帧时间到来继续被中断的工作。
+在React 16之前的版本中使用递归的方式处理组件树更新，这使得直到整个组件树都被遍历完之前不能中断。这种机制在处理大量数据或复杂视图时可能导致主线程被阻塞，从而使应用无法及时响应用户的输入或其他高优先级任务。React的fiber架构使得组件树遍历过程可以中断和恢复。通过在在浏览器每一帧的时间中，预留一些时间给 JS 线程，当预留的时间不够用时，React 将线程控制权交还给浏览器使其有时间渲染 UI，React 则等待下一帧时间到来继续被中断的工作。
+
+### fiber 工作原理
+所有Fiber节点共同组成一个Fiber链表树
+React在更新时，会根据现有的Fiber树（Current Tree）创建一个新的临时树（Work-in-progress Tree），WIP-Tree包含了当前更新受影响的最高节点直至其所有子孙节点。Current Tree是当前显示在页面上的视图，WIP-Tree则是在后台进行更新，WIP-Tree更新完成后会复制其它节点，并最终替换掉Current Tree，成为新的Current Tree。
 
 
 ## react 性能优化的手段，避免不必要的 render
