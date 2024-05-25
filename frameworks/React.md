@@ -16,6 +16,7 @@
   - [useEffect 与 useLayoutEffect 的区别](#useeffect-与-uselayouteffect-的区别)
   - [fiber 架构的理解](#fiber-架构的理解)
     - [fiber 工作原理](#fiber-工作原理)
+    - [工作过程](#工作过程)
   - [react 性能优化的手段，避免不必要的 render](#react-性能优化的手段避免不必要的-render)
   - [react 组件中怎么做事件代理？它的原理是什么？SyntheticEvent 层（合成事件层)](#react-组件中怎么做事件代理它的原理是什么syntheticevent-层合成事件层)
   - [如何解决 react 层级嵌套过深的问题](#如何解决-react-层级嵌套过深的问题)
@@ -621,6 +622,14 @@ useLayoutEffect 会在所有的 DOM 变更之后同步调用，需要避免在 u
 所有Fiber节点共同组成一个Fiber链表树
 React在更新时，会根据现有的Fiber树（Current Tree）创建一个新的临时树（Work-in-progress Tree），WIP-Tree包含了当前更新受影响的最高节点直至其所有子孙节点。Current Tree是当前显示在页面上的视图，WIP-Tree则是在后台进行更新，WIP-Tree更新完成后会复制其它节点，并最终替换掉Current Tree，成为新的Current Tree。
 
+### 工作过程
+1. reconcilation 通过比较新的props和旧的Fiber树来确定确定哪些部分的UI需要更新。
+`beginWork` 创建与标记更新节点，`completeUnitOfWork` 负责遍历Fiber节点，同时记录有副作用节点的关系。`completeWork` 根据 tag 进行不同的处理，通过 `bubbleProperties` 记录Fiber的副作用标志并且为Fiber创建链表.
+
+2. commit 通过遍历并执行在 reconciliation 阶段创建的副作用列表进行更新。
+`BeforeMutation` 遍历副作用列表，`CommitMutation` 正式提交，`commitLayout` 处理 layout effect。一旦进入提交阶段后，React是无法中断的。
+
+reference: https://zhuanlan.zhihu.com/p/670914853
 
 ## react 性能优化的手段，避免不必要的 render
 
