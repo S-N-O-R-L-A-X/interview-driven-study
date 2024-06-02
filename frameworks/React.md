@@ -619,8 +619,8 @@ useLayoutEffect 会在所有的 DOM 变更之后同步调用，需要避免在 u
 在React 16之前的版本中使用递归的方式处理组件树更新，这使得直到整个组件树都被遍历完之前不能中断。这种机制在处理大量数据或复杂视图时可能导致主线程被阻塞，从而使应用无法及时响应用户的输入或其他高优先级任务。React的fiber架构使得组件树遍历过程可以中断和恢复。通过在在浏览器每一帧的时间中，预留一些时间给 JS 线程，当预留的时间不够用时，React 将线程控制权交还给浏览器使其有时间渲染 UI，React 则等待下一帧时间到来继续被中断的工作。
 
 ### fiber 工作原理
-所有Fiber节点共同组成一个Fiber链表树
-React在更新时，会根据现有的Fiber树（Current Tree）创建一个新的临时树（Work-in-progress Tree），WIP-Tree包含了当前更新受影响的最高节点直至其所有子孙节点。Current Tree是当前显示在页面上的视图，WIP-Tree则是在后台进行更新，WIP-Tree更新完成后会复制其它节点，并最终替换掉Current Tree，成为新的Current Tree。
+所有Fiber节点共同组成一个Fiber链表树，每个节点对应一个react element。react管理着root对象，其中包含着current tree和Work-in-progress Tree (WIP-Tree)。
+current tree是当前显示在页面上的视图。初次渲染时没有current tree，react会创建一个uninitialFiber，让react的current指向uninitialFiber，之后再去创建本次要用到的WIP-Tree。更新时会根据 Current Tree 创建 WIP-Tree，WIP-Tree更新完成后会复制其它节点，并最终替换掉Current Tree，成为新的Current Tree。
 
 ### 工作过程
 1. reconcilation 通过比较新的props和旧的Fiber树来确定确定哪些部分的UI需要更新。
@@ -629,7 +629,9 @@ React在更新时，会根据现有的Fiber树（Current Tree）创建一个新�
 2. commit 通过遍历并执行在 reconciliation 阶段创建的副作用列表进行更新。
 `BeforeMutation` 遍历副作用列表，`CommitMutation` 正式提交，`commitLayout` 处理 layout effect。一旦进入提交阶段后，React是无法中断的。
 
-reference: https://zhuanlan.zhihu.com/p/670914853
+reference: 
+https://zhuanlan.zhihu.com/p/670914853 <br/>
+https://react.iamkasong.com/process/fiber.html#fiber%E7%9A%84%E7%BB%93%E6%9E%84
 
 ## react 性能优化的手段，避免不必要的 render
 
