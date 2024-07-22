@@ -248,15 +248,15 @@
 7. 用户界面：resize, box-sizing, outline-offset
 
 ### CSS 选择器
-（1）id选择器（#myid）
-（2）类选择器（.myclassname）
-（3）标签选择器（div,h1,p）
-（4）后代选择器（h1 p）
-（5）子选择器（ul>li）
-（6）兄弟选择器（所有）（li~a）
-（7）相邻兄弟选择器（li+a）
-（8）属性选择器（a[rel="external"]）
-（9）伪类选择器（a:hover,li:nth-child）
+1. id选择器（#myid）
+2. 类选择器（.myclassname）
+3. 标签选择器（div,h1,p）
+4. 后代选择器（h1 p）
+5. 子选择器（ul>li）
+6. 兄弟选择器（所有）（li~a）
+7. 相邻兄弟选择器（li+a）
+8. 属性选择器（a[rel="external"]）
+9. 伪类选择器（a:hover,li:nth-child）
 （10）伪元素选择器（::before、::after）
 （11）通配符选择器（*）
 
@@ -280,15 +280,15 @@
 - 伪元素选择器 0,0,0,1
 - 通配符选择器 0,0,0,0
 
-（1）每个等级的初始值为0
-（2）每个等级的叠加为选择器出现的次数相加
-（3）不可进位，比如0,99,99,99
-（4）依次表示为：0,0,0,0
-（5）每个等级计数之间没关联
-（6）等级判断从左向右，如果某一位数值相同，则判断下一位数值
-（7）如果两个优先级相同，则最后出现的优先级高，!important也适用
-（8）通配符选择器的特殊性值为：0,0,0,0
-（9）继承样式优先级最低，通配符样式优先级高于继承样式
+1. 每个等级的初始值为0
+2. 每个等级的叠加为选择器出现的次数相加
+3. 不可进位，比如0,99,99,99
+4. 依次表示为：0,0,0,0
+5. 每个等级计数之间没关联
+6. 等级判断从左向右，如果某一位数值相同，则判断下一位数值
+7. 如果两个优先级相同，则最后出现的优先级高，!important也适用
+8. 通配符选择器的特殊性值为：0,0,0,0
+9. 继承样式优先级最低，通配符样式优先级高于继承样式
 （10）相同特殊性值的声明，根据样式引入的顺序，后声明的规则优先级高（距离元素出现最近的）
 （11）!important（权重），它没有特殊性值，但它的优先级是最高的，为了方便记忆，可以认为它的特殊性值为1,0,0,0,0。
 
@@ -310,28 +310,28 @@ css引入伪类和伪元素概念是为了格式化文档树以外的信息。�
 伪元素一般匹配特殊的位置，比如after、before等，用于创建一些不在文档树中的元素，并为其添加样式。它们允许我们为元素的某些部分设置样式。比如说，我们可以通过::before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。
 
 ### CSS3新增伪类
-（1）elem:nth-child(n)选中父元素下的第n个子元素，并且这个子元素的标签名为elem，n可以接受具体的数值，也可以接受函数。
-（2）elem:nth-last-child(n)作用同上，不过是从后开始查找。
-（3）elem:last-child选中最后一个子元素。
-（4）elem:only-child如果elem是父元素下唯一的子元素，则选中之。
-（5）elem:nth-of-type(n)选中父元素下第n个elem类型元素，n可以接受具体的数值，也可以接受函数。
-（6）elem:first-of-type选中父元素下第一个elem类型元素。
-（7）elem:last-of-type选中父元素下最后一个elem类型元素。
-（8）elem:only-of-type如果父元素下的子元素只有一个elem类型元素，则选中该元素。
-（9）elem:empty选中不包含子元素和内容的elem类型元素。
-（10）elem:target选择当前活动的elem元素。
-（11）:not(elem)选择非elem元素的每个元素。
-（12）:enabled 控制表单控件的禁用状态。
-（13）:disabled 控制表单控件的禁用状态。
-（14）:checked单选框或复选框被选中。
+* elem:nth-child(n)选中父元素下的第n个子元素，并且这个子元素的标签名为elem，n可以接受具体的数值，也可以接受函数。
+* elem:nth-last-child(n)作用同上，不过是从后开始查找。
+* elem:last-child选中最后一个子元素。
+* elem:only-child如果elem是父元素下唯一的子元素，则选中之。
+* elem:nth-of-type(n)选中父元素下第n个elem类型元素，n可以接受具体的数值，也可以接受函数。
+* elem:first-of-type选中父元素下第一个elem类型元素。
+* elem:last-of-type选中父元素下最后一个elem类型元素。
+* elem:only-of-type如果父元素下的子元素只有一个elem类型元素，则选中该元素。
+* elem:empty选中不包含子元素和内容的elem类型元素。
+* elem:target选择当前活动的elem元素。
+* :not(elem)选择非elem元素的每个元素。
+* :enabled 控制表单控件的禁用状态。
+* :disabled 控制表单控件的禁用状态。
+* :checked单选框或复选框被选中。
 
 ### 关于伪类 LVHA 的解释
 LVHA指a标签的四种状态：链接访问前、链接访问后、鼠标滑过、激活，分别对应四种伪类:link、:visited、:hover、:active；
 
 当链接未访问过时：
 
-（1）当鼠标滑过a链接时，满足:link和:hover两种状态，要改变a标签的颜色，就必须将:hover伪类在:link伪类后面声明；
-（2）当鼠标点击激活a链接时，同时满足:link、:hover、:active三种状态，要显示a标签激活时的样式（:active），必须将:active声明放到:link和:hover之后。因此得出LVHA这个顺序。
+* 当鼠标滑过a链接时，满足:link和:hover两种状态，要改变a标签的颜色，就必须将:hover伪类在:link伪类后面声明；
+* 当鼠标点击激活a链接时，同时满足:link、:hover、:active三种状态，要显示a标签激活时的样式（:active），必须将:active声明放到:link和:hover之后。因此得出LVHA这个顺序。
 
 当链接访问过时，情况基本同上，只不过需要将:link换成:visited。
 
@@ -343,21 +343,21 @@ LVHA指a标签的四种状态：链接访问前、链接访问后、鼠标滑过
 每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值来作为自己的值。当元素的一个非继承属性(在 Mozilla code 里有时称之为reset property) 没有指定值时，则取属性的初始值 initial value（该值在该属性的概述里被指定）。
 
 有继承性的属性：
-（1）字体系列属性
+1. 字体系列属性
 font、font-family、font-weight、fontsize、font-style、font-variant、fontstretch、font-size-adjust
-（2）文本系列属性
+2. 文本系列属性
 text-indent、text-align、text-shadow、
 line-height、word-spacing、letterspacing、
 text-transform、direction、color
-（3）表格布局属性
+3. 表格布局属性
 caption-side border-collapse empty-cells
-（4）列表属性
+4. 列表属性
 list-style-type、list-style-image、liststyle-position、list-style
-（5）光标属性
+5. 光标属性
 cursor
-（6）元素可见性
+6. 元素可见性
 visibility
-（7）还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
+7. 还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
 
 当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。inherit
 关键字用于显式地指定继承性，可用于任何继承性/非继承性属性。
@@ -517,17 +517,17 @@ reference:https://developer.mozilla.org/en-US/docs/Web/CSS/position
 
 ### 包含块 containing block
 经常来说，包含块就是一个元素最近的块级祖先
-I.如果position是static, relative, sticky，那么包含块要么由它最近的祖先块级元素的content边缘组成，要么建立格式化上下文。
-II.如果position是absolute，那么包含块由它最近的非static祖先元素的padding边缘组成。
-III.如果position是fixed，在连续媒体的情况下是viewport，在分页媒体的情况下是页区域page area
-IV.如果position是absolute或fixed，包含块也可能由满足以下条件的最近祖先元素的padding边缘组成：
-i.  `transform` 或 `perspective` 的值不是 `none`
-ii. `will-change` 的值是 `transform` 或 `perspective`
-iii.`filter` 的值不是 `none` 或 `will-change` 的值是 `filter` (只在Firefox下生效).
-iv. `contain` 的值是 `paint`
-v. `backdrop-filter` 的值不是 `none` (e.g. backdrop-filter: blur(10px);)
+I.如果position是static, relative, sticky，那么包含块要么由它最近的祖先块级元素的content边缘组成，要么建立格式化上下文。<br/>
+II.如果position是absolute，那么包含块由它最近的非static祖先元素的padding边缘组成。<br/>
+III.如果position是fixed，在连续媒体的情况下是viewport，在分页媒体的情况下是页区域page area<br/>
+IV.如果position是absolute或fixed，包含块也可能由满足以下条件的最近祖先元素的padding边缘组成：<br/>
+i.  `transform` 或 `perspective` 的值不是 `none`<br/>
+ii. `will-change` 的值是 `transform` 或 `perspective`<br/>
+iii.`filter` 的值不是 `none` 或 `will-change` 的值是 `filter` (只在Firefox下生效).<br/>
+iv. `contain` 的值是 `paint`<br/>
+v. `backdrop-filter` 的值不是 `none` (e.g. backdrop-filter: blur(10px);)<br/>
 
-reference:https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
+reference: https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block
 
 ### 层叠上下文 stacking context
 HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，层叠上下文就是对这些 HTML 元素的一个三维构想。
@@ -884,9 +884,9 @@ span 是个行内元素，对行内元素设置宽高是不生效的，但是再
 
 #### 样式计算
 替换元素的尺寸从内而外分为3类：固有尺寸、HTML尺寸和CSS尺寸。
-（1）固有尺寸指的是替换内容原本的尺寸。例如，图片、视频作为一个独立文件存在的时候，都是有着自己的宽度和高度的。
-（2）HTML尺寸只能通过HTML原生属性改变，这些HTML原生属性包括`<img>`的width和height属性、`<input>`的size属性、`<textarea>`的cols和rows属性等。
-（3）CSS尺寸特指可以通过CSS的width和height或者max-width/min-width和max-height/minheight设置的尺寸，对应盒尺寸中的content box。
+1. 固有尺寸指的是替换内容原本的尺寸。例如，图片、视频作为一个独立文件存在的时候，都是有着自己的宽度和高度的。
+2. HTML尺寸只能通过HTML原生属性改变，这些HTML原生属性包括`<img>`的width和height属性、`<input>`的size属性、`<textarea>`的cols和rows属性等。
+3. CSS尺寸特指可以通过CSS的width和height或者max-width/min-width和max-height/minheight设置的尺寸，对应盒尺寸中的content box。
 
 计算规则具体如下：
 优先级： 固有尺寸 < HTML尺寸 < CSS尺寸
@@ -1033,10 +1033,10 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 - vmax:选取 vw 和 vh 中最大的那个 ,即在手机竖屏时，1vmax=1vh
 
 ### `display`,`position`和`float`的相互关系？
-（1）首先我们判断display属性是否为none，如果为none，则position和float属性的值不影响元素最后的表现。
-（2）然后判断position的值是否为absolute或者fixed，如果是，则float属性失效，并且display的值应该被设置为table或者block，具体转换需要看初始转换值。
-（3）如果position的值不为absolute或者fixed，则判断float属性的值是否为none，如果不是，则display的值则按上面的规则转换。注意，如果position的值为relative并且float属性的值存在，则relative相对于浮动后的最终位置定位。
-（4）如果`float:none`，则判断元素是否为根元素，如果是根元素则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
+1. 首先我们判断display属性是否为none，如果为none，则position和float属性的值不影响元素最后的表现。
+2. 然后判断position的值是否为absolute或者fixed，如果是，则float属性失效，并且display的值应该被设置为table或者block，具体转换需要看初始转换值。
+3. 如果position的值不为absolute或者fixed，则判断float属性的值是否为none，如果不是，则display的值则按上面的规则转换。注意，如果position的值为relative并且float属性的值存在，则relative相对于浮动后的最终位置定位。
+4. 如果`float:none`，则判断元素是否为根元素，如果是根元素则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
 总的来说，可以把它看作是一个类似优先级的机制，`position:absolute`和`position:fixed`优先级最高，有它存在的时候，浮动不起作用，`display`的值也需要调整；其次，元素的`float`特性的值不是`none`的时候或者它是根元素的时候，调整`display`的值；最后，非根元素，并且非浮动元素，并且非绝对定位的元素，`display`特性值同设置值。
 
 reference: https://www.cnblogs.com/jackyWHJ/p/3756087.html
@@ -1078,11 +1078,11 @@ example
 • 高度为0并且最小高度也为0，不包含常规文档流的子元素，并且自身没有建立新的BFC的元素的`margin-top`和`margin-bottom`
 
 margin合并的3种场景：
-（1）相邻兄弟元素margin合并。
+1. 相邻兄弟元素margin合并。
 解决办法：
 • 设置块状格式化上下文元素（BFC），即开启BFC
 
-（2）父级和第一个/最后一个子元素的margin合并。
+2. 父级和第一个/最后一个子元素的margin合并。
 解决办法：
 
 对于margin-top合并，可以进行如下操作（满足一个条件即可）：
@@ -1098,7 +1098,7 @@ margin合并的3种场景：
 • 父元素和最后一个子元素之间添加内联元素进行分隔；
 • 父元素设置height、min-height或max-height。
 
-（3）空块级元素的margin合并。
+3. 空块级元素的margin合并。
 解决办法：
 • 设置垂直方向的border；
 • 设置垂直方向的padding；
@@ -1222,9 +1222,9 @@ CSS后处理器是对CSS进行处理，并最终生成CSS的预处理器，它�
 在屏幕分辨率千差万别的时代，只要将rem与屏幕分辨率关联起来就可以实现页面的整体缩放，兼容性也非常好。
 
 缺点：
-（1）在奇葩的dpr设备上表现效果不太好，比如一些华为的高端机型用rem布局会出现错乱。
-（2）使用iframe引用也会出现问题。
-（3）rem在多屏幕尺寸适配上与当前两大平台的设计哲学不一致。即大屏的出现到底是为了看得又大又清楚，还是为了看的更多的问题。
+1. 在奇葩的dpr设备上表现效果不太好，比如一些华为的高端机型用rem布局会出现错乱。
+2. 使用iframe引用也会出现问题。
+3. rem在多屏幕尺寸适配上与当前两大平台的设计哲学不一致。即大屏的出现到底是为了看得又大又清楚，还是为了看的更多的问题。
 
 ### 首选最小宽度
 首选最小宽度指的是元素最适合的最小宽度。
@@ -1570,17 +1570,17 @@ clear 属性清除浮动
 
 ### 浏览器兼容性问题
 
-（1）png24位的图片在iE6浏览器上出现背景
+1. png24位的图片在iE6浏览器上出现背景
 解决方案：做成PNG8，也可以引用一段脚本处理。
 
-（2）IE6双边距bug：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。
+2. IE6双边距bug：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。
 ```css
 #box{float:left;width:10px;margin:00010px;}
 ```
 这种情况之下IE会产生20px的距离
 解决方案：在float的标签样式控制中加入_display:inline;将其转化为行内属性。(_这个符号只有ie6会识别)
 
-（3）渐进识别的方式，从总体中逐渐排除局部。
+3. 渐进识别的方式，从总体中逐渐排除局部。
 首先，巧妙的使用"\9"这一标记，将IE游览器从所有情况中分离出来。
 接着，再次使用"+"将IE8和IE7、IE6分离开来，这样IE8已经独立识别。
 ```css
@@ -1592,27 +1592,27 @@ _background-color:#1e0bd1;/*IE6识别*/
 }
 ```
 
-（4）IE下，可以使用获取常规属性的方法来获取自定义属性，也可以使用getAttribute()获取自定义属性；
+4. IE下，可以使用获取常规属性的方法来获取自定义属性，也可以使用getAttribute()获取自定义属性；
 Firefox下，只能使用getAttribute()获取自定义属性
 解决方法：统一通过getAttribute()获取自定义属性。
 
-（5）IE下，event对象有x、y属性，但是没有pageX、pageY属性;
+5. IE下，event对象有x、y属性，但是没有pageX、pageY属性;
 Firefox下，event对象有pageX、pageY属性，但是没有x、y属性。
 解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。
 
-（6）怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。
+6. 怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。
 
 
 ### 简单介绍使用图片 base64 编码的优点和缺点
 
 base64编码是一种图片处理格式，通过特定的算法将图片编码成一长串字符串，在页面上显示的时候，可以用该字符串来代替图片的url属性。
 使用base64的优点是：
-（1）减少一个图片的HTTP请求
+1. 减少一个图片的HTTP请求
 
 使用base64的缺点是：
-（1）根据base64的编码原理，编码后的大小会比原文件大小大1/3，如果把大图片编码到html/css中，不仅会造成文件体积的增加，影响文件的加载速度，还会增加浏览器对html或css文件解析渲染的时间。
-（2）使用base64无法直接缓存，要缓存只能缓存包含base64的文件，比如HTML或者CSS，这相比域直接缓存图片的效果要差很多。
-（3）兼容性的问题。ie8以前的浏览器不支持。
+1. 根据base64的编码原理，编码后的大小会比原文件大小大1/3，如果把大图片编码到html/css中，不仅会造成文件体积的增加，影响文件的加载速度，还会增加浏览器对html或css文件解析渲染的时间。
+2. 使用base64无法直接缓存，要缓存只能缓存包含base64的文件，比如HTML或者CSS，这相比域直接缓存图片的效果要差很多。
+3. 兼容性的问题。ie8以前的浏览器不支持。
 一般一些网站的小图标可以使用base64图片来引入。
 
 
@@ -2361,10 +2361,10 @@ grid,flex,table
 浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。而为了美观。我们通常是一
 个<li>放在一行，这导致<li>换行后产生换行字符，它变成一个空格，占用了一个字符的宽度。
 解决办法：
-（1）为<li>设置float:left。不足：有些容器是不能设置浮动，如左右切换的焦点图等。
-（2）将所有<li>写在同一行。不足：代码不美观。
-（3）将<ul>内的字符尺寸直接设为0，即fontsize:0。不足：<ul>中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。
-（4）消除<ul>的字符间隔letterspacing:-8px，不足：这也设置了<li>内的字符间隔，因此需要将<li>内的字符间隔设为默认letter-spacing:normal。
+1. 为<li>设置float:left。不足：有些容器是不能设置浮动，如左右切换的焦点图等。
+2. 将所有<li>写在同一行。不足：代码不美观。
+3. 将<ul>内的字符尺寸直接设为0，即fontsize:0。不足：<ul>中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。
+4. 消除<ul>的字符间隔letterspacing:-8px，不足：这也设置了<li>内的字符间隔，因此需要将<li>内的字符间隔设为默认letter-spacing:normal。
 
 ### 媒体查询
 语法:
@@ -2378,40 +2378,40 @@ grid,flex,table
 
 ### CSS 优化、提高性能的方法
 #### 加载性能：
-（1）css压缩：将写好的css进行打包压缩，可以减少很多的体积。
-（2）css单一样式：当需要下边距和左边距的时候，很多时候选择:margin:top 0 bottom 0;但margin-bottom:bottom;margin-left:left;执行的效率更高。
-（3）减少使用@import,而建议使用link，因为后者在页面加载时一起加载，前者是等待页面加载完成之后再进行加载。
+1. css压缩：将写好的css进行打包压缩，可以减少很多的体积。
+2. css单一样式：当需要下边距和左边距的时候，很多时候选择:margin:top 0 bottom 0;但margin-bottom:bottom;margin-left:left;执行的效率更高。
+3. 减少使用@import,而建议使用link，因为后者在页面加载时一起加载，前者是等待页面加载完成之后再进行加载。
 
 #### 选择器性能：
-（1）关键选择器（key selector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）。CSS选择器是从右到左进行匹配的。当使用后代选择器的时候，浏览器会遍历所有子元素来确定是否是指定的元素等等；
-（2）如果规则拥有ID选择器作为其关键选择器，则不要为规则增加标签。过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）。
-（3）避免使用通配规则，如*{}计算次数惊人！只对需要用到的元素进行选择。
-（4）尽量少的去对标签进行选择，而是用class。
-（5）尽量少的去使用后代选择器，降低选择器的权重值。后代选择器的开销是最高的，尽量将选择器的深度降到最低，最高不要超过三层，更多的使用类来关联每一个标签元素。
-（6）了解哪些属性是可以通过继承而来的，然后避免对这些属性重复指定规则。
+1. 关键选择器（key selector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）。CSS选择器是从右到左进行匹配的。当使用后代选择器的时候，浏览器会遍历所有子元素来确定是否是指定的元素等等；
+2. 如果规则拥有ID选择器作为其关键选择器，则不要为规则增加标签。过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）。
+3. 避免使用通配规则，如*{}计算次数惊人！只对需要用到的元素进行选择。
+4. 尽量少的去对标签进行选择，而是用class。
+5. 尽量少的去使用后代选择器，降低选择器的权重值。后代选择器的开销是最高的，尽量将选择器的深度降到最低，最高不要超过三层，更多的使用类来关联每一个标签元素。
+6. 了解哪些属性是可以通过继承而来的，然后避免对这些属性重复指定规则。
 
 #### 渲染性能：
-（1）慎重使用高性能属性：浮动、定位。
-（2）尽量减少页面重排、重绘。
-（3）去除空规则：｛｝。空规则的产生原因一般来说是为了预留样式。去除这些空规则无疑能减少css文档体积。
-（4）属性值为0时，不加单位。
-（5）属性值为浮动小数0.**，可以省略小数点之前的0。
-（6）标准化各种浏览器前缀：带浏览器前缀的在前。标准属性在后。
-（7）不使用@import前缀，它会影响css的加载速度。
-（8）选择器优化嵌套，尽量避免层级过深。
-（9）css雪碧图，同一页面相近部分的小图标，方便使用，减少页面的请求次数，但是同时图片本身会变大，使用时，优劣考虑清楚，再使用。
+1. 慎重使用高性能属性：浮动、定位。
+2. 尽量减少页面重排、重绘。
+3. 去除空规则：｛｝。空规则的产生原因一般来说是为了预留样式。去除这些空规则无疑能减少css文档体积。
+4. 属性值为0时，不加单位。
+5. 属性值为浮动小数0.**，可以省略小数点之前的0。
+6. 标准化各种浏览器前缀：带浏览器前缀的在前。标准属性在后。
+7. 不使用@import前缀，它会影响css的加载速度。
+8. 选择器优化嵌套，尽量避免层级过深。
+9. css雪碧图，同一页面相近部分的小图标，方便使用，减少页面的请求次数，但是同时图片本身会变大，使用时，优劣考虑清楚，再使用。
 （10）正确使用display的属性，由于display的作用，某些样式组合会无效，徒增样式体积的同时也影响解析性能。
 （11）不滥用web字体。对于中文网站来说WebFonts可能很陌生，国外却很流行。web fonts通常体积庞大，而且一些浏览器在下载web fonts时会阻塞页面渲染损伤性能。
 
 #### 可维护性、健壮性：
-（1）将具有相同属性的样式抽离出来，整合并通过class在页面中进行使用，提高css的可维护性。
-（2）样式与内容分离：将css代码定义到外部css中。
+1. 将具有相同属性的样式抽离出来，整合并通过class在页面中进行使用，提高css的可维护性。
+2. 样式与内容分离：将css代码定义到外部css中。
 
 ### 在网页中应该使用奇数字号还是偶数字号的字体？为什么呢？
-（1）偶数字号相对更容易和web设计的其他部分构成比例关系。比如：当使用14px的正文字号，可能就会在一些地方用14
+1. 偶数字号相对更容易和web设计的其他部分构成比例关系。比如：当使用14px的正文字号，可能就会在一些地方用14
 ×0.5=7px的margin，在另一些地方用14×1.5=21px的标题字号。
-（2）浏览器缘故。低版本的浏览器ie6会把奇数字体强制转化为偶数，即13px渲染为14px。
-（3）系统差别。早期的Windows里，中易宋体点阵只有12和14、15、16px，唯独缺少13px。
+2. 浏览器缘故。低版本的浏览器ie6会把奇数字体强制转化为偶数，即13px渲染为14px。
+3. 系统差别。早期的Windows里，中易宋体点阵只有12和14、15、16px，唯独缺少13px。
 
 ### 全屏滚动如何实现？
 原理：有点类似于轮播，整体的元素一直排列下去，假设有5个需要展示的全屏页面，那么高度是500%，只是展示100%，容器及容器内的页面取当前可视区高度，同时容器的父级元素overflow属性值设为hidden，通过更改容器可视区的位置来实现全屏滚动效果。主要是响应鼠标事件，页面通过CSS的动画效果，进行移动。
@@ -2447,9 +2447,9 @@ input :-webkit-autofill, textarea :-webkitautofill, select:-webkit-autofill {
 
 在谷歌下css设置字体大小为12px及以下时，显示都是一样大小，都是默认12px。
 解决办法：
-（1）在老版本中，可以使用`webkit-text-size-adjust:none;`，字体大小就不受限制了。但是chrome更新到27版本之后就不再支持-webkit-text-size-adjust样式。
-（2）可以使用css3的transform缩放属性`webkit-transform:scale(0.5);`注意`-webkit-transform:scale(0.75);`收缩的是整个元素的大小，这时候，如果是内联元素，必须要将内联元素转换成块元素。
-（3）使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
+1. 在老版本中，可以使用`webkit-text-size-adjust:none;`，字体大小就不受限制了。但是chrome更新到27版本之后就不再支持-webkit-text-size-adjust样式。
+2. 可以使用css3的transform缩放属性`webkit-transform:scale(0.5);`注意`-webkit-transform:scale(0.75);`收缩的是整个元素的大小，这时候，如果是内联元素，必须要将内联元素转换成块元素。
+3. 使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
 
 ### 如何让页面里的字体变清晰，变细？
 使用`font-smooth`，但是不要在生产环境下使用。
@@ -2556,8 +2556,8 @@ span {
 
 ### 有一个高度自适应的 div，里面有两个div，一个高度 100px，希望另一个填满剩下的高度。
 
-（1）外层div使用`position：relative；`高度要求自适应的div使用 `position:absolute;top:100px;bottom:0; left:0;right:0;`
-（2）使用flex布局，设置主轴为竖轴，第二个div设置
+1. 外层div使用`position：relative；`高度要求自适应的div使用 `position:absolute;top:100px;bottom:0; left:0;right:0;`
+2. 使用flex布局，设置主轴为竖轴，第二个div设置
 `flex-grow:1`。
 
 ### 浏览器如何判断是否支持 webp 格式图片
@@ -2824,8 +2824,8 @@ reference: https://zhuanlan.zhihu.com/p/391118319
 
 ### `margin: auto` 填充规则
 `margin: auto`用来计算元素对应方向应该获得的剩余间距大小。但是触发`margin:auto`计算有一个前提条件，就是width或height为auto时，元素具有对应方向的自动填充特性。
-（1）如果一侧定值，一侧auto，则auto为剩余空间大小。
-（2）如果两侧均是auto，则平分剩余空间。
+1. 如果一侧定值，一侧auto，则auto为剩余空间大小。
+2. 如果两侧均是auto，则平分剩余空间。
 
 ### margin在什么情况下无效？
 * `display:inline`的非替换元素的垂直`margin`无效。对于内联替换元素，垂直`margin`有效，并且没有`margin`合并的问题。
