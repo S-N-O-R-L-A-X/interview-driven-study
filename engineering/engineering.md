@@ -49,6 +49,8 @@
 4. 根据入口文件来递归模块查找，并根据配置文件使用对应的 loader 对模块进行编译处理；
 5. 编译完成后输出 chunk，触发挂载钩子上的plugin事件做相应处理，最后输出 bundle；
 
+reference: https://zhuanlan.zhihu.com/p/611527476
+
 #### 四个核心概念
 - Entry（入口） 是 webpack 的入口起点，指示 webpack 应该以哪个文件作为其构建内部依赖图的开始。
 - Output（输出） 属性告诉 webpack 输出创建的打包文件的位置，也可指定打包文件的名称，默认位置为 ./dist。
@@ -61,11 +63,47 @@
 - CommonsChunkPlugin 用来提取第三方库（如 jQuery）和公共模块，常用于为多页面应用程序生成公共 chunk，避免重复引用。
 
 ## vite vs webpack
+<table>
+	<thead>
+		<th></th>
+		<th>vite</th>
+		<th>webpack</th>
+	</thead>
+  <tr>
+		<td>开发服务器</td>
+		<td>开箱即用</td>
+		<td>通过webpack-dev-server</td>
+	</tr>
+	<tr>
+		<td>生态</td>
+		<td>略弱</td>
+		<td>完整</td>
+	</tr>
+	<tr>
+		<td>打包方式</td>
+		<td>开发时利用本地 ES 模块提供源代码（生产模式用rollup），源代码转换和服务在浏览器请求时进行</td>
+		<td>需要额外配置来高效实现代码拆分，预先打包源代码和依赖项</td>
+	</tr>
+  <tr>
+		<td>ts支持</td>
+		<td>开箱即用</td>
+		<td>需要额外配置和插件来支持</td>
+	</tr>
+  <tr>
+		<td>缓存处理</td>
+		<td>无缝处理</td>
+		<td>需要配置</td>
+	</tr>
+  <tr>
+		<td>优势</td>
+		<td>快速的冷启动速度和高效的 HMR</td>
+		<td>预先打包数据，浏览器导航速度快</td>
+	</tr>
+</table>
 
 
 ##  性能优化方案
-
-静态资源使用cdn
+* 静态资源使用cdn
 
 懒加载
 
