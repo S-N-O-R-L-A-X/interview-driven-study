@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: *.pdf
+          asset_path: ${{ github.ref }}_pdfs.zip
           asset_name: ${{ github.ref }}_pdfs.zip
           asset_content_type: application/zip
 
