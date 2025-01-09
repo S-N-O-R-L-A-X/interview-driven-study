@@ -17,6 +17,8 @@
   - [fiber 架构的理解](#fiber-架构的理解)
     - [fiber 工作原理](#fiber-工作原理)
     - [工作过程](#工作过程)
+  - [Diff算法](#diff算法)
+    - [Diff算法流程](#diff算法流程)
   - [react 性能优化的手段，避免不必要的 render](#react-性能优化的手段避免不必要的-render)
   - [react 组件中怎么做事件代理？它的原理是什么？SyntheticEvent 层（合成事件层)](#react-组件中怎么做事件代理它的原理是什么syntheticevent-层合成事件层)
   - [如何解决 react 层级嵌套过深的问题](#如何解决-react-层级嵌套过深的问题)
@@ -632,6 +634,19 @@ current tree是当前显示在页面上的视图。初次渲染时没有current 
 reference: 
 https://zhuanlan.zhihu.com/p/670914853 <br/>
 https://react.iamkasong.com/process/fiber.html#fiber%E7%9A%84%E7%BB%93%E6%9E%84
+
+## Diff算法
+`diff` 算法发生在两个阶段，分别是 `beginWork` 和 `completeWork` 阶段。React使用启发式算法，将前后两棵树完全比对的算法复杂度为 $O(n^3)$，其中n是树中元素的数量。
+
+### Diff算法流程
+React只对同级元素进行Diff。如果一个DOM节点在前后两次更新中跨越了层级，那么React不会尝试复用它。
+
+1. 首先比较两棵树的根节点。当根节点为不同类型的元素时，React 会直接销毁原有的树并且建立新的树；当类型相同时，仅比对和更新有改变的属性。
+2. 接着递归遍历子节点，React 会同时遍历两个子元素的列表；当产生差异时，生成一个 mutation。当子元素拥有 key 时，React 使用 key 来匹配原有树上的子元素以及最新树上的子元素。
+
+reference: 
+https://zh-hans.legacy.reactjs.org/docs/reconciliation.html#the-diffing-algorithm <br/>
+https://react.iamkasong.com/diff/prepare.html#diff%E7%9A%84%E7%93%B6%E9%A2%88%E4%BB%A5%E5%8F%8Areact%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9
 
 ## react 性能优化的手段，避免不必要的 render
 
