@@ -23,6 +23,7 @@
 				- [缺点](#缺点)
 				- [实现方式](#实现方式)
 			- [后端配置](#后端配置)
+	- [`GET`和`POST`的区别](#get和post的区别)
 
 # Network
 
@@ -291,3 +292,8 @@ res.end('test({"name": "Monkey"})');
 
 #### 后端配置
 普通跨域请求：只需服务端设置 `Access-Control-Allow-Origin` 即可，前端无须设置，若要带 cookie 请求：前后端都需要设置。前端设置`withCredentials`为 true,后端设置`Access-Control-Allow-Credentials`为 true, 同时`Access-Control-Allow-Origin`不能设置为`*`
+
+## `GET`和`POST`的区别
+* GET 方法的含义是请求从服务器获取资源，这个资源可以是静态的文本、页面、图片视频等。
+* POST 方法则是相反操作，它向 URI 指定的资源提交数据，数据放在报文的 body 里。
+GET 方法就是安全且幂等的，因为它是「只读」操作，无论操作多少次，服务器上的数据都是安全的，且每次的结果都是相同的。POST 因为是「新增或提交数据」的操作，会修改服务器上的资源，所以是不安全的，且多次提交数据就会创建多个资源，所以不是幂等的。
