@@ -69,8 +69,9 @@
   - [js 的字符串的常用的方法](#js-的字符串的常用的方法)
   - [js 的数组的常用的方法](#js-的数组的常用的方法)
   - [拍平数组](#拍平数组)
-  - [防抖](#防抖)
-  - [节流](#节流)
+  - [防抖与节流](#防抖与节流)
+    - [防抖 debounce](#防抖-debounce)
+    - [节流 throttle](#节流-throttle)
   - [实现并发控制](#实现并发控制)
 
 ## js 基本数据类型
@@ -1202,7 +1203,27 @@ const flat = function (arr: MultiDimensionalArray, depth: number): MultiDimensio
 };
 ```
 
-## 防抖
+## 防抖与节流
+<table>
+	<thead>
+		<th></th>
+		<th>防抖</th>
+		<th>节流</th>
+	</thead>
+	<tr>
+		<td>使用逻辑</td>
+		<td>只有当事件停止触发，并且经过了指定的延迟时间后，回调函数才会被执行。</td>
+		<td>当一个事件被连续触发时，确保在指定的时间间隔内，回调函数最多只被执行一次。</td>
+	</tr>
+  <tr>
+		<td>业务场景</td>
+		<td>输入框搜索联想、窗口大小调整</td>
+		<td>页面滚动事件、DOM 拖拽、高频点击</td>
+	</tr>
+</table>
+
+
+### 防抖 debounce
 ```ts
 type F = (...args: number[]) => void
 
@@ -1216,7 +1237,7 @@ function debounce(fn: F, t: number): F {
 
 ```
 
-## 节流
+### 节流 throttle
 ```ts
 type F = (...args: number[]) => void
 
