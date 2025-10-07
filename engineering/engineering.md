@@ -1,4 +1,6 @@
-- [前端工程化](#前端工程化)
+# 前端实战
+
+- [前端实战](#前端实战)
 	- [对前端工程化的理解](#对前端工程化的理解)
 		- [模块化](#模块化)
 		- [组件化](#组件化)
@@ -9,9 +11,8 @@
 			- [四个核心概念](#四个核心概念)
 		- [webpack 常用插件](#webpack-常用插件)
 	- [vite vs webpack](#vite-vs-webpack)
+	- [iframe跨域通信](#iframe跨域通信)
 	- [性能优化方案](#性能优化方案)
-
-# 前端工程化
 
 ## 对前端工程化的理解
 
@@ -93,6 +94,38 @@ reference: https://zhuanlan.zhihu.com/p/611527476
 		<td>预先打包数据，浏览器导航速度快</td>
 	</tr>
 </table>
+
+## iframe跨域通信
+1. 父页面通过子页面url的query参数传参
+  iframe.src=`https://examples.com?id=1`
+2. 父页面通过子页面url的锚点传参
+  iframe.src=`https://examples.com#1`
+3. cookie
+* 同源时可直接读写 document.cookie
+* 非同源时要求父子窗口共享顶级域名，设置 Cookie 的 `domain` 属性为域名，`SameSite=None` 和 `Secure` 属性
+
+发送方
+`document.cookie = "token=abc123; domain=.example.com; path=/; SameSite=None; Secure"`
+
+接收方
+`const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];`
+4. `postMessage`
+
+发送方
+`otherWindow.postMessage(message, targetOrigin, [transfer]);`
+
+接收方
+```js
+window.addEventListener("message", messageHandler);
+function messageHandler(event) {
+    // 必须验证消息来源
+    const allowedOrigins = ['https://trusted.example'];
+    if (!allowedOrigins.includes(event.origin)) return;
+    
+    // 处理有效消息
+    console.log('Received:', event.data);
+}
+```
 
 
 ##  性能优化方案
