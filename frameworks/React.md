@@ -300,22 +300,24 @@ Greeting.propTypes = { name: PropTypes.string };
 - 父组件向子组件通信
   父级通过 props 向子组件传递需要的信息
 
-  ```js
-  const Child = props => { return
-  <p>{props.name}</p>
-  } const Parent = () => { return <Child name="react"></Child> }
+  ```jsx
+  const Child = props => { 
+    return <p>{props.name}</p>
+  } 
+  
+  const Parent = () => { return <Child name="react"></Child> }
   ```
 
 - 子组件向父组件通信
   通过 props 加回调函数的方式
 
-  ```js
+  ```jsx
   const Child = props => {
+    const { deal } = props;
     const test = (params) => {
-      props.deal(msg)
+      deal(params.msg)
     }
-    return (
-    <button onclick={test('你好)}></button>)
+    return (<button onclick={test('你好')}></button>)
   }
 
   const Parent = () => {
@@ -323,7 +325,7 @@ Greeting.propTypes = { name: PropTypes.string };
       console.log(msg)
     }
     render(){
-      return <Child deal={this.deal.bind(this)}></Child>
+      return <Child deal={deal}></Child>
     }
   }
   ```
@@ -331,36 +333,34 @@ Greeting.propTypes = { name: PropTypes.string };
 - 跨级组件通信
 
   父组件向子组件的子组件通信，以及向更深层的子组件通信
-  （1）props 层层传递，但是如果父级的结构较深，那么需要一层曾的去传递，增加了复杂度，并且，这些 props 并不是中间组件需要的
+  （1）props 层层传递
   （2）context，相当是一个大容器，可以把要通信的内容放在这个容器中，不管嵌套多深，都可使用。对于跨域多层的全局数据可以使用 context 实现
 
-  ```js
+  ```jsx
   const BatContext = createContext();
   // 父组件
   class Parent extends Component {
     render() {
       const {color} = this.state
-      return (
-      <BatContext.Provider value={color}>
+      return ( <BatContext.Provider value={color}>
         <Child></Child>
       </BatContext.Provide>
-      )
-    }
+      )}
   }
   // 子组件
   const Child = () => {
-    return (
-    <GrandChild />)
+    return <GrandChild />
   }
+
   // 子组件的子组件
   class GrandChild extends Component {
-  render(){
-    return (
-      <BatContext.Consumer>
-        {color => <h1 style={{"color": color}}>我是彩色的</h1>}
-      </BatContext.Consumer>
-    )
-  }
+    render() {
+      return (
+        <BatContext.Consumer>
+          {color => <h1 style={{"color": color}}>我是彩色的</h1>}
+        </BatContext.Consumer>
+      )
+    }
   }
   ```
 
