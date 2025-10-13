@@ -12,6 +12,9 @@
 		- [webpack 常用插件](#webpack-常用插件)
 	- [vite vs webpack](#vite-vs-webpack)
 	- [iframe跨域通信](#iframe跨域通信)
+	- [前端分片上传](#前端分片上传)
+		- [功能](#功能)
+		- [流程](#流程)
 	- [性能优化方案](#性能优化方案)
 
 ## 对前端工程化的理解
@@ -124,6 +127,52 @@ function messageHandler(event) {
     
     // 处理有效消息
     console.log('Received:', event.data);
+}
+```
+
+## 前端分片上传
+### 功能
+* 检查是否已上传
+* 断点续传
+* 分片上传，减小请求大小
+
+### 流程
+用户选择文件 → 计算文件哈希 → 文件分片 → 上传分片 → 合并分片
+
+```js
+async function upload() {
+	// get file
+  const file = document.getElementById('fileInput').files[0];
+  if (!file) return;
+
+  // calculate hash
+  const fileHash = await calculateHash(file);
+  
+  // call api to check whether the file has existed
+  const { data: existData } = await checkExistedFile(fileHash);
+  if (existData.exist) {
+    // file has existed
+    return;
+  }
+
+  const chunkSize = 5 * 1024 * 1024; // 5MB chunk
+  const chunkCount = Math.ceil(file.size / chunkSize);
+  const uploadedChunks = existData.uploadedChunks || [];
+
+  for (let i = 0; i < chunkCount; i++) {
+    // skip the uploaded chunks
+    if (uploadedChunks.includes(i)) continue;
+
+		// get the chunk
+    const start = i * chunkSize;
+    const end = Math.min(start + chunkSize, file.size);
+    const chunk = file.slice(start, end);
+
+    await uploadChunk({chunk, idx:i});
+  }
+
+  // call api to merge chunks
+  await mergeChunks();
 }
 ```
 
