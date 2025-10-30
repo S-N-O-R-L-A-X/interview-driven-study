@@ -14,10 +14,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install Pandoc
+    - name: Install Pandoc and LaTeX with CJK support
       run: |
         sudo apt-get update
-        sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-latex-extra fonts-noto-cjk
+        sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra fonts-noto-cjk
 
     - name: Create PDFs directory
       run: mkdir -p pdfs
@@ -27,7 +27,16 @@ jobs:
         find . -name "*.md" -print0 | while IFS= read -r -d $'\0' file; do
           filename=$(basename -- "$file")
           filename_no_ext="${filename%.*}"
-          pandoc -s --pdf-engine=xelatex -V CJKmainfont="Noto Sans CJK SC" -o "pdfs/${filename_no_ext}.pdf" "$file"
+          echo "Processing: $file -> pdfs/${filename_no_ext}.pdf"
+          pandoc --pdf-engine=xelatex \
+          -V CJKmainfont="Noto Sans CJK SC" \
+          -V geometry:margin=1in \
+          -V linkcolor:blue \
+          --highlight-style=github \
+          -s -o "pdfs/${filename_no_ext}.pdf" "$file" || {
+          echo "Error processing $file, skipping..."
+          continue
+          }
         done
 
     - name: Archive PDFs
