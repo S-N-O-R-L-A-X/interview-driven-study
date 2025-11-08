@@ -21,7 +21,7 @@ jobs:
 
     - name: Create PDFs directory
       run: mkdir -p pdfs
-
+      
     - name: Generate PDFs
       run: |
         find . -name "*.md" -print0 | while IFS= read -r -d $'\0' file; do
@@ -32,12 +32,14 @@ jobs:
           -V CJKmainfont="Noto Sans CJK SC" \
           -V geometry:margin=1in \
           -V linkcolor:blue \
-          --highlight-style=github \
           -s -o "pdfs/${filename_no_ext}.pdf" "$file" || {
           echo "Error processing $file, skipping..."
           continue
           }
         done
+
+    - name: List generated PDFs
+      run: ls -l pdfs/
 
     - name: Archive PDFs
       run: |
