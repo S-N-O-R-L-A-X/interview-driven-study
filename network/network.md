@@ -317,7 +317,7 @@ GET 方法就是安全且幂等的，因为它是「只读」操作，无论操�
 14.	关闭TCP连接：四次挥手判断是否断开连接。
 
 ## SSE 和 websocket 的区别
-SSE和websocket 都是实时通信技术。
+SSE(server-sent event) 和 websocket 都是实时通信技术。
 
 <table>
 	<thead>
@@ -331,18 +331,33 @@ SSE和websocket 都是实时通信技术。
 		<td>客户端通过 WebSocket 发起一个带有 Upgrade: websocket 头的 HTTP 请求，服务器返回 101 Switching Protocols 响应，表示协议升级成功。握手完成后，连接不再遵循 HTTP 协议。客户端和服务器都可以随时、独立地使用轻量级的 WebSocket 帧来发送文本或二进制数据。</td>
 	</tr>
 	<tr>
-		<td>优点</td>
-		<td>实现简单，兼容性好，可自动重连</td>
-		<td>双向通信，高效支持二进制数据</td>
+		<td>连接方式</td>
+		<td>HTTP长连接</td>
+		<td>升级HTTP连接</td>
 	</tr>
 	<tr>
-		<td>缺点</td>
-		<td>单向通信，不支持直接传输二进制数据</td>
-		<td>实现复杂，无自动重连</td>
+		<td>支持传输内容</td>
+		<td>仅文本</td>
+		<td>文本和二进制文件</td>
+	</tr>
+	<tr>
+		<td>自动重连</td>
+		<td>自带</td>
+		<td>需手动实现</td>
+	</tr>
+	<tr>
+		<td>通信方式</td>
+		<td>单工</td>
+		<td>全双工</td>
+	</tr>
+	<tr>
+		<td>兼容性</td>
+		<td>与现有基础设施兼容</td>
+		<td>一般，某些配置不当的旧代理服务器可能无法正确处理 WebSocket 的 Upgrade 头</td>
 	</tr>
 	<tr>
 		<td>适用场景</td>
-		<td>只需要从服务器接收实时数据流，客户端不需要频繁地向服务器发送数据时，如显示实时股价、监控</td>
+		<td>只需要从服务器接收实时数据流，客户端不需要频繁地向服务器发送数据时，如显示实时股价、监控、大模型流式输出</td>
 		<td>需要双向通信，或高效支持二进制数据时，如聊天室、在线游戏中显示玩家位置和状态</td>
 	</tr>
 </table>
