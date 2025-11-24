@@ -26,6 +26,7 @@
 	- [`GET`和`POST`的区别](#get和post的区别)
 	- [浏览器输入域名后发生什么](#浏览器输入域名后发生什么)
 	- [SSE 和 websocket 的区别](#sse-和-websocket-的区别)
+		- [upgrade机制](#upgrade机制)
 
 # Network
 
@@ -361,3 +362,7 @@ SSE(server-sent event) 和 websocket 都是实时通信技术。
 		<td>需要双向通信，或高效支持二进制数据时，如聊天室、在线游戏中显示玩家位置和状态</td>
 	</tr>
 </table>
+
+### upgrade机制
+HTTP/1.1 协议提供了一种使用 Upgrade 标头字段的特殊机制，这一机制允许将一个已建立的连接升级成新的、不相容的协议。（HTTP/2 明确禁止使用此机制）
+客户端使用 Upgrade 标头字段请求服务器，如果服务器决定升级这次连接，就会返回一个 101 Switching Protocols 响应状态码，和一个要切换到的协议的标头字段 Upgrade。如果服务器没有（或者不能）升级这次连接，它会忽略客户端发送的 Upgrade 标头字段，返回一个常规的响应。
