@@ -27,6 +27,9 @@
 	- [浏览器输入域名后发生什么](#浏览器输入域名后发生什么)
 	- [SSE 和 websocket 的区别](#sse-和-websocket-的区别)
 		- [upgrade机制](#upgrade机制)
+	- [HTTP 2.0 vs HTTP 3.0](#http-20-vs-http-30)
+		- [更换原因](#更换原因)
+		- [队头阻塞问题](#队头阻塞问题)
 
 # Network
 
@@ -366,3 +369,57 @@ SSE(server-sent event) 和 websocket 都是实时通信技术。
 ### upgrade机制
 HTTP/1.1 协议提供了一种使用 Upgrade 标头字段的特殊机制，这一机制允许将一个已建立的连接升级成新的、不相容的协议。（HTTP/2 明确禁止使用此机制）
 客户端使用 Upgrade 标头字段请求服务器，如果服务器决定升级这次连接，就会返回一个 101 Switching Protocols 响应状态码，和一个要切换到的协议的标头字段 Upgrade。如果服务器没有（或者不能）升级这次连接，它会忽略客户端发送的 Upgrade 标头字段，返回一个常规的响应。
+
+## HTTP 2.0 vs HTTP 3.0
+事实上，两者的主要区别在于底层协议上。
+
+<table>
+	<thead>
+		<th></th>
+		<th>HTTP2.0</th>
+		<th>HTTP3.0</th>
+	</thead>
+	<tr>
+		<td>底层传输协议</td>
+		<td>TCP</td>
+		<td>基于UDP的QUIC</td>
+	</tr>
+	<tr>
+		<td>队头阻塞问题</td>
+		<td>存在于传输层</td>
+		<td>不存在</td>
+	</tr>
+	<tr>
+		<td>连接建立速度</td>
+		<td>慢 (TCP握手 + TLS握手，至少2RTT)</td>
+		<td>快 (首次连接需要 1-RTT 完成连接和加密协商，如果之前连接过服务器可以实现 0RTT，即第一个数据包开始携带应用数据)</td>
+	</tr>
+	<tr>
+		<td>安全加密</td>
+		<td>非强制，但主流浏览器只支持基于 TLS 加密的 HTTP2.0</td>
+		<td>强制加密，是协议的一部分</td>
+	</tr>
+	<tr>
+		<td>连接迁移</td>
+		<td>不支持 (IP/端口改变需重建连接)</td>
+		<td>支持 (基于连接ID)</td>
+	</tr>
+	<tr>
+		<td>连接迁移</td>
+		<td>与现有基础设施兼容</td>
+		<td>一般，某些配置不当的旧代理服务器可能无法正确处理 WebSocket 的 Upgrade 头</td>
+	</tr>
+	<tr>
+		<td>使用情况</td>
+		<td>目前主流</td>
+		<td>已标准化，逐步普及</td>
+	</tr>
+</table>
+
+### 更换原因
+TCP 的核心机制已被嵌入操作系统内核和中间设备（如路由器、防火墙），难以升级和修改。QUIC 作为一个在用户空间实现的协议，迭代更快，不受历史包袱的限制。
+
+### 队头阻塞问题
+队头阻塞 Head-of-line blocking（HOL blocking）指一旦发生丢包，就会阻塞住所有的 HTTP 请求。
+HTTP2.0协议的多路复用机制解决了HTTP层的队头阻塞问题，但是在TCP层仍然存在队头阻塞问题。
+HTTP3.0使用UDP后避免了此问题。
