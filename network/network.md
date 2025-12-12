@@ -23,6 +23,7 @@
 				- [缺点](#缺点)
 				- [实现方式](#实现方式)
 			- [后端配置](#后端配置)
+			- [websocket](#websocket)
 	- [`GET`和`POST`的区别](#get和post的区别)
 	- [浏览器输入域名后发生什么](#浏览器输入域名后发生什么)
 	- [SSE 和 websocket 的区别](#sse-和-websocket-的区别)
@@ -299,6 +300,9 @@ res.end('test({"name": "Monkey"})');
 #### 后端配置
 普通跨域请求：只需服务端设置 `Access-Control-Allow-Origin` 即可，前端无须设置，若要带 cookie 请求：前后端都需要设置。前端设置`withCredentials`为 true,后端设置`Access-Control-Allow-Credentials`为 true, 同时`Access-Control-Allow-Origin`不能设置为`*`
 
+#### websocket
+websocket 不使用http，也就没有跨域问题。
+
 ## `GET`和`POST`的区别
 * GET 方法的含义是请求从服务器获取资源，这个资源可以是静态的文本、页面、图片视频等。
 * POST 方法则是相反操作，它向 URI 指定的资源提交数据，数据放在报文的 body 里。
@@ -405,7 +409,7 @@ HTTP/1.1 协议提供了一种使用 Upgrade 标头字段的特殊机制，这�
 		<td>支持 (基于连接ID)</td>
 	</tr>
 	<tr>
-		<td>连接迁移</td>
+		<td>兼容性</td>
 		<td>与现有基础设施兼容</td>
 		<td>一般，某些配置不当的旧代理服务器可能无法正确处理 WebSocket 的 Upgrade 头</td>
 	</tr>
