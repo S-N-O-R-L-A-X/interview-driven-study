@@ -22,6 +22,9 @@
 		- [协商缓存](#协商缓存)
 		- [应用场景](#应用场景)
 	- [性能优化方案](#性能优化方案)
+	- [设计模式](#设计模式)
+		- [单例模式 Singleton](#单例模式-singleton)
+			- [应用场景：](#应用场景-1)
 
 ## 对前端工程化的理解
 
@@ -220,3 +223,26 @@ async function upload() {
 
   vite的特性
 vite热更新怎么实现
+
+## 设计模式
+### 单例模式 Singleton
+确保全局唯一实例，避免重复创建消耗资源
+
+#### 应用场景：
+- 全局状态管理（如Vuex/Redux的Store实现原理）
+- 浏览器环境中的window对象
+
+```ts
+class Singleton {
+	instance: Singleton;
+  constructor() {
+    if (!Singleton.instance) {
+      this.logs = [];
+      Singleton.instance = this;
+    }
+    return Singleton.instance;
+  }
+  
+}
+```
+
