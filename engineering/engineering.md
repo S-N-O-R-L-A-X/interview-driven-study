@@ -25,6 +25,8 @@
 	- [设计模式](#设计模式)
 		- [单例模式 Singleton](#单例模式-singleton)
 			- [应用场景：](#应用场景-1)
+		- [策略模式 Strategy](#策略模式-strategy)
+			- [应用场景](#应用场景-2)
 
 ## 对前端工程化的理解
 
@@ -246,3 +248,20 @@ class Singleton {
 }
 ```
 
+### 策略模式 Strategy
+封装算法族，支持运行时动态切换。
+
+#### 应用场景
+- 表单多规则校验系统
+- 电商促销活动中优惠券计算策略
+
+```ts
+const strategies = {
+  strategy1: (value) => /* do something */,
+  strategy2: (value) => /* do something */
+};
+
+function useStrategy(input, strategy) {
+  return strategies[strategy](input);
+}
+```
