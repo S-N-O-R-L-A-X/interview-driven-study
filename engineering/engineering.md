@@ -27,6 +27,8 @@
 			- [应用场景：](#应用场景-1)
 		- [策略模式 Strategy](#策略模式-strategy)
 			- [应用场景](#应用场景-2)
+		- [观察者模式](#观察者模式)
+			- [应用场景](#应用场景-3)
 
 ## 对前端工程化的理解
 
@@ -265,3 +267,101 @@ function useStrategy(input, strategy) {
   return strategies[strategy](input);
 }
 ```
+
+### 观察者模式
+
+定义了对象之间一对多的依赖关系，当一个对象状态发生改变时，所有依赖它的对象都会自动收到通知并更新。
+
+核心角色
+Subject（主题/被观察者）：维护观察者列表，提供添加、删除和通知观察者的方法
+Observer（观察者）：定义更新接口，当主题状态变化时接收通知
+ConcreteSubject（具体主题）：实现主题接口，存储状态，状态改变时通知观察者
+ConcreteObserver（具体观察者）：实现观察者接口，保持与主题状态的一致性
+
+优点： 
+解耦：主题和观察者之间松耦合，主题不需要知道观察者的具体类，只需要知道观察者接口。
+扩展性：可以随时增加和删除观察者，符合开闭原则。
+
+#### 应用场景
+- DOM事件系统, 浏览器的事件监听机制
+- Vue响应式系统通过`Object.defineProperty`实现数据监听
+- React Context API的Provider-Consumer机制
+
+```ts
+// 观察者接口
+interface Observer<T = any> {
+    update(data: T): void;
+}
+
+// 主题接口
+interface Subject<T = any> {
+    attach(observer: Observer<T>): void;
+    detach(observer: Observer<T>): void;
+    notify(data?: T): void;
+}
+
+// 具体主题实现
+class ConcreteSubject<T> implements Subject<T> {
+    private observers: Observer<T>[] = [];
+    private state: T;
+    
+    constructor(initialState: T) {
+        this.state = initialState;
+    }
+    
+    attach(observer: Observer<T>): void {
+        const exists = this.observers.includes(observer);
+        if (!exists) {
+            this.observers.push(observer);
+        }
+    }
+    
+    detach(observer: Observer<T>): void {
+        const index = this.observers.indexOf(observer);
+        if (index !== -1) {
+            this.observers.splice(index, 1);
+        }
+    }
+    
+    notify(data?: T): void {
+        if (data !== undefined) {
+            this.state = data;
+        }
+        this.observers.forEach(observer => observer.update(this.state));
+    }
+    
+    setState(newState: T): void {
+        this.state = newState;
+        this.notify();
+    }
+    
+    getState(): T {
+        return this.state;
+    }
+}
+
+// 具体观察者实现
+class ConcreteObserver<T> implements Observer<T> {
+    private name: string;
+    
+    constructor(name: string) {
+        this.name = name;
+    }
+    
+    update(data: T): void {
+        console.log(`${this.name} 收到更新:`, data);
+        // 执行相应的业务逻辑
+    }
+}
+
+// 使用示例
+const subject = new ConcreteSubject<string>('初始状态');
+const observer1 = new ConcreteObserver<string>('观察者1');
+const observer2 = new ConcreteObserver<string>('观察者2');
+
+subject.attach(observer1);
+subject.attach(observer2);
+
+subject.setState('新状态'); // 两个观察者都会收到通知
+```
+
