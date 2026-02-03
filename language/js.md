@@ -73,6 +73,9 @@
     - [防抖 debounce](#防抖-debounce)
     - [节流 throttle](#节流-throttle)
   - [实现并发控制](#实现并发控制)
+  - [bind vs call vs apply](#bind-vs-call-vs-apply)
+    - [作用](#作用)
+    - [对比](#对比)
 
 ## js 基本数据类型
 
@@ -1275,3 +1278,40 @@ async function asyncPool(poolLimit, array, iteratorFn) {
 ```
 
 reference: https://zhuanlan.zhihu.com/p/455838344
+
+## bind vs call vs apply
+
+### 作用
+
+改变函数内部 this 的指向，让函数在不同的上下文中执行。
+
+* 事件处理和回调函数
+* 定时器保持上下文
+
+### 对比
+<table>
+	<thead>
+		<th></th>
+		<th>bind</th>
+    <th>call</th>
+		<th>apply</th>
+	</thead>
+	<tr>
+		<td>返回值</td>
+		<td>返回更改this指向的函数，可之后执行</td>
+    <td>返回函数的返回值</td>
+		<td>返回函数的返回值</td>
+	</tr>
+  <tr>
+		<td>参数</td>
+		<td>逐个传递</td>
+    <td>逐个传递</td>
+		<td>数组传递</td>
+	</tr>
+  <tr>
+		<td>性能</td>
+		<td>新函数需要内存</td>
+    <td>较好</td>
+		<td>需要展开数组</td>
+	</tr>
+</table>
