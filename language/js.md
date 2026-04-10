@@ -76,6 +76,8 @@
   - [bind vs call vs apply](#bind-vs-call-vs-apply)
     - [作用](#作用)
     - [对比](#对比)
+  - [`Proxy`](#proxy)
+    - [应用](#应用)
 
 ## js 基本数据类型
 
@@ -1315,3 +1317,24 @@ reference: https://zhuanlan.zhihu.com/p/455838344
 		<td>需要展开数组</td>
 	</tr>
 </table>
+
+## `Proxy`
+`proxy`可以拦截并改变对象的交互方式，可以代替`Object.defineProperty`做数据劫持。
+
+```js
+const target = {};
+let proxy = new Proxy(target, {
+  get: function (target, property, receiver) {
+    return property in target ? target[property] : "Not Found";
+  },
+});
+
+proxy.name = "Riki";
+
+console.log(proxy.name); // Outputs: "Riki"
+console.log(proxy.age); // Outputs: "Not Found"
+```
+
+### 应用
+- Vue中的响应式数据
+- Immer中实现不可变数据
