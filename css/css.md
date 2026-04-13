@@ -124,6 +124,9 @@
       - [pre-wrap](#pre-wrap)
       - [pre-line](#pre-line)
       - [break-spaces](#break-spaces)
+    - [容器查询](#容器查询)
+      - [使用方式](#使用方式)
+      - [container-type](#container-type)
   - [应用](#应用)
     - [初始化css样式的目的](#初始化css样式的目的)
     - [CSS 清除浮动](#css-清除浮动)
@@ -1348,6 +1351,36 @@ reference:https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing
 | `break-spaces` | 保留   | 保留         | 换行     | 换行     |
 
 reference: https://stackoverflow.com/questions/319925/difference-between-hard-wrap-and-soft-wrap
+
+### 容器查询
+容器查询使你能够根据元素容器的大小应用样式。例如，如果容器在周围的上下文中可用的空间更少，你可以隐藏某些元素或使用较小的字体。
+
+#### 使用方式
+```css
+/* create container context by setting container-type */
+.parent {
+  container-type: inline-size;
+  container-name: xxx;
+  /* equivalent to the following line */
+  container: xxx / inline-size;
+}
+
+/* use container query */
+@container xxx (min-width: 700px) {
+  .child {
+    font-size: 2em;
+  }
+}
+```
+
+#### container-type
+- `size` 查询将基于容器的行向和块向尺度，将布局、样式和大小的限制应用于容器。
+- `inline-size` 查询将基于容器的行向尺度，将布局、样式和行向大小的限制应用于元素。
+- `normal` 该元素不是任何容器大小查询的查询容器，但仍然是容器样式查询的查询容器。
+
+reference: 
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/Guides/Containment/Container_queries
+https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/container-type
 
 ## 应用
 ### 初始化css样式的目的
