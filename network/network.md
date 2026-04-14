@@ -28,6 +28,7 @@
 	- [浏览器输入域名后发生什么](#浏览器输入域名后发生什么)
 	- [SSE 和 websocket 的区别](#sse-和-websocket-的区别)
 		- [upgrade机制](#upgrade机制)
+	- [Streamable HTTP](#streamable-http)
 	- [HTTP 2.0 vs HTTP 3.0](#http-20-vs-http-30)
 		- [更换原因](#更换原因)
 		- [队头阻塞问题](#队头阻塞问题)
@@ -378,6 +379,26 @@ SSE(server-sent event) 和 websocket 都是实时通信技术。
 ### upgrade机制
 HTTP/1.1 协议提供了一种使用 Upgrade 标头字段的特殊机制，这一机制允许将一个已建立的连接升级成新的、不相容的协议。（HTTP/2 明确禁止使用此机制）
 客户端使用 Upgrade 标头字段请求服务器，如果服务器决定升级这次连接，就会返回一个 101 Switching Protocols 响应状态码，和一个要切换到的协议的标头字段 Upgrade。如果服务器没有（或者不能）升级这次连接，它会忽略客户端发送的 Upgrade 标头字段，返回一个常规的响应。
+
+## Streamable HTTP
+早期 MCP 通过 HTTP + SSE 的传输方式工作。通过维持两个端点，一个专用于服务器推送，一个专用于客户端发送。
+- 客户端通过 HTTP GET 请求连接一个 SSE 端点（如 /events），服务器在这个连接上持续推送事件
+- 客户端通过 HTTP POST 到一个消息端点（如 /message）向服务器发消息（client → server）
+
+这存在以下问题：
+- 不支持恢复连接
+- 要求服务器保持高可用的长连接
+- 服务器只能通过 SSE 向客户端发送消息
+
+新版MCP使用Streamable HTTP
+- 以普通 HTTP 请求为基础，客户端用 POST/GET 发请求
+- 不再需要单独的 /sse 端点，一切通过统一的 /message 端点处理。
+
+解决了之前的问题
+- 支持恢复连接。在无状态模式下，服务器不保留客户端会话，适合无服务器（Serverless）架构。在有状态模式下，服务器通过引入`Mcp-Session-Id`会话ID维护上下文，适合需要多轮对话的复杂AI应用。
+- 连接可按需建立，支持无状态（stateless）模式，极大减轻服务器负担
+- 可以按需使用HTTP + SSE 来支持流式传输。如果客户端请求的Accept头是`application/json`，服务器会返回标准JSON响应；如果Accept头包含`text/event-stream`，服务器则会建立流式传输，通过SSE持续推送数据.
+
 
 ## HTTP 2.0 vs HTTP 3.0
 事实上，两者的主要区别在于底层协议上。
