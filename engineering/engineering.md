@@ -1,38 +1,41 @@
 # 前端实战
 
 - [前端实战](#前端实战)
-	- [对前端工程化的理解](#对前端工程化的理解)
-		- [模块化](#模块化)
-		- [组件化](#组件化)
-		- [规范化](#规范化)
-		- [自动化](#自动化)
-	- [webpack 的基本概念](#webpack-的基本概念)
-		- [构建流程](#构建流程)
-			- [四个核心概念](#四个核心概念)
-		- [webpack 常用插件](#webpack-常用插件)
-	- [vite vs webpack](#vite-vs-webpack)
-	- [iframe跨域通信](#iframe跨域通信)
-	- [前端分片上传](#前端分片上传)
-		- [功能](#功能)
-		- [流程](#流程)
-	- [强缓存与协商缓存](#强缓存与协商缓存)
-		- [强缓存](#强缓存)
-			- [`Cache-Control`](#cache-control)
-			- [`Expires`](#expires)
-		- [协商缓存](#协商缓存)
-		- [应用场景](#应用场景)
-	- [性能优化方案](#性能优化方案)
-	- [设计模式](#设计模式)
-		- [单例模式 Singleton](#单例模式-singleton)
-			- [应用场景](#应用场景-1)
-			- [实现](#实现)
-		- [策略模式 Strategy](#策略模式-strategy)
-			- [应用场景](#应用场景-2)
-			- [实现](#实现-1)
-		- [观察者模式 Observer](#观察者模式-observer)
-			- [应用场景](#应用场景-3)
-			- [实现](#实现-2)
-			- [与发布-订阅模式的区别](#与发布-订阅模式的区别)
+  - [对前端工程化的理解](#对前端工程化的理解)
+    - [模块化](#模块化)
+    - [组件化](#组件化)
+    - [规范化](#规范化)
+    - [自动化](#自动化)
+  - [webpack 的基本概念](#webpack-的基本概念)
+    - [构建流程](#构建流程)
+      - [四个核心概念](#四个核心概念)
+    - [webpack 常用插件](#webpack-常用插件)
+  - [vite vs webpack](#vite-vs-webpack)
+  - [iframe跨域通信](#iframe跨域通信)
+  - [前端分片上传](#前端分片上传)
+    - [功能](#功能)
+    - [流程](#流程)
+  - [强缓存与协商缓存](#强缓存与协商缓存)
+    - [强缓存](#强缓存)
+      - [`Cache-Control`](#cache-control)
+      - [`Expires`](#expires)
+    - [协商缓存](#协商缓存)
+    - [应用场景](#应用场景)
+  - [性能优化方案](#性能优化方案)
+  - [设计模式](#设计模式)
+    - [单例模式 Singleton](#单例模式-singleton)
+      - [应用场景](#应用场景-1)
+      - [实现](#实现)
+    - [策略模式 Strategy](#策略模式-strategy)
+      - [应用场景](#应用场景-2)
+      - [实现](#实现-1)
+    - [观察者模式 Observer](#观察者模式-observer)
+      - [应用场景](#应用场景-3)
+      - [实现](#实现-2)
+      - [与发布-订阅模式的区别](#与发布-订阅模式的区别)
+    - [发布-订阅模式](#发布-订阅模式)
+      - [应用场景](#应用场景-4)
+      - [实现](#实现-3)
 
 ## 对前端工程化的理解
 
@@ -370,3 +373,138 @@ subject.setState('新状态'); // 两个观察者都会收到通知
 #### 与发布-订阅模式的区别
 - 在观察者模式中，主题和观察者是直接关联的，主题维护了一个观察者列表，并直接向观察者发送通知。
 - 在发布-订阅模式中，发布者和订阅者之间通过一个消息通道（事件总线）进行通信，发布者将消息发布到通道，订阅者从通道订阅消息。发布者和订阅者不知道对方的存在。
+
+### 发布-订阅模式
+对象间一对多的依赖关系，当一个对象的状态发送改变时，所有依赖于它的对象都将得到状态改变的通知。
+订阅者（Subscriber）把自己想订阅的事件注册（Subscribe）到调度中心（Event Channel），当发布者（Publisher）发布该事件（Publish Event）到调度中心，也就是该事件触发时，由调度中心统一调度（Fire Event）订阅者注册到调度中心的处理代码。
+
+#### 应用场景
+- 应用程序需要「向大量消费者广播信息」。例如微信订阅号就是一个消费者量庞大的广播平台。
+- 应用程序需要与一个或多个独立开发的应用程序或服务「通信」，这些应用程序或服务可能使用不同的平台、编程语言和通信协议。
+- 应用程序可以向消费者发送信息，而不需要消费者的实时响应。
+- Node.js `EventEmitter` 中的 `on` 和 `emit` 方法； Vue 中的 `$on` 和 `$emit` 方法
+
+#### 实现
+创建一个对象并在该对象上创建一个缓存列表（调度中心）
+`on` 方法用来把函数 `fn` 加到缓存列表中（订阅者注册事件到调度中心）
+`emit` 方法取到 arguments 里第一个当做 event，根据 event 值去执行对应缓存列表中的函数（发布者发布事件到调度中心，调度中心处理代码）
+`off` 方法可以根据 event 值取消订阅（取消订阅）
+`once` 方法只监听一次，调用完毕后删除缓存函数（订阅一次，不一定存在）
+
+```ts
+interface Publisher {
+  subscriber: string;
+  data: any;
+}
+
+interface EventChannel {
+  on  : (subscriber: string, callback: () => void) => void;
+  off : (subscriber: string, callback: () => void) => void;
+  emit: (subscriber: string, data: any) => void;
+}
+
+interface Subscriber {
+  subscriber: string;
+  callback: () => void;
+}
+
+class ConcreteEventChannel implements EventChannel {
+  // 初始化订阅者对象
+  private subjects: { [key: string]: Function[] } = {};
+
+  // 实现添加订阅事件
+  public on(subscriber: string, callback: () => void): void {
+    console.log(`收到订阅信息，订阅事件：${subscriber}`);
+    if (!this.subjects[subscriber]) {
+      this.subjects[subscriber] = [];
+    }
+    this.subjects[subscriber].push(callback);
+  };
+
+  // 实现取消订阅事件
+  public off(subscriber: string, callback: () => void): void {
+    console.log(`收到取消订阅请求，需要取消的订阅事件：${subscriber}`);
+    if (callback === null) {
+      this.subjects[subscriber] = [];
+    } else {
+      const index: number = this.subjects[subscriber].indexOf(callback);
+      ~index && this.subjects[subscriber].splice(index, 1);
+    }
+  };
+  
+  // 实现发布订阅事件
+  public emit (subscriber: string, data = null): void {
+    console.log(`收到发布者信息，执行订阅事件：${subscriber}`);
+    this.subjects[subscriber].forEach(item => item(data));
+  };
+}
+
+class ConcretePublisher implements Publisher {
+  public subscriber: string = "";
+  public data: any; 
+  constructor(subscriber: string, data: any) {
+    this.subscriber = subscriber;
+    this.data = data;
+  }
+}
+
+class ConcreteSubscriber implements Subscriber {
+  public subscriber: string = "";
+  constructor(subscriber: string, callback: () => void) {
+    this.subscriber = subscriber;
+    this.callback = callback;
+  }
+  public callback(): void { };
+}
+
+
+/* 运行示例 */
+const sub1 = new ConcreteSubscriber(
+  "running",
+  () => { 
+    console.log("订阅者 sub1 订阅事件成功！执行回调~");
+  }
+);
+
+const sub2 = new ConcreteSubscriber(
+  "swimming",
+  () => { 
+    console.log("订阅者 sub2 订阅事件成功！执行回调~");
+  }
+);
+
+const sub3 = new ConcreteSubscriber(
+  "swimming",
+  () => { 
+    console.log("订阅者 sub3 订阅事件成功！执行回调~");
+  }
+);
+
+const pub = new ConcretePublisher(
+  "swimming",
+  {message: "pub 发布消息~"}
+);
+
+const eventBus = new ConcreteEventChannel();
+eventBus.on(sub1.subscriber, sub1.callback);
+eventBus.on(sub2.subscriber, sub2.callback);
+eventBus.on(sub3.subscriber, sub3.callback);
+
+// 发布者 pub 发布 "swimming"相关的事件
+eventBus.emit(pub.subscriber, pub.data); 
+eventBus.off (sub3.subscriber, sub3.callback);
+eventBus.emit(pub.subscriber, pub.data);
+
+/*
+输出结果：
+[LOG]: 收到订阅信息，订阅事件：running
+[LOG]: 收到订阅信息，订阅事件：swimming
+[LOG]: 收到订阅信息，订阅事件：swimming
+[LOG]: 收到发布者信息，执行订阅事件：swimming 
+[LOG]: 订阅者 sub2 订阅事件成功！执行回调~ 
+[LOG]: 订阅者 sub3 订阅事件成功！执行回调~ 
+[LOG]: 收到取消订阅请求，需要取消的订阅事件：swimming 
+[LOG]: 收到发布者信息，执行订阅事件：swimming 
+[LOG]: 订阅者 sub2 订阅事件成功！执行回调~ 
+*/
+```
