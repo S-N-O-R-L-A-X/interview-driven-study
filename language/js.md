@@ -7,6 +7,7 @@
     - [遍历数组](#遍历数组)
   - [`for...in` vs `for...of`](#forin-vs-forof)
   - [map vs weakMap](#map-vs-weakmap)
+  - [`Set` vs `WeakSet`](#set-vs-weakset)
   - [null 和 undefined 的区别](#null-和-undefined-的区别)
   - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
   - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
@@ -232,6 +233,15 @@ for (let ele of arr) {
 1. Map 的键可以是任意类型，WeakMap 只接受对象作为键（null除外），不接受其他类型的值作为键
 2. Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是弱引用，键所指向的对象可以被垃圾回收，此时键是无效的
 3. Map 可以被遍历， WeakMap 不能被遍历
+
+## `Set` vs `WeakSet`
+
+|  | Set | WeakSet | 
+|--|--|--|
+| 存储类型 | 任意类型 | 只能存储对象 |
+| 是否可迭代 | 是，因此可遍历 | 否，因此不可遍历 |
+| 内存管理方式 | 成员强引用，只要set存在，引用的对象就不会被垃圾回收 | 成员弱引用，如果对象只被weakSet引用，垃圾回收器就可以回收 |
+| 方法和属性 | `add()`, `delete()`, `has()`, `clear()`, `size` | `add()`, `delete()`, `has()`，运行时无法确知其元素个数和具体成员 |
 
 
 ## null 和 undefined 的区别
