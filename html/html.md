@@ -15,6 +15,10 @@
     - [具体算法说明](#具体算法说明)
     - [GC无法回收（内存泄漏）的场景](#gc无法回收内存泄漏的场景)
     - [优化内存问题的方式](#优化内存问题的方式)
+  - [`document.readyState` vs `load` vs `DOMContentLoaded`](#documentreadystate-vs-load-vs-domcontentloaded)
+    - [`document.readyState`](#documentreadystate)
+    - [`load`](#load)
+    - [`DOMContentLoaded`](#domcontentloaded)
 
 ## HTML5 的新特性
 
@@ -137,3 +141,22 @@ V8 使用增量标记（Incremental Marking）与惰性清理（Lazy Sweep）优
 reference:
 https://juejin.cn/post/7566584118689202230
 https://juejin.cn/post/7541762733563625523
+
+## `document.readyState` vs `load` vs `DOMContentLoaded`
+
+### `document.readyState`
+
+返回当前文档的加载状态。
+
+- `loading` 文档仍在加载（HTML 解析中，DOM 未完成）。
+- `interactive` 文档已完成解析，DOM 树可用，但外部资源（如图片、样式表、iframe）可能还在加载。
+- `complete` 文档及所有依赖资源都已加载完成。
+
+可以通过 `readystatechange` 事件来监听这个状态变化。
+
+### `load`
+当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发 `load` 事件。即 `document.readyState` 变为 `complete` 时触发该事件。
+
+### `DOMContentLoaded`
+
+当 HTML 文档被完全加载和解析（即 DOM 树构建完毕）时触发，不等待样式表、图片、子框架加载完成。即 `document.readyState` 变为 `interactive` 时触发该事件。

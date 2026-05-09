@@ -26,7 +26,6 @@
   - [事件代理/事件委托 以及 优缺点](#事件代理事件委托-以及-优缺点)
     - [事件委托的优点：](#事件委托的优点)
     - [事件委托的缺点:](#事件委托的缺点)
-  - [load 和 DOMContentLoaded 事件的区别](#load-和-domcontentloaded-事件的区别)
   - [js 判断图片是否加载完毕的方式](#js-判断图片是否加载完毕的方式)
   - [js 原型，原型链以及特点](#js-原型原型链以及特点)
   - [instanceof 的作用](#instanceof-的作用)
@@ -440,11 +439,6 @@ return false;
 1. 部分事件如 focus、blur 等无冒泡机制，所以无法委托。
 2. 事件委托有对子元素的查找过程，委托层级过深，可能会有性能问题
 3. 频繁触发的事件如 mousemove、mouseout、mouseover 等，不适合事件委托
-
-## load 和 DOMContentLoaded 事件的区别
-
-- 当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发 load 事件。它与 DOMContentLoaded 不同，后者只要页面 DOM 加载完成就触发，无需等待依赖资源的加载。
-- 当纯 HTML 被完全加载以及解析时，DOMContentLoaded 事件会被触发，而不必等待样式表，图片或者子框架完成加载。
 
 ## js 判断图片是否加载完毕的方式
 
