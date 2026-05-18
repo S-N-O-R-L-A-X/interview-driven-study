@@ -1,12 +1,16 @@
 - [Agent](#agent)
-	- [现代agent架构](#现代agent架构)
-	- [memory](#memory)
-		- [使用方式](#使用方式)
+  - [现代agent架构](#现代agent架构)
+    - [主流](#主流)
+    - [冷门](#冷门)
+  - [memory](#memory)
+    - [使用方式](#使用方式)
 
 
 # Agent
 
 ## 现代agent架构
+
+### 主流
 
 <table>
   <thead>
@@ -22,7 +26,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>ReAct / 工具调用</td>
+      <td>ReAct (Reasoning + Action) / 工具调用</td>
       <td>推理-行动紧密交替</td>
       <td>知识问答、自动化任务</td>
       <td>推理-行动-观察 循环，上下文即工作记忆</td>
@@ -32,7 +36,7 @@
     </tr>
     <tr>
       <td>Reflexion / 反思型</td>
-      <td>事后总结，自我修正</td>
+      <td>事后总结，将失败转化为语义反馈写入长期记忆</td>
       <td>代码生成、数学推理</td>
       <td>执行后反思，自我修正</td>
       <td>学习和改进性能</td>
@@ -48,6 +52,24 @@
 			<td>抗干扰能力差：执行阶段面对意料外的环境变化时，无法灵活调整</td>
       <td>Plan-and-Execute模式</td>
     </tr>
+  </tbody>
+</table>
+
+### 冷门
+
+<table>
+  <thead>
+    <tr>
+      <th>架构类别</th>
+      <th>决策风格</th>
+      <th>典型应用场景</th>
+      <th>架构特点</th>
+      <th>优点</th>
+			<th>缺点</th>
+      <th>常见实现</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td>多 Agent 协作</td>
       <td>分工、辩论、角色扮演</td>
@@ -58,10 +80,10 @@
       <td>Multi-Agent Systems，如CrewAI</td>
     </tr>
     <tr>
-      <td>CoALA 认知架构</td>
+      <td>CoALA 认知架构 (Cognitive Architectures for Language Agents)</td>
       <td>模块化认知循环</td>
       <td>长期自主 Agent 设计蓝图</td>
-      <td>模块化认知循环</td>
+      <td>模块化记忆组件，结构化的行动空间，通用的决策循环</td>
       <td>灵活，适用于长期任务</td>
 			<td>抽象框架，缺乏具体实现指导</td>
       <td>CoALA框架</td>
@@ -77,7 +99,6 @@
     </tr>
   </tbody>
 </table>
-
 
 ## memory
 
