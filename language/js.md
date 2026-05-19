@@ -33,6 +33,9 @@
     - [`prototype`](#prototype)
     - [`__proto__`](#__proto__)
     - [例子](#例子)
+    - [原型链污染](#原型链污染)
+      - [不安全的对象递归合并](#不安全的对象递归合并)
+      - [按路径定义属性](#按路径定义属性)
   - [instanceof 的作用](#instanceof-的作用)
   - [Object.defineProperty 用法](#objectdefineproperty-用法)
   - [js 延迟加载的方式有哪些](#js-延迟加载的方式有哪些)
@@ -527,6 +530,62 @@ return false;
 ![prototype](prototype.svg)
 
 JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
+
+### 原型链污染
+
+攻击者可以通过注入其他值来覆盖或污染原型，使所有继承了被污染原型的对象都受到影响。原型链污染通常会导致拒绝服务、篡改程序执行流程、导致远程执行代码等漏洞。
+原型链污染的发生主要有两种场景：不安全的对象递归合并和按路径定义属性。
+
+
+#### 不安全的对象递归合并
+
+只有不安全的递归合并函数才会导致原型链污染，非递归的算法是不会导致原型链污染的.
+
+```js
+function merge(target, source) {
+    for (let key in source) {
+        if (typeof source[key] === 'object' && source[key] !== null) {
+            // 递归合并
+            if (!target[key]) target[key] = {};
+            merge(target[key], source[key]);
+        } else {
+            target[key] = source[key];
+        }
+    }
+    return target;
+}
+
+// 恶意输入：包含 __proto__ 键，且其值为一个对象
+const malicious = JSON.parse('{"__proto__": {"isPolluted": true}}');
+merge({}, malicious);
+
+// 现在 Object.prototype 被偷偷添加了 isPolluted 属性
+console.log({}.isPolluted);  // true
+```
+
+#### 按路径定义属性
+
+`__proto__` 和 `constructor.prototype` 直接指向原型链的根部 `Object.prototype`。一旦允许在路径中使用这些词，攻击者就能向所有对象注入属性。
+
+```js
+function set(obj, path, value) {
+  const keys = path.split('.');
+  let current = obj;
+  for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
+    if (!current[key]) current[key] = {};
+    current = current[key];
+  }
+  current[keys[keys.length - 1]] = value;
+}
+
+const data = {};
+// 恶意路径：__proto__.isPolluted = true
+set(data, '__proto__.isPolluted', true);
+
+// 现在所有普通对象都继承了 isPolluted
+console.log({}.isPolluted); // true
+```
 
 ## instanceof 的作用
 
