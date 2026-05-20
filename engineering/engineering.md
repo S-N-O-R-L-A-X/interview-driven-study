@@ -22,6 +22,7 @@
     - [协商缓存](#协商缓存)
     - [应用场景](#应用场景)
   - [性能优化方案](#性能优化方案)
+    - [做 SSE 渲染性能优化](#做-sse-渲染性能优化)
   - [设计模式](#设计模式)
     - [单例模式 Singleton](#单例模式-singleton)
       - [应用场景](#应用场景-1)
@@ -227,7 +228,22 @@ async function upload() {
 * 对于频繁更新的API接口数据使用协商缓存（ETag），减少不必要的数据传输，同时保证数据的实时性。
 
 ##  性能优化方案
+
+### 做 SSE 渲染性能优化
+
+降低渲染频率、减少 DOM 操作量、避免主线程阻塞。
+
+- 缓冲message，统一渲染。可以用![rAF](/html/html.md#requestanimationframe-raf)实现。
+- 增量更新，而非全量替换。优先用 `textContent`、`element.insertAdjacentText('beforeend', newChunk)` 或在末尾追加节点：若是 React/Vue，保证只更新差异部分，比如追加新 token 而非重新生成整个列表。
+- 虚拟滚动 / 视窗化渲染。当 SSE 返回的是一个超长列表（如日志流、评论列表）时，只渲染可视区域附近的元素：
+- CSS Containment 隔离渲染。对频繁更新的容器添加 `contain: strict` 或 `content-visibility: auto`，告诉浏览器该区域内部的变化不会影响外部布局：
+- React用 `useRef` 存 `buffer`，用 `useState` 控制可渲染的分片，考虑 `useDeferredValue` 延迟非关键更新，将频繁变化的部分封装为单独组件并用 `React.memo` 避免兄弟组件重渲染。Vue使用 `shallowRef` 存放大文本；对列表用 `v-memo` 缓存 `v-for`；必要时手动操作 DOM 替代响应式更新以提升性能。
+
+
+
 * 静态资源使用cdn
+
+
 
 懒加载
 
