@@ -2,7 +2,7 @@
 
 - [HTML](#html)
   - [HTML5 的新特性](#html5-的新特性)
-  - [`DOCTYPE`的作用是什么](#doctype的作用是什么)
+  - [`DOCTYPE`](#doctype)
   - [语义化标签的作用](#语义化标签的作用)
   - [canvas与SVG](#canvas与svg)
   - [前端路由 router](#前端路由-router)
@@ -36,11 +36,10 @@
 10. 新事件：onresize、ondrag、onscroll、onmousewheel、onerror、onplay、onpause
 11. WebSocket
 
-## `DOCTYPE`的作用是什么
+## `DOCTYPE`
 
-<!DOCTYPE>声明一般位于第一行，告诉浏览器以什么样的模式来解析文档。`DOCTYPE` 不存在或格式不正确会导致文档以兼容模式呈现。
-指定了之后会以标准模式来进行文档解析，否则就以兼容模式进行解析。在标准模式下，浏览器的解析规则都是按照最新的标准进行解析的;在兼容模式下，浏览器会以向后兼容的方式来模拟老式浏览器的行为，以保证一些老的网站的正确访问。
-
+`<!DOCTYPE>`声明一般位于第一行，告诉浏览器以什么样的模式来解析文档。
+指定`DOCTYPE`之后会以标准模式来进行文档解析，`DOCTYPE` 不存在或格式不正确时以兼容模式进行解析。在标准模式下，浏览器的解析规则都是按照最新的标准进行解析的;在兼容模式下，浏览器会以向后兼容的方式来模拟老式浏览器的行为，以保证一些老的网站的正确访问。
 
 ## 语义化标签的作用
 
@@ -59,10 +58,12 @@
 
 ## 前端路由 router
 传统的浏览器URL变化时会向服务端重新请求并刷新页面，用户体验很差；前端路由为了提升用户体验应运而生。
+
 前端路由本质都是改变浏览器URL但不刷新页面，通过监听其变化触发自定义的路由处理方案。
 
 ### hash
 hash值指的是url里#后面的路径，原本用于页面定位，称之为锚点，能够使页面定位到对应id的元素，可以通过`location.hash`访问。
+
 当hash值发生变化时，浏览器并不会重新发起请求，而是会触发 hashChange 事件。可以通过hashChange来监听hash值的变化，从而触发自定义的路由处理方案，浏览器的前进后退也会触发hashChange。
 
 - 优点：浏览器兼容性较好。
@@ -70,6 +71,7 @@ hash值指的是url里#后面的路径，原本用于页面定位，称之为锚
 
 ### history
 History是H5推出的API，利用popState事件来监听历史栈的变化。
+
 - go，back，forward这些api能够触发该事件从而触发自定义的路由处理方案
 - pushState和replaceState会改变URL但不会触发该事件，需要手动触发自定义的路由处理方案。
 
@@ -105,21 +107,22 @@ History是H5推出的API，利用popState事件来监听历史栈的变化。
 
 ### 具体算法说明
 
-- 引用计数（Reference Counting）
+1. 引用计数（Reference Counting）
 原理：每个对象有一个引用计数器，被引用时+1，取消引用时-1，计数为0时释放内存。
 优点：实现简单，实时回收。
 缺点：会产生循环引用无法回收的问题。
 
-- 标记清除（Mark and Sweep） + 标记整理（Mark-Compact）
-原理：从根对象（如window/global）出发遍历所有能访问到的对象，未被标记（即不可达）的对象被清除。清理完成后，将存活对象移动到一起，避免内存碎片。
-优点：解决循环引用问题。
-缺点：清除会产生内存碎片。
-关键点：可达性（Reachability）是判断是否回收的唯一标准。
+2. 标记清除（Mark and Sweep） + 标记整理（Mark-Compact）
 
-- 分代回收（Generational GC）
+原理：从根对象（如window/global）出发遍历所有能访问到的对象，未被标记（即不可达）的对象被清除。清理完成后，将存活对象移动到一起，避免内存碎片。
+- 优点：解决循环引用问题。
+- 缺点：清除会产生内存碎片。
+- 关键点：可达性（Reachability）是判断是否回收的唯一标准。
+
+3. 分代回收（Generational GC）
 把内存分为两类：
-新生代（Young Generation）：存放新对象，空间小、回收频繁。
-老生代（Old Generation）：存放长期存活的对象，空间大、回收少。
+- 新生代（Young Generation）：存放新对象，空间小、回收频繁。
+- 老生代（Old Generation）：存放长期存活的对象，空间大、回收少。
 
 V8 使用增量标记（Incremental Marking）与惰性清理（Lazy Sweep）优化性能，避免主线程长时间停顿（Stop-The-World）。
 
@@ -160,3 +163,4 @@ https://juejin.cn/post/7541762733563625523
 ### `DOMContentLoaded`
 
 当 HTML 文档被完全加载和解析（即 DOM 树构建完毕）时触发，不等待样式表、图片、子框架加载完成。即 `document.readyState` 变为 `interactive` 时触发该事件。
+
