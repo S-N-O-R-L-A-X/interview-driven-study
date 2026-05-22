@@ -19,6 +19,10 @@
     - [`document.readyState`](#documentreadystate)
     - [`load`](#load)
     - [`DOMContentLoaded`](#domcontentloaded)
+  - [`requestAnimationFrame` (rAF)](#requestanimationframe-raf)
+    - [用法](#用法)
+    - [应用场景](#应用场景)
+    - [`requestAnimationFrame` vs `setTimeout / setInterval`](#requestanimationframe-vs-settimeout--setinterval)
 
 ## HTML5 的新特性
 
@@ -163,4 +167,62 @@ https://juejin.cn/post/7541762733563625523
 ### `DOMContentLoaded`
 
 当 HTML 文档被完全加载和解析（即 DOM 树构建完毕）时触发，不等待样式表、图片、子框架加载完成。即 `document.readyState` 变为 `interactive` 时触发该事件。
+
+## `requestAnimationFrame` (rAF)
+
+### 用法
+```js
+const requestId = requestAnimationFrame(callback);
+```
+
+`callback`会在下一次重绘前被调用。该函数会收到一个参数 `DOMHighResTimeStamp`，表示回调被触发时的当前时间（从页面加载开始计，精度更高，单位毫秒）。
+
+### 应用场景
+- JS 动画：平滑移动元素、渐变效果、滚动控制等。
+- Canvas / WebGL 渲染：游戏循环、数据可视化、动画帧绘制。
+- 保持界面响应：配合时间戳做时间差计算，实现帧率无关的稳定动画。
+
+### `requestAnimationFrame` vs `setTimeout / setInterval`
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>setTimeout / setInterval</th>
+      <th>requestAnimationFrame</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>执行时机</td>
+      <td>按照设定时间执行，可能与浏览器重绘不同步，容易出现抖动或掉帧。</td>
+      <td>与浏览器下一次重绘同步执行，适合动画更新。</td>
+    </tr>
+    <tr>
+      <td>后台运行</td>
+      <td>页面不可见时仍会继续执行，可能浪费 CPU 和电量。</td>
+      <td>页面切到后台时会自动暂停或降频，节省资源。</td>
+    </tr>
+    <tr>
+      <td>性能优化</td>
+      <td>多个定时器独立执行，浏览器难以统一优化。</td>
+      <td>浏览器可以统一调度 rAF 回调，合并重绘，提高性能。</td>
+    </tr>
+    <tr>
+      <td>执行次数</td>
+      <td>setInterval 可以一直执行</td>
+      <td>requestAnimationFrame 只执行一次，要形成连续动画必须在回调内部再次调用。</td>
+    </tr>
+    <tr>
+      <td>清理方式</td>
+      <td><code>clearTimeout</code><code>clearInterval</code></td>
+      <td><code>cancelAnimationFrame</code></td>
+    </tr>
+    <tr>
+      <td>适用场景</td>
+      <td>适合非动画型定时任务，如轮询、延迟执行、超时逻辑。</td>
+      <td>适合动画、画布渲染、视觉更新等任务。</td>
+    </tr>
+  </tbody>
+</table>
 
