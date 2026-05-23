@@ -23,6 +23,7 @@
     - [应用场景](#应用场景)
   - [性能优化方案](#性能优化方案)
     - [做 SSE 渲染性能优化](#做-sse-渲染性能优化)
+  - [SSR vs CSR](#ssr-vs-csr)
   - [设计模式](#设计模式)
     - [单例模式 Singleton](#单例模式-singleton)
       - [应用场景](#应用场景-1)
@@ -246,6 +247,71 @@ async function upload() {
 
 
 懒加载
+
+## SSR vs CSR
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>客户端渲染 (Client Side Rendering)</th>
+      <th>服务器端渲染 (Server Side Rendering)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>渲染发生位置</td>
+      <td>完全在浏览器中执行 JS 生成 DOM</td>
+      <td>先在服务器生成完整 HTML，浏览器再进行“水合”</td>
+    </tr>
+    <tr>
+      <td>初始 HTML</td>
+      <td>几乎为空：<code>&lt;div id="root"&gt;&lt;/div&gt;</code></td>
+      <td>包含页面所有可见内容的完整 HTML</td>
+    </tr>
+    <tr>
+      <td>首屏可见速度</td>
+      <td>慢，需等待 JS 下载、解析、执行后才能看到内容（白屏时间长）</td>
+      <td>快，HTML 到达即显示内容（白屏时间极短）</td>
+    </tr>
+    <tr>
+      <td>搜索引擎优化 (SEO)</td>
+      <td>差，爬虫可能只抓到空壳，需额外处理</td>
+      <td>好，爬虫直接获得完整的可索引内容</td>
+    </tr>
+    <tr>
+      <td>社交分享预览</td>
+      <td>容易失败，抓取不到动态内容</td>
+      <td>稳定，meta 标签和内容都在初始 HTML 中</td>
+    </tr>
+    <tr>
+      <td>服务器负载</td>
+      <td>低，只提供静态文件</td>
+      <td>较高，每次请求都可能需要在服务器端渲染页面</td>
+    </tr>
+    <tr>
+      <td>首字节时间 (TTFB)</td>
+      <td>通常很快（返回小 HTML 或静态文件）</td>
+      <td>可能更慢，如果服务器需要等待数据才能渲染</td>
+    </tr>
+    <tr>
+      <td>交互就绪时间 (TTI)</td>
+      <td>首次加载长，但一旦加载完成，后续交互飞快</td>
+      <td>内容先可见，但需等待 JS 加载和水合完成才能交互</td>
+    </tr>
+    <tr>
+      <td>页面切换体验</td>
+      <td>快，类似原生 App，通常无整页刷新</td>
+      <td>传统模式下整页刷新（现代框架支持客户端导航混合）</td>
+    </tr>
+    <tr>
+      <td>开发复杂度</td>
+      <td>纯前端思维，无需担心服务端环境</td>
+      <td>需处理同构代码、服务端/客户端环境差异、水合匹配</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
   vite的特性
