@@ -24,6 +24,8 @@
   - [web 性能指标](#web-性能指标)
   - [性能优化方案](#性能优化方案)
     - [做 SSE 渲染性能优化](#做-sse-渲染性能优化)
+    - [优化LCP](#优化lcp)
+      - [优化方式](#优化方式)
   - [SSR vs CSR](#ssr-vs-csr)
   - [设计模式](#设计模式)
     - [单例模式 Singleton](#单例模式-singleton)
@@ -295,12 +297,30 @@ async function upload() {
 - React用 `useRef` 存 `buffer`，用 `useState` 控制可渲染的分片，考虑 `useDeferredValue` 延迟非关键更新，将频繁变化的部分封装为单独组件并用 `React.memo` 避免兄弟组件重渲染。Vue使用 `shallowRef` 存放大文本；对列表用 `v-memo` 缓存 `v-for`；必要时手动操作 DOM 替代响应式更新以提升性能。
 
 
+### 优化LCP
 
-* 静态资源使用cdn
+LCP 瓶颈主要在于加载阶段，即页面主要内容（如大图、标题）在屏幕上渲染出来的速度，要优化，就要确保构成页面主要内容的资源能够以最快的速度被加载和渲染。
 
+#### 优化方式
 
+1. 优化资源加载：确保关键资源“优先通行”
+- 使用 preload 和 fetchpriority：对于LCP元素（如主图），在HTML的 `<head>` 中添加 `<link rel="preload">` 标签，并配合 `fetchpriority="high"` 属性，告知浏览器这是需要优先加载的资源。
+- 放弃懒加载：避免对首屏的LCP元素使用 `loading="lazy"` 属性，这会延迟加载，严重拖慢LCP时间。
+- 使用现代图片格式：使用 WebP 或 AVIF 等格式压缩图片，相比 PNG/JPEG 能大幅减小体积，加快传输速度。
+- 减少关键请求链：确保 LCP 元素在初始 HTML 中就是可见的 `<img>` 标签，而不是在 CSS 背景图或 JavaScript 中加载，避免浏览器必须先下载并解析其他资源后才能发现它。
 
-懒加载
+2. 优化关键渲染路径（Critical Rendering Path, CRP）
+- 内联关键 CSS (Critical CSS)：将渲染首屏内容所必需的CSS直接内联在HTML的 `<style>` 标签中，其余的CSS则异步加载，以减少渲染阻塞时间。
+- 延迟非关键 JavaScript：将非首屏必需的JS脚本使用 defer 或 async 属性标记，或放在页面底部加载，防止其阻塞HTML解析和页面渲染。
+
+3. 提升网络与服务器端性能
+
+- 减少首字节时间 (TTFB)：TTFB 是 LCP 的上限，如果服务器响应慢，前端优化将事倍功半。目标是将其降至 800ms 以下，最好在 200ms 以内。
+- 善用资源提示：使用 `<link rel="preconnect">` 提前与跨域资源（如CDN、图片源、第三方API）建立连接，可以节省 100-300ms 的 DNS、TCP 和 TLS 握手时间。
+- 配置高效的缓存策略：为静态资源（如图片、CSS、JS）设置强缓存（如 max-age 和 immutable），并配合内容哈希（Content Hash）实现缓存更新，可减少60%以上的重复请求。
+- 使用内容分发网络 (CDN)：将资源部署到离用户更近的CDN节点，能显著减少物理延迟。
+- 升级网络协议：使用 HTTP/2 或 HTTP/3 协议，利用多路复用等功能，减少队头阻塞，提高传输效率。   
+
 
 ## SSR vs CSR
 
@@ -365,11 +385,6 @@ async function upload() {
     </tr>
   </tbody>
 </table>
-
-
-
-  vite的特性
-vite热更新怎么实现
 
 ## 设计模式
 ### 单例模式 Singleton
