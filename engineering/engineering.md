@@ -29,6 +29,9 @@
     - [优化 INP](#优化-inp)
       - [优化方式](#优化方式-1)
   - [SSR vs CSR](#ssr-vs-csr)
+  - [登录过程中的token](#登录过程中的token)
+    - [流程](#流程-1)
+    - [机制](#机制)
   - [设计模式](#设计模式)
     - [单例模式 Singleton](#单例模式-singleton)
       - [应用场景](#应用场景-1)
@@ -407,6 +410,22 @@ LCP 瓶颈主要在于加载阶段，即页面主要内容（如大图、标题�
     </tr>
   </tbody>
 </table>
+
+## 登录过程中的token
+
+### 流程
+
+1. 用户提交凭证：用户在登录页输入用户名/密码，前端通过 HTTPS POST 请求发送至后端登录接口。
+2. 后端验证：后端校验凭证合法性，若正确则生成一个 Token（如 JWT），并将其返回给前端。
+3. 前端存储 Token：前端收到 Token 后，通常存储在 localStorage、sessionStorage 或 Cookie中。
+4. 携带 Token 请求：用户后续访问需要认证的接口时，前端在 HTTP 请求头 `Authorization: Bearer <token>` 中携带 Token。
+5. 后端验证 Token：后端解析并验证 Token 的有效性（签名、过期时间等），通过则返回数据，否则要求重新登录。
+6. 登出：前端清除本地存储的 Token，并通知后端将该 Token 加入黑名单。
+
+### 机制
+- 无状态：服务端通常不保存 Token，只负责签发和验证（JWT 自包含用户信息、过期时间等）
+- 防止 XSS：不将 Token 存于 localStorage 可改用 HttpOnly Cookie
+- 防止 CSRF：若用 Cookie 存 Token，需启用 SameSite=Strict/Lax 或使用 CSRF Token
 
 ## 设计模式
 ### 单例模式 Singleton
