@@ -38,6 +38,7 @@
   - [Vue 和 React 数据驱动的区别](#vue-和-react-数据驱动的区别)
   - [react 循环列表为什么要使用 key](#react-循环列表为什么要使用-key)
   - [hooks](#hooks)
+  - [`useState` 实现原理](#usestate-实现原理)
   - [react 与 vue 区别](#react-与-vue-区别)
     - [相同点](#相同点)
     - [不同点](#不同点)
@@ -1098,6 +1099,22 @@ https://juejin.cn/post/7008433550307360798
 - useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内持续存在。 const refContainer = useRef(initialValue);
 
 - React.memo() 是一个高阶组件，我们可以使用它来包装我们不想重新渲染的组件，除非其中的 props 发生变化。 export default memo(Component)
+
+## `useState` 实现原理
+
+Hooks 的实现，从宏观上可以拆解为两大核心机制：`闭包` 和 `链表`。
+- 用闭包保存状态：在每个 useState 的局部作用域内，它必须确保自己能够访问和修改一个独立且不会被重渲染覆盖的"记忆单元"。这通过闭包实现了状态变量对更新函数的"私有化"，将状态安全地包裹起来。
+- 用链表管理多状态：当组件内存在多个 Hooks 时，React 通过一个单向链表将它们串联起来，确保每个 Hook 都能精准地找到属于自己的数据。
+
+* 挂载阶段：
+  1. 调用 mountState，创建一个新的 Hook 对象并添加到链表中。
+  2. 初始化状态：hook.memoizedState = initialState。
+  3. 创建一个更新队列 hook.queue。
+  4. 将 dispatchAction.bind(null, hook.queue) 绑定并返回作为状态更新函数。
+* 更新阶段：
+  1. 组件重新渲染时，调用 updateState。
+  2. 会从 Fiber 节点中找到已存在的 Hook 对象。
+  3. 计算出最新的状态值并返回，同时将 dispatchAction 重新绑定，等待下一次调用
 
 ## react 与 vue 区别
 
